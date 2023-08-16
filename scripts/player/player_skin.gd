@@ -4,6 +4,8 @@ class_name PlayerSkin
 
 onready var animation_tree = $AnimationTree
 
+onready var player = get_parent()
+
 const ANIMATION_STATES = {
 	"idle": 0,
 	"walking": 1,
@@ -13,15 +15,31 @@ const ANIMATION_STATES = {
 	"skidding": 5,
 	"corkscrew": 6,
 	"crouch": 7,
-	"spindash": 8
+	"spindash": 8,
+	"lookup": 9
 }
 
 var current_state : int
 
 func handle_flip(direction: float) -> void:
-	if direction != 0:
-		flip_h = direction < 0
-
+	if !player.is_looking_down:
+		if !player.is_looking_up:
+			if direction != 0:
+				flip_h = direction < 0
+				$SpinDashDust.flip_h = direction < 0
+				if $SpinDashDust.flip_h == true:
+					$SpinDashDust.offset.x = 32
+				else:
+					$SpinDashDust.offset.x = 0
+	if !player.is_looking_up:
+		if !player.is_looking_down:
+			if direction != 0:
+				flip_h = direction < 0
+				$SpinDashDust.flip_h = direction < 0
+				if $SpinDashDust.flip_h == true:
+					$SpinDashDust.offset.x = 32
+				else:
+					$SpinDashDust.offset.x = 0
 func set_animation_state(state: int) -> void:
 	if state != current_state:
 		current_state = state

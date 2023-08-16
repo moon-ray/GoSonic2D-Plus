@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://objects/players/sonic.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/hud/HUD.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://objects/activators/UpperTileActivatorSmall.tscn" type="PackedScene" id=15]
 [ext_resource path="res://objects/springs/yellow_spring_left.tscn" type="PackedScene" id=16]
 [ext_resource path="res://objects/monitors/LifeMonitor.tscn" type="PackedScene" id=17]
+[ext_resource path="res://objects/bg/greenhill.tscn" type="PackedScene" id=18]
 
 [sub_resource type="TileSet" id=1]
 0/name = "isolated_island_details.png 0"
@@ -624,11 +625,11 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 1638514, 4, 0, 1769595, 4, 0, 1966160, 4, 0, 1966186, 4, 0, 1966197, 5, 0, 2031733, 5, 0, 2097269, 5, 0, 2097278, 5, 0, 2162694, 4, 0, 2162713, 4, 0, 2162724, 4, 0, 2162753, 4, 0, 2162805, 5, 0, 2162814, 5, 0, 2228310, 4, 0, 2228341, 5, 0, 2228350, 5, 0, 2293843, 5, 0, 2293869, 5, 0, 2293877, 5, 0, 2293886, 5, 0, 2359310, 4, 0, 2359355, 0, 0, 2359379, 5, 0, 2359405, 5, 0, 2359413, 5, 0, 2359422, 5, 0, 2424915, 5, 0, 2424941, 5, 0, 2424949, 6, 0, 2424958, 6, 0, 2490377, 5, 0, 2490396, 5, 0, 2490407, 5, 0, 2490436, 5, 0, 2490451, 5, 0, 2490467, 0, 0, 2490477, 5, 0, 2555913, 5, 0, 2555932, 5, 0, 2555943, 5, 0, 2555972, 5, 0, 2555987, 5, 0, 2555993, 5, 0, 2556013, 5, 0, 2621449, 5, 0, 2621464, 1, 0, 2621468, 5, 0, 2621479, 5, 0, 2621508, 5, 0, 2621519, 0, 0, 2621523, 5, 0, 2621529, 5, 0, 2621549, 5, 0, 2686985, 5, 0, 2686993, 5, 0, 2687004, 5, 0, 2687015, 5, 0, 2687044, 5, 0, 2687059, 5, 0, 2687065, 5, 0, 2687085, 6, 0, 2752513, 1, 0, 2752521, 5, 0, 2752529, 5, 0, 2752540, 5, 0, 2752551, 5, 0, 2752580, 5, 0, 2752595, 5, 0, 2752601, 5, 0, 2818057, 5, 0, 2818065, 5, 0, 2818076, 5, 0, 2818087, 5, 0, 2818116, 5, 0, 2818131, 6, 0, 2818137, 6, 0, 2883593, 5, 0, 2883601, 5, 0, 2883609, 3, 0, 2883612, 5, 0, 2883623, 5, 0, 2883652, 5, 0, 2949129, 6, 0, 2949137, 6, 0, 2949148, 6, 0, 2949159, 6, 0, 2949188, 6, 0 )
 
-[node name="LifeMonitor" parent="Details" instance=ExtResource( 17 )]
-position = Vector2( 511, 686 )
-
 [node name="RingMonitor" parent="." instance=ExtResource( 11 )]
 position = Vector2( 876, 624 )
+
+[node name="LifeMonitor" parent="." instance=ExtResource( 17 )]
+position = Vector2( 910, 624 )
 
 [node name="YellowSpringUp" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1100, 560 )
@@ -663,3 +664,6 @@ position = Vector2( 1100, 340 )
 
 [node name="YellowSpringLeft" parent="." instance=ExtResource( 16 )]
 position = Vector2( 1808, 656 )
+
+[node name="ParallaxBackground" parent="." instance=ExtResource( 18 )]
+scroll_limit_end = Vector2( 0, 797.024 )

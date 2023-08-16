@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://scripts/player/states/rolling_player_state.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player/states/air_player_state.gd" type="Script" id=2]
@@ -24,6 +24,10 @@
 [ext_resource path="res://scripts/shields/none.gd" type="Script" id=22]
 [ext_resource path="res://audios/effects/spinDashCharge.wav" type="AudioStream" id=23]
 [ext_resource path="res://audios/effects/spinDashRelease.wav" type="AudioStream" id=24]
+[ext_resource path="res://scripts/player/states/superpeelout_player_state.gd" type="Script" id=25]
+[ext_resource path="res://audios/effects/peelOutCharge.wav" type="AudioStream" id=26]
+[ext_resource path="res://audios/effects/peelOutRelease.wav" type="AudioStream" id=27]
+[ext_resource path="res://sprites/players/spinDash.png" type="Texture" id=28]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 8 )
@@ -81,6 +85,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 11 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpinDashDust:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "corkscrew"
@@ -129,6 +145,21 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "lookup"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9, 10 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -253,8 +284,7 @@ animation = "crouch"
 animation = "idle"
 
 [sub_resource type="AnimationNodeAnimation" id=25]
-
-[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "lookup"
 
 [sub_resource type="AnimationNodeTimeScale" id=18]
 
@@ -262,7 +292,7 @@ animation = "idle"
 animation = "spindash"
 
 [sub_resource type="AnimationNodeTransition" id=19]
-input_count = 11
+input_count = 10
 input_0/name = "idle"
 input_0/auto_advance = false
 input_1/name = "walking"
@@ -283,11 +313,9 @@ input_8/name = "spindash"
 input_8/auto_advance = false
 input_9/name = "lookup"
 input_9/auto_advance = false
-input_10/name = "peelout"
-input_10/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=20]
-graph_offset = Vector2( -253.521, 482.274 )
+graph_offset = Vector2( -339.267, 60.393 )
 nodes/Animation/node = SubResource( 17 )
 nodes/Animation/position = Vector2( -140, 160 )
 "nodes/Animation 2/node" = SubResource( 11 )
@@ -307,15 +335,49 @@ nodes/Animation/position = Vector2( -140, 160 )
 nodes/lookup/node = SubResource( 25 )
 nodes/lookup/position = Vector2( 220, 940 )
 nodes/output/position = Vector2( 580, 380 )
-nodes/peelout/node = SubResource( 26 )
-nodes/peelout/position = Vector2( 380, 960 )
 nodes/speed/node = SubResource( 18 )
 nodes/speed/position = Vector2( 400, 380 )
 nodes/spindash/node = SubResource( 27 )
 nodes/spindash/position = Vector2( 60, 920 )
 nodes/state/node = SubResource( 19 )
 nodes/state/position = Vector2( 220, 380 )
-node_connections = [ "speed", 0, "state", "state", 0, "Animation", "state", 1, "Animation 2", "state", 2, "Animation 3", "state", 3, "Animation 5", "state", 4, "Animation 4", "state", 5, "Animation 6", "state", 6, "Animation 7", "state", 7, "Animation 8", "state", 8, "spindash", "state", 9, "lookup", "state", 10, "peelout", "output", 0, "speed" ]
+node_connections = [ "speed", 0, "state", "state", 0, "Animation", "state", 1, "Animation 2", "state", 2, "Animation 3", "state", 3, "Animation 5", "state", 4, "Animation 4", "state", 5, "Animation 6", "state", 6, "Animation 7", "state", 7, "Animation 8", "state", 8, "spindash", "state", 9, "lookup", "output", 0, "speed" ]
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 28 )
+region = Rect2( 0, 0, 32, 23 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 28 )
+region = Rect2( 33, 0, 32, 23 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 28 )
+region = Rect2( 66, 0, 32, 23 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 28 )
+region = Rect2( 99, 0, 32, 23 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 28 )
+region = Rect2( 132, 0, 32, 23 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 28 )
+region = Rect2( 165, 0, 32, 23 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 28 )
+region = Rect2( 198, 0, 32, 23 )
+
+[sub_resource type="SpriteFrames" id=36]
+animations = [ {
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ) ],
+"loop": true,
+"name": "default",
+"speed": 25.0
+} ]
 
 [node name="Sonic" type="Node2D"]
 script = ExtResource( 9 )
@@ -345,6 +407,9 @@ script = ExtResource( 11 )
 
 [node name="SpinDash" type="Node2D" parent="StateMachine"]
 script = ExtResource( 21 )
+
+[node name="SuperPeelOut" type="Node2D" parent="StateMachine"]
+script = ExtResource( 25 )
 
 [node name="Shields" type="Node2D" parent="."]
 script = ExtResource( 17 )
@@ -376,6 +441,12 @@ stream = ExtResource( 23 )
 stream = ExtResource( 24 )
 volume_db = 5.0
 
+[node name="PeeloutCharge" type="AudioStreamPlayer" parent="Audios"]
+stream = ExtResource( 26 )
+
+[node name="PeeloutRelease" type="AudioStreamPlayer" parent="Audios"]
+stream = ExtResource( 27 )
+
 [node name="Skin" type="Sprite" parent="."]
 texture = ExtResource( 6 )
 hframes = 10
@@ -388,6 +459,7 @@ anims/RESET = SubResource( 21 )
 anims/corkscrew = SubResource( 4 )
 anims/crouch = SubResource( 22 )
 anims/idle = SubResource( 5 )
+anims/lookup = SubResource( 28 )
 anims/peel_out = SubResource( 6 )
 anims/rolling = SubResource( 7 )
 anims/running = SubResource( 8 )
@@ -401,3 +473,9 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/speed/scale = 1.0
 parameters/state/current = 0
+
+[node name="SpinDashDust" type="AnimatedSprite" parent="Skin"]
+position = Vector2( -16, 9 )
+frames = SubResource( 36 )
+frame = 4
+playing = true

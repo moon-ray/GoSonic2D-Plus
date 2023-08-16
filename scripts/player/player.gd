@@ -40,6 +40,7 @@ var limit_right: float
 var is_jumping : bool
 var is_rolling : bool
 var is_looking_down : bool
+var is_looking_up : bool
 var is_control_locked : bool
 var is_locked_to_limits: bool
 
@@ -47,7 +48,10 @@ var __is_grounded : bool
 
 var delay_cam = false
 
+onready var dash_dust = $Skin/SpinDashDust
+
 func _ready():
+	dash_dust.visible = false
 	initialize_collider()
 	initialize_resources()
 	initialize_state_machine()

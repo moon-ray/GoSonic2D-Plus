@@ -12,7 +12,8 @@ onready var states = {
 	"Braking": $Braking,
 	"Air": $Air,
 	"Spring": $Spring,
-	"SpinDash": $SpinDash
+	"SpinDash": $SpinDash,
+	"SuperPeelOut": $SuperPeelOut
 }
 
 var current_state: String

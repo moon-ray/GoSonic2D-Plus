@@ -6,6 +6,7 @@ class_name SpinDashPlayerState
 var p : float # spin dash release power
 
 func enter(player: Player):
+	player.dash_dust.visible = true
 	player.audios.spindashcharge.play()
 	p = 0
 	player.is_rolling = true
@@ -15,10 +16,8 @@ func enter(player: Player):
 func step(player: Player, delta):
 	if Input.is_action_just_released("player_down"):
 		player.state_machine.change_state("Rolling")
-		print("Spin Released")
 	
 	if Input.is_action_just_pressed("player_a"):
-		print("Spin Charged")
 		p += 120
 		player.skin.get_node("AnimationPlayer").play("spindash")
 		player.skin.get_node("AnimationPlayer").stop()
@@ -30,8 +29,8 @@ func step(player: Player, delta):
 	p -= int(p / 7.5) / 15360.0
 
 func exit(player: Player):
+	player.dash_dust.visible = false
 
-	print("Exiting state")
 	var scaletemp = 0
 	player.is_rolling = true
 	if player.skin.flip_h == true:
