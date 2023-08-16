@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/fire_attack.wav-acfda7030255e8512ff24f595550ea6e.sample"
+path="res://.import/peelOutRelease.wav-ca65b9942f063390794e11ef497e0931.sample"
 
 [deps]
 
-source_file="res://audios/effects/fire_attack.wav"
-dest_files=[ "res://.import/fire_attack.wav-acfda7030255e8512ff24f595550ea6e.sample" ]
+source_file="res://audios/effects/peelOutRelease.wav"
+dest_files=[ "res://.import/peelOutRelease.wav-ca65b9942f063390794e11ef497e0931.sample" ]
 
 [params]
 

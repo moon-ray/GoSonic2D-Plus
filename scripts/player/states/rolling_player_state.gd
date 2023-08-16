@@ -3,8 +3,9 @@ extends PlayerState
 class_name RollingPlayerState
 
 func enter(player: Player):
+	if !player.state_machine.last_state == "SpinDash":
+		player.audios.spin_audio.play()
 	player.is_rolling = true
-	player.audios.spin_audio.play()
 	player.set_bounds(1)
 
 func step(player: Player, delta: float):

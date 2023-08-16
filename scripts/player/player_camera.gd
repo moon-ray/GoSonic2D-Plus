@@ -12,12 +12,28 @@ export(float) var bottom_margin = 32
 
 var player: Player
 
+var delay_timer: float = 0
+var is_delaying: bool = false
+var delay_duration: float = 0.2
+var original_target_position: Vector2
+
+
+
 func _ready():
 	initialize_camera()
 
-func _physics_process(delta):
-	handle_horizontal_borders(delta)
-	handle_vertical_borders(delta)
+func _physics_process(delta):	
+	if delay_timer > 0:
+		delay_timer -= delta
+		if delay_timer <= 0:
+			original_target_position = Vector2.ZERO
+	else:
+		handle_horizontal_borders(delta)
+		handle_vertical_borders(delta)
+		
+	if player.delay_cam == true:
+		player.delay_cam = false
+		start_camera_delay()
 
 func initialize_camera():
 	current = true
@@ -59,6 +75,11 @@ func handle_vertical_borders(delta: float):
 		if target > position.y + bottom_margin:
 			var offset = target - position.y - bottom_margin
 			position.y += min(offset, high_velocity_speed * delta)
+			
+func start_camera_delay():
+    delay_timer = delay_duration
+    original_target_position = player.get_position()
+	
 
 #func _draw():
 #	var right = Vector2.RIGHT * right_margin

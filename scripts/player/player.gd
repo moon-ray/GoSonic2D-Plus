@@ -39,10 +39,13 @@ var limit_right: float
 
 var is_jumping : bool
 var is_rolling : bool
+var is_looking_down : bool
 var is_control_locked : bool
 var is_locked_to_limits: bool
 
 var __is_grounded : bool
+
+var delay_cam = false
 
 func _ready():
 	initialize_collider()
@@ -303,6 +306,11 @@ func handle_friction(delta: float):
 	if __is_grounded and (input_direction.x == 0 or is_rolling):
 		var amount = current_stats.roll_friction if is_rolling else current_stats.friction
 		velocity.x = move_toward(velocity.x, 0, amount * delta)
+
+func handle_spindash():
+	if __is_grounded and Input.is_action_pressed("player_down") and Input.is_action_just_pressed("player_a"):
+		print("OK")
+		state_machine.change_state("SpinDash")
 
 func handle_jump():
 	if __is_grounded and Input.is_action_just_pressed("player_a"):

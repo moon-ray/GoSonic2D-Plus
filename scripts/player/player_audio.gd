@@ -5,3 +5,5 @@ class_name PlayerAudio
 onready var jump_audio = $JumpAudio
 onready var brake_audio = $BrakeAudio
 onready var spin_audio = $SpinAudio
+onready var spindashcharge = $SpinDashCharge
+onready var spindashrelease = $SpinDashRelease

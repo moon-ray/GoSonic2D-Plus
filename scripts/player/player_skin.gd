@@ -11,7 +11,9 @@ const ANIMATION_STATES = {
 	"peel_out": 3,
 	"rolling": 4,
 	"skidding": 5,
-	"corkscrew": 6
+	"corkscrew": 6,
+	"crouch": 7,
+	"spindash": 8
 }
 
 var current_state : int

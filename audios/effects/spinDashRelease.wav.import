@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/fire_attack.wav-acfda7030255e8512ff24f595550ea6e.sample"
+path="res://.import/spinDashRelease.wav-cf4944c24d8eb9404424760ec23e23c2.sample"
 
 [deps]
 
-source_file="res://audios/effects/fire_attack.wav"
-dest_files=[ "res://.import/fire_attack.wav-acfda7030255e8512ff24f595550ea6e.sample" ]
+source_file="res://audios/effects/spinDashRelease.wav"
+dest_files=[ "res://.import/spinDashRelease.wav-cf4944c24d8eb9404424760ec23e23c2.sample" ]
 
 [params]
 

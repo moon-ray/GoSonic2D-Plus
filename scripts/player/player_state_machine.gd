@@ -11,7 +11,8 @@ onready var states = {
 	"Rolling": $Rolling,
 	"Braking": $Braking,
 	"Air": $Air,
-	"Spring": $Spring
+	"Spring": $Spring,
+	"SpinDash": $SpinDash
 }
 
 var current_state: String
@@ -27,6 +28,7 @@ func change_state(to: String):
 	last_state = current_state
 	current_state = to
 	states[current_state].enter(player)
+	print("changed to %s" % current_state)
 
 func update_state(delta: float):
 	if current_state:

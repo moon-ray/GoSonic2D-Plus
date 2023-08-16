@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://scripts/player/states/rolling_player_state.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player/states/air_player_state.gd" type="Script" id=2]
@@ -20,6 +20,10 @@
 [ext_resource path="res://objects/shields/blue_shield.tscn" type="PackedScene" id=18]
 [ext_resource path="res://objects/shields/thunder_shield.tscn" type="PackedScene" id=19]
 [ext_resource path="res://objects/shields/flame_shield.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scripts/player/states/spindash_player_state.gd" type="Script" id=21]
+[ext_resource path="res://scripts/shields/none.gd" type="Script" id=22]
+[ext_resource path="res://audios/effects/spinDashCharge.wav" type="AudioStream" id=23]
+[ext_resource path="res://audios/effects/spinDashRelease.wav" type="AudioStream" id=24]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 8 )
@@ -63,6 +67,21 @@ fall_angle = 80.0
 min_speed_to_fall = 150.0
 control_lock_duration = 0.5
 
+[sub_resource type="Animation" id=21]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 11 ]
+}
+
 [sub_resource type="Animation" id=4]
 resource_name = "corkscrew"
 length = 1.2
@@ -78,6 +97,22 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71 ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "crouch"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 11, 12 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -159,6 +194,24 @@ tracks/0/keys = {
 "values": [ 30, 31, 32, 33 ]
 }
 
+[sub_resource type="Animation" id=24]
+resource_name = "spindash"
+length = 0.24
+loop = true
+step = 0.04
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.04, 0.08, 0.12, 0.16, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 42, 37, 38, 39, 40, 41 ]
+}
+
 [sub_resource type="Animation" id=10]
 length = 1.5
 loop = true
@@ -193,13 +246,23 @@ animation = "skidding"
 [sub_resource type="AnimationNodeAnimation" id=16]
 animation = "corkscrew"
 
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "crouch"
+
 [sub_resource type="AnimationNodeAnimation" id=17]
 animation = "idle"
 
+[sub_resource type="AnimationNodeAnimation" id=25]
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+
 [sub_resource type="AnimationNodeTimeScale" id=18]
 
+[sub_resource type="AnimationNodeAnimation" id=27]
+animation = "spindash"
+
 [sub_resource type="AnimationNodeTransition" id=19]
-input_count = 7
+input_count = 11
 input_0/name = "idle"
 input_0/auto_advance = false
 input_1/name = "walking"
@@ -214,9 +277,17 @@ input_5/name = "skidding"
 input_5/auto_advance = false
 input_6/name = "corkscrew"
 input_6/auto_advance = false
+input_7/name = "crouch"
+input_7/auto_advance = false
+input_8/name = "spindash"
+input_8/auto_advance = false
+input_9/name = "lookup"
+input_9/auto_advance = false
+input_10/name = "peelout"
+input_10/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=20]
-graph_offset = Vector2( -319.42, 164.5 )
+graph_offset = Vector2( -253.521, 482.274 )
 nodes/Animation/node = SubResource( 17 )
 nodes/Animation/position = Vector2( -140, 160 )
 "nodes/Animation 2/node" = SubResource( 11 )
@@ -231,12 +302,20 @@ nodes/Animation/position = Vector2( -140, 160 )
 "nodes/Animation 6/position" = Vector2( -140, 760 )
 "nodes/Animation 7/node" = SubResource( 16 )
 "nodes/Animation 7/position" = Vector2( -140, 880 )
+"nodes/Animation 8/node" = SubResource( 23 )
+"nodes/Animation 8/position" = Vector2( -140, 40 )
+nodes/lookup/node = SubResource( 25 )
+nodes/lookup/position = Vector2( 220, 940 )
 nodes/output/position = Vector2( 580, 380 )
+nodes/peelout/node = SubResource( 26 )
+nodes/peelout/position = Vector2( 380, 960 )
 nodes/speed/node = SubResource( 18 )
 nodes/speed/position = Vector2( 400, 380 )
+nodes/spindash/node = SubResource( 27 )
+nodes/spindash/position = Vector2( 60, 920 )
 nodes/state/node = SubResource( 19 )
 nodes/state/position = Vector2( 220, 380 )
-node_connections = [ "speed", 0, "state", "state", 0, "Animation", "state", 1, "Animation 2", "state", 2, "Animation 3", "state", 3, "Animation 5", "state", 4, "Animation 4", "state", 5, "Animation 6", "state", 6, "Animation 7", "output", 0, "speed" ]
+node_connections = [ "speed", 0, "state", "state", 0, "Animation", "state", 1, "Animation 2", "state", 2, "Animation 3", "state", 3, "Animation 5", "state", 4, "Animation 4", "state", 5, "Animation 6", "state", 6, "Animation 7", "state", 7, "Animation 8", "state", 8, "spindash", "state", 9, "lookup", "state", 10, "peelout", "output", 0, "speed" ]
 
 [node name="Sonic" type="Node2D"]
 script = ExtResource( 9 )
@@ -264,6 +343,9 @@ script = ExtResource( 2 )
 [node name="Spring" type="Node2D" parent="StateMachine"]
 script = ExtResource( 11 )
 
+[node name="SpinDash" type="Node2D" parent="StateMachine"]
+script = ExtResource( 21 )
+
 [node name="Shields" type="Node2D" parent="."]
 script = ExtResource( 17 )
 
@@ -275,6 +357,9 @@ script = ExtResource( 17 )
 
 [node name="FlameShield" parent="Shields" instance=ExtResource( 20 )]
 
+[node name="None" type="Node2D" parent="Shields"]
+script = ExtResource( 22 )
+
 [node name="Audios" type="Node2D" parent="."]
 script = ExtResource( 12 )
 
@@ -284,19 +369,30 @@ script = ExtResource( 12 )
 
 [node name="SpinAudio" parent="Audios" instance=ExtResource( 13 )]
 
+[node name="SpinDashCharge" type="AudioStreamPlayer" parent="Audios"]
+stream = ExtResource( 23 )
+
+[node name="SpinDashRelease" type="AudioStreamPlayer" parent="Audios"]
+stream = ExtResource( 24 )
+volume_db = 5.0
+
 [node name="Skin" type="Sprite" parent="."]
 texture = ExtResource( 6 )
 hframes = 10
 vframes = 10
+frame = 11
 script = ExtResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Skin"]
+anims/RESET = SubResource( 21 )
 anims/corkscrew = SubResource( 4 )
+anims/crouch = SubResource( 22 )
 anims/idle = SubResource( 5 )
 anims/peel_out = SubResource( 6 )
 anims/rolling = SubResource( 7 )
 anims/running = SubResource( 8 )
 anims/skidding = SubResource( 9 )
+anims/spindash = SubResource( 24 )
 anims/walking = SubResource( 10 )
 
 [node name="AnimationTree" type="AnimationTree" parent="Skin"]

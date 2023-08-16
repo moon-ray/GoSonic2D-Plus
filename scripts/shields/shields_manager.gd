@@ -3,7 +3,7 @@ extends Node2D
 class_name ShieldsManager
 
 onready var shields = {
-	"None": null,
+	"None": $None,
 	"InstaShield": $InstaShield,
 	"BlueShield": $BlueShield,
 	"ThunderShield": $ThunderShield,
@@ -11,7 +11,7 @@ onready var shields = {
 }
 
 onready var shield_user = get_parent()
-onready var default_shield = shields.FlameShield
+onready var default_shield = shields.InstaShield
 
 var current_shield: Shield
 
