@@ -9,6 +9,8 @@ onready var attacking_sprite = $AttackingSprite
 onready var shield_animation_player = $ShieldSprite/AnimationPlayer
 onready var attacking_animation_player = $AttackingSprite/AnimationPlayer
 
+onready var host = get_parent().get_parent()
+
 func on_activate():
 	set_attacking(false)
 	shield_user.connect("ground_enter", self, "on_user_ground_enter")
@@ -25,6 +27,7 @@ func on_action():
 	shield_user.velocity.y = 0
 	attacking_sprite.offset.x = attacking_sprite_offset * direction
 	attacking_sprite.flip_h = shield_user.skin.flip_h
+	host.delay_cam = true
 	set_attacking(true)
 
 func set_attacking(value: bool):
@@ -39,4 +42,5 @@ func set_attacking(value: bool):
 		shield_animation_player.play("default")
 
 func on_user_ground_enter():
-	set_attacking(false)
+	if get_parent().current_shield == get_parent().shields.FlameShield:
+		set_attacking(false)

@@ -6,7 +6,11 @@ export(float) var bump_force = 150
 export(float) var gravity = 700
 export(float) var ground_distance = 16
 
+export(bool) var shield
+
 export(int, LAYERS_2D_PHYSICS) var ground_layer = 1
+
+export(String, "BlueShield", "ThunderShield", "FlameShield") var shield_type
 
 onready var tree = get_tree()
 onready var world = get_world_2d()
@@ -45,19 +49,22 @@ func handle_collision():
 		position.y -= ground_hit.penetration
 		position = position.round()
 
-func destroy():
+func destroy(player):
 	if not destroyed:
 		explosion.play()
 		icon.set_movement(true)
 		explosion_audio.play()
 		solid_object.set_enabled(false)
 		animation_tree.set("parameters/state/current", 1)
-		handle_item()
+		handle_item(player)
 
-func handle_item():
+func handle_item(player):
 	yield(tree.create_timer(0.5), "timeout")
 	item_audio.play()
-	score_controller.add_score()
+	if shield:
+		score_controller.add_score(player)
+	else:
+		score_controller.add_score()
 
 func bump_up():
 	allow_movement = true
@@ -70,12 +77,12 @@ func _on_SolidObject_player_ceiling_collision(player: Player):
 func _on_SolidObject_player_ground_collision(player: Player):
 	if player.is_rolling and player.velocity.y > 0:
 		player.velocity.y = -player.velocity.y
-		destroy()
+		destroy(player)
 
 func _on_SolidObject_player_left_wall_collision(player: Player):
 	if player.is_grounded() and player.is_rolling:
-		destroy()
+		destroy(player)
 
 func _on_SolidObject_player_right_wall_collision(player: Player):
 	if player.is_grounded() and player.is_rolling:
-		destroy()
+		destroy(player)

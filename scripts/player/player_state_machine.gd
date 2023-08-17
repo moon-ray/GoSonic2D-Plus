@@ -29,7 +29,7 @@ func change_state(to: String):
 	last_state = current_state
 	current_state = to
 	states[current_state].enter(player)
-	print("changed to %s" % current_state)
+	# print("changed to %s" % current_state)
 
 func update_state(delta: float):
 	if current_state:

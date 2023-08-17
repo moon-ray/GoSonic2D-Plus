@@ -29,6 +29,8 @@ current state
 last state
 looking up
 crouching
+is rolling
+IS GROUNDED
 "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -142,3 +144,25 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ISROLLING" type="Label" parent="Labels"]
+margin_left = 103.0
+margin_top = 88.0
+margin_right = 167.0
+margin_bottom = 96.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "0.00"
+align = 2
+
+[node name="ISGROUNDED" type="Label" parent="Labels"]
+margin_left = 103.0
+margin_top = 99.0
+margin_right = 167.0
+margin_bottom = 107.0
+custom_colors/font_color = Color( 0.878431, 0.894118, 0.878431, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "0.00"
+align = 2

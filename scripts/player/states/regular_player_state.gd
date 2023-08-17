@@ -9,9 +9,6 @@ func enter(player: Player):
 	player.set_bounds(0)
 
 func step(player: Player, delta: float):
-	print("UP %s" % player.is_looking_up)
-	print("DOWN %s" % player.is_looking_down)
-	
 	player.is_looking_down = false
 	player.is_looking_up = false
 	
@@ -39,16 +36,6 @@ func step(player: Player, delta: float):
 		elif player.input_direction.y > 0 and abs(player.velocity.x) < player.current_stats.min_speed_to_roll:
 			player.velocity.x = 0
 			player.is_looking_up = true
-		if player.is_looking_down == true:
-			can_turn = false
-		if player.is_looking_up == true:
-			can_turn = false
-
-		if player.is_looking_down == false:
-			can_turn = true
-		if player.is_looking_up == false:
-			can_turn = true
-
 	else:
 		player.state_machine.change_state("Air")
 	
@@ -57,8 +44,7 @@ func step(player: Player, delta: float):
 
 func animate(player: Player, _delta: float):
 	var absolute_speed = abs(player.velocity.x)
-	if can_turn == true:
-		player.skin.handle_flip(player.input_direction.x)
+	player.skin.handle_flip(player.input_direction.x)
 	player.skin.set_regular_animation_speed(absolute_speed)
 	
 	if absolute_speed >= 0.3:

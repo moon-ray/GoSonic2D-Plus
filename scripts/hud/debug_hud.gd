@@ -12,12 +12,21 @@ onready var cstate = $Labels/CSTATE
 onready var lstate = $Labels/LSTATE
 onready var lookup = $Labels/LOOKUP
 onready var crouch = $Labels/CROUCH
+onready var isrolling = $Labels/ISROLLING
+onready var isgrounded = $Labels/ISGROUNDED
 
 onready var zone = get_node(zone_path)
 
 const FORMAT = "%.2f"
 
 func _process(_delta):
+	if Input.is_action_just_pressed("ui_debug"):
+		if $Labels.visible == true:
+			$Labels.visible = false
+		elif $Labels.visible == false:
+			$Labels.visible = true
+
+	
 	var player_position = zone.player.position
 	var player_velocity = zone.player.velocity
 	var statemachine = zone.player.state_machine
@@ -30,6 +39,8 @@ func _process(_delta):
 	lstate.text = statemachine.last_state
 	lookup.text = str(zone.player.is_looking_up)
 	crouch.text = str(zone.player.is_looking_down)
+	isrolling.text = str(zone.player.is_rolling)
+	isgrounded.text = str(zone.player.__is_grounded)
 	
 	if cstate.text == "SuperPeelOut":
 		cstate.text = "PeelOut"

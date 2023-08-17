@@ -8,8 +8,14 @@ var destination: Vector2
 var movement: bool
 var visible_timer: float
 
+onready var iconswap = $IconSwapper
+
+onready var shield_type = get_parent().shield_type
+
 func _ready():
 	destination = Vector2.UP * move_height
+	if get_parent().shield == true:
+		iconswap.play(shield_type)
 
 func _process(delta):
 	if movement:

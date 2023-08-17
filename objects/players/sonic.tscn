@@ -477,5 +477,5 @@ parameters/state/current = 0
 [node name="SpinDashDust" type="AnimatedSprite" parent="Skin"]
 position = Vector2( -16, 9 )
 frames = SubResource( 36 )
-frame = 4
+frame = 1
 playing = true

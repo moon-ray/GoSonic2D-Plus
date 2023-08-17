@@ -65,6 +65,11 @@ func _physics_process(delta):
 	handle_limits()
 	handle_state_animation(delta)
 	handle_skin(delta)
+	
+	# Crappy way of uncrouching but it works
+	
+	if Input.is_action_just_released("player_down"):
+		is_looking_down = false
 
 func initialize_collider():
 	var collision = CollisionShape2D.new()

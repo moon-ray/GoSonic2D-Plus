@@ -15,6 +15,10 @@ onready var default_shield = shields.InstaShield
 
 var current_shield: Shield
 
+func _process(delta):
+	if Input.is_action_just_pressed("player_debug"):
+		change(shields.BlueShield)
+
 func _ready():
 	change(default_shield)
 
