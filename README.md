@@ -7,4 +7,5 @@ A fork of marmitoTH's "GoSonic2D" that aims to add more features.
 * Camera lag (for spindash, etc.)
 * Super Peel Out
 * You can now look up and down
-* Debug Text for Last State, Current State, Looking Up, Looking Down
+* Debug Text for Last State, Current State, Looking Up, Looking Down, Is Rolling, Is Grounded
+* Shield Monitors
