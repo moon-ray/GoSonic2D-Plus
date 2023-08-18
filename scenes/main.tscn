@@ -545,7 +545,7 @@ player_resource = ExtResource( 1 )
 camera_resource = ExtResource( 8 )
 
 [node name="StartPoint" type="Node2D" parent="."]
-position = Vector2( 104, 716 )
+position = Vector2( 222, 672 )
 
 [node name="ZoneMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
@@ -557,30 +557,6 @@ autoplay = true
 
 [node name="Debug" parent="CanvasLayer" instance=ExtResource( 3 )]
 zone_path = NodePath("../..")
-
-[node name="UpperTileActivatorBig" parent="." instance=ExtResource( 12 )]
-position = Vector2( 2225, 550 )
-
-[node name="UpperTileActivatorBig2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 2864, 608 )
-
-[node name="LowerTileActivatorSmall" parent="." instance=ExtResource( 13 )]
-position = Vector2( 2336, 416 )
-
-[node name="LowerTileActivatorSmall2" parent="." instance=ExtResource( 13 )]
-position = Vector2( 2984, 480 )
-
-[node name="UpperTileActivatorSmall" parent="." instance=ExtResource( 15 )]
-position = Vector2( 2400, 416 )
-
-[node name="UpperTileActivatorSmall2" parent="." instance=ExtResource( 15 )]
-position = Vector2( 3040, 480 )
-
-[node name="LowerTileActivatorBig" parent="." instance=ExtResource( 14 )]
-position = Vector2( 2511, 550 )
-
-[node name="LowerTileActivatorBig2" parent="." instance=ExtResource( 14 )]
-position = Vector2( 3152, 608 )
 
 [node name="SolidTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 4 )
@@ -629,18 +605,29 @@ tile_data = PoolIntArray( 1638514, 4, 0, 1769595, 4, 0, 1966160, 4, 0, 1966186, 
 position = Vector2( 876, 624 )
 
 [node name="ShieldMonitor" parent="." instance=ExtResource( 18 )]
-position = Vector2( 942, 625 )
+position = Vector2( 1435, 581 )
+z_index = -2
 shield_type = "FlameShield"
 
 [node name="ShieldMonitor2" parent="." instance=ExtResource( 18 )]
-position = Vector2( 972, 625 )
+position = Vector2( 1756, 520 )
+z_index = -2
 
 [node name="ShieldMonitor3" parent="." instance=ExtResource( 18 )]
-position = Vector2( 1004, 623 )
+position = Vector2( 3439, 781 )
 shield_type = "ThunderShield"
 
 [node name="LifeMonitor" parent="." instance=ExtResource( 17 )]
 position = Vector2( 910, 624 )
+
+[node name="LifeMonitor2" parent="." instance=ExtResource( 17 )]
+position = Vector2( 940, 624 )
+
+[node name="LifeMonitor3" parent="." instance=ExtResource( 17 )]
+position = Vector2( 970, 624 )
+
+[node name="LifeMonitor4" parent="." instance=ExtResource( 17 )]
+position = Vector2( 1000, 623 )
 
 [node name="YellowSpringUp" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1100, 560 )
@@ -675,3 +662,29 @@ position = Vector2( 1100, 340 )
 
 [node name="YellowSpringLeft" parent="." instance=ExtResource( 16 )]
 position = Vector2( 1808, 656 )
+
+[node name="LowerTileActivatorBig" parent="." instance=ExtResource( 14 )]
+position = Vector2( 2514, 538 )
+wall_layer = 11
+
+[node name="UpperTileActivatorBig" parent="." instance=ExtResource( 12 )]
+position = Vector2( 2224, 538 )
+
+[node name="LowerTileActivatorSmall" parent="." instance=ExtResource( 13 )]
+position = Vector2( 2346, 405 )
+
+[node name="UpperTileActivatorSmall" parent="." instance=ExtResource( 15 )]
+position = Vector2( 2380, 404 )
+
+[node name="LowerTileActivatorBig2" parent="." instance=ExtResource( 14 )]
+position = Vector2( 3155, 603 )
+wall_layer = 11
+
+[node name="UpperTileActivatorBig2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 2865, 603 )
+
+[node name="LowerTileActivatorSmall2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 2987, 470 )
+
+[node name="UpperTileActivatorSmall2" parent="." instance=ExtResource( 15 )]
+position = Vector2( 3021, 469 )

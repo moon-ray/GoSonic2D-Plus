@@ -6,7 +6,6 @@
 extents = Vector2( 12, 20 )
 
 [node name="UpperTileActivatorSmall" type="Area2D"]
-position = Vector2( 3628, 676 )
 script = ExtResource( 1 )
 ground_layer = 7
 

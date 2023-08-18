@@ -4,7 +4,11 @@ class_name RollingPlayerState
 
 func enter(player: Player):
 	if !player.state_machine.last_state == "SpinDash":
-		player.audios.spin_audio.play()
+		if !player.state_machine.last_state == "DropDash":
+			player.audios.spin_audio.play()
+	elif !player.state_machine.last_state == "DropDash":
+		if !player.state_machine.last_state == "SpinDash":
+			player.audios.spin_audio.play()
 	player.is_rolling = true
 	player.set_bounds(1)
 

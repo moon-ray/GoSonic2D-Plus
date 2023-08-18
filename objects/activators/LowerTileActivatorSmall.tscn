@@ -6,8 +6,8 @@
 extents = Vector2( 12, 20 )
 
 [node name="LowerTileActivatorSmall" type="Area2D"]
-position = Vector2( 3572, 676 )
 script = ExtResource( 1 )
+wall_layer = 11
 ground_layer = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -16,7 +16,8 @@ const ANIMATION_STATES = {
 	"corkscrew": 6,
 	"crouch": 7,
 	"spindash": 8,
-	"lookup": 9
+	"lookup": 9,
+	"dropdash": 10
 }
 
 var current_state : int

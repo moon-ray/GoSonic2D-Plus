@@ -6,7 +6,6 @@
 extents = Vector2( 12, 68 )
 
 [node name="LowerTileActivatorBig" type="Area2D"]
-position = Vector2( 3724, 764 )
 script = ExtResource( 1 )
 ground_layer = 11
 

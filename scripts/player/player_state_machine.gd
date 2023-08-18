@@ -13,7 +13,8 @@ onready var states = {
 	"Air": $Air,
 	"Spring": $Spring,
 	"SpinDash": $SpinDash,
-	"SuperPeelOut": $SuperPeelOut
+	"SuperPeelOut": $SuperPeelOut,
+	"DropDash": $DropDash
 }
 
 var current_state: String

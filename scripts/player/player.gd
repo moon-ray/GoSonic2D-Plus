@@ -48,6 +48,11 @@ var __is_grounded : bool
 
 var delay_cam = false
 
+const drpspd = 480
+const drpmax = 720
+const drpspdsup = 720
+const drpmaxsup = 780
+
 onready var dash_dust = $Skin/SpinDashDust
 
 func _ready():
@@ -58,6 +63,7 @@ func _ready():
 	initialize_skin()
 
 func _physics_process(delta):
+	
 	handle_input()
 	handle_control_lock(delta)
 	handle_state_update(delta)

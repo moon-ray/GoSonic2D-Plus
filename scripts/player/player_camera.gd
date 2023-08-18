@@ -81,6 +81,7 @@ func start_camera_delay():
     original_target_position = player.get_position()
 	
 
+
 #func _draw():
 #	var right = Vector2.RIGHT * right_margin
 #	var left = Vector2.RIGHT * left_margin
