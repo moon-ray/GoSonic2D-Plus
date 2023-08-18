@@ -7,9 +7,6 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Labels" type="Label" parent="."]
 anchor_left = 1.0
@@ -150,7 +147,6 @@ margin_left = 103.0
 margin_top = 88.0
 margin_right = 167.0
 margin_bottom = 96.0
-custom_colors/font_color = Color( 1, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "0.00"
