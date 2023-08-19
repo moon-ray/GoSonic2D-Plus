@@ -608,16 +608,14 @@ tile_data = PoolIntArray( 1638514, 4, 0, 1769595, 4, 0, 1966160, 4, 0, 1966186, 
 position = Vector2( 876, 624 )
 
 [node name="ShieldMonitor" parent="." instance=ExtResource( 18 )]
-position = Vector2( 1435, 581 )
-z_index = -2
+position = Vector2( 1563, 655 )
 shield_type = "FlameShield"
 
 [node name="ShieldMonitor2" parent="." instance=ExtResource( 18 )]
-position = Vector2( 1756, 520 )
-z_index = -2
+position = Vector2( 1593, 655 )
 
 [node name="ShieldMonitor3" parent="." instance=ExtResource( 18 )]
-position = Vector2( 1864, 528 )
+position = Vector2( 1623, 655 )
 shield_type = "ThunderShield"
 
 [node name="LifeMonitor4" parent="." instance=ExtResource( 17 )]

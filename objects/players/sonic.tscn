@@ -649,7 +649,6 @@ parameters/state/current = 0
 visible = false
 position = Vector2( -16, 9 )
 frames = SubResource( 36 )
-frame = 2
 playing = true
 
 [node name="DropDustSpawn" type="Position2D" parent="Skin"]
