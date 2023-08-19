@@ -7,19 +7,23 @@ A fork of marmitoTH's "GoSonic2D" that aims to add more features.
 * Camera lag (for spindash, etc.)
 * Super Peel Out
 * You can now look up and down
-* Debug Text for Last State, Current State, Looking Up, Looking Down, Is Rolling, Is Grounded
+* Debug Text for Last State, Current State, Looking Up, Looking Down, Is Rolling, Is Grounded, FPS, etc
 * Shield Monitors
-* Mania accurate ~~(mostly)~~ Drop Dash!
+* Mostly Mania accurate Drop Dash!
+* Can now gain an extra life for every hundred ring
+* Rings are now capped at 999, can be uncapped by making cap_rings false in ScoreManager
+* Can now attract rings using the lightning shield
+* Sonic can now balance on ledges (based on Sonic 3)
+* Lightning shield has particles now
+* Sonic can now do his pushing animation
+* Sonic now has a full idle animation from Sonic 3
+* Sonic can now die if he touches the bottom of the camera 
+* Sonic will also now respawn if he dies.
+* When Sonic runs out of lives, the game will now exit.
 
-## Known Glitch/es
+## Notes:
 
-**Flame Shield Boost**
-
-Looks like Classic Sonic learned how to boost.
-
-This glitch can be seen when Sonic performs a frame-perfect fireball spin dash right when he lands on the ground. 
-This grants him a sort of "Boost" like in the modern games. This keeps his variable "is_rolling" to true,
-and will stay true until the variable is changed (like with a spindash, or a jump). It also prevents him
-from rotating on loops, as the game still recognizes Sonic as rolling therefore, it will not rotate his sprite.
-
-![](https://github.com/son-ray/Sonic-Godot-Physics/blob/main/read_me/flame_shield_bug.gif)
+* Sonic can only balance at a maximum ground angle of 3
+* In the debug screen, "lifes_gained" is one more than how much lives you gained with rings.
+* Sonic's dying routine is still a heavy work in progress. It seems to work for the most part.
+* Thank you [Sonic Physics Guide](https://info.sonicretro.org/Sonic_Physics_Guide), for helping me implement most of these features.
