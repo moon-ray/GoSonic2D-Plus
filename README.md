@@ -1,4 +1,4 @@
-# GoSonic2D+
+# ![cool logo](https://github.com/son-ray/Sonic-Godot-Physics/blob/main/read_me/logo.png)
 A fork of marmitoTH's "GoSonic2D" that aims to add more features.
 
 ## Added features so far:
