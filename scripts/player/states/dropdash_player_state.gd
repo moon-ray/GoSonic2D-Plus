@@ -32,6 +32,9 @@ func step(host, delta):
 	host.get_parent().add_child(dust)
 	host.state_machine.change_state("Rolling")
 
+func exit(player: Player):
+	player.audios.dropdash.stop()
+
 func direction(player):
 	if player.skin.flip_h == true:
 		return -1

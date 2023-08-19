@@ -37,8 +37,20 @@ var control_lock_timer : float
 var limit_left: float
 var limit_right: float
 
+onready var score_manager = get_node("/root/ScoreManager") as ScoreManager
+onready var raycasts = $LedgeCheckers
+onready var raycastspush = $PushCheckers
+onready var ledge_left = raycasts.get_node("LeftChecker")
+onready var ledge_right = raycasts.get_node("RightChecker")
+onready var ledge_mid = raycasts.get_node("MidChecker")
+onready var ledge_mid_right = raycasts.get_node("MidRightChecker")
+onready var ledge_mid_left = raycasts.get_node("MidLeftChecker")
+onready var left_push = raycastspush.get_node("Left")
+onready var right_push = raycastspush.get_node("Right")
+
 var is_jumping : bool
 var is_rolling : bool
+var is_pushing : bool
 var is_looking_down : bool
 var is_looking_up : bool
 var is_control_locked : bool
@@ -63,7 +75,7 @@ func _ready():
 	initialize_skin()
 
 func _physics_process(delta):
-	
+	score_manager.extra_life(self)
 	handle_input()
 	handle_control_lock(delta)
 	handle_state_update(delta)
@@ -82,7 +94,9 @@ func initialize_collider():
 	collider_shape = RectangleShape2D.new()
 	collider = Area2D.new()
 	collision.shape = collider_shape
+	collision.pause_mode = Node.PAUSE_MODE_PROCESS
 	collider.add_child(collision)
+	collider.pause_mode = Node.PAUSE_MODE_PROCESS
 	add_child(collider)
 
 func initialize_resources():
@@ -160,7 +174,8 @@ func handle_skin(delta):
 			var current_rotation = skin.rotation_degrees
 			skin.rotation_degrees = move_toward(current_rotation, 0, 360 * delta)
 		else:
-			skin.rotation_degrees = ground_angle if abs(ground_angle) > 10 else .0
+			# var ground_abs = abs(round(ground_angle))
+			skin.rotation_degrees = round(ground_angle if abs(ground_angle) > 10 else .0)
 	else:
 		skin.rotation_degrees = 0
 

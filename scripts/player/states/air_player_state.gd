@@ -50,6 +50,10 @@ func step(player: Player, delta: float):
 		can_drop_dash = true
 		drop_dash = false
 		
+func exit(player: Player):
+	$DropDashTimer.stop()
+	can_drop_dash = true
+	drop_dash = false
 
 func animate(player: Player, _delta: float):
 	player.skin.handle_flip(player.input_direction.x)

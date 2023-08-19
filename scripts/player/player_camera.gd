@@ -80,7 +80,9 @@ func start_camera_delay():
     delay_timer = delay_duration
     original_target_position = player.get_position()
 	
-
+func halt_forever():
+	delay_duration = 9223372036854775807
+	start_camera_delay()
 
 #func _draw():
 #	var right = Vector2.RIGHT * right_margin
@@ -94,3 +96,11 @@ func start_camera_delay():
 #	draw_line(top_left, top_right, Color.white)
 #	draw_line(bottom_left, bottom_right, Color.white)
 #	draw_line(right, left, Color.green)
+
+
+func _on_area_entered(area):
+	if area.get_parent() is Player:
+		halt_forever()
+		var player = area.get_parent()
+		if !player.state_machine.current_state == "Dead":
+			player.state_machine.change_state("Dead")

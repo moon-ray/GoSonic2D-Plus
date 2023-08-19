@@ -17,10 +17,35 @@ const ANIMATION_STATES = {
 	"crouch": 7,
 	"spindash": 8,
 	"lookup": 9,
-	"dropdash": 10
+	"dropdash": 10,
+	"balance": 11,
+	"panic_balance": 12,
+	"idle_wait": 13,
+	"pushing": 14,
+	"dead": 15
 }
 
 var current_state : int
+
+var idle_timer = false
+
+func _process(delta):
+	# print($idle_timer.time_left)
+	$SpinDashDust.flip_h = flip_h
+	if $SpinDashDust.flip_h == true:
+		$SpinDashDust.offset.x = 32
+	else:
+		$SpinDashDust.offset.x = 0
+		
+	if current_state == 0:
+		if not idle_timer:
+			$idle_timer.start()
+			idle_timer = true
+	else:
+		idle_timer = false
+		$idle_timer.stop()
+		animation_tree.set("parameters/idle-shot/active", false)
+
 
 func handle_flip(direction: float) -> void:
 	if !player.is_looking_down:
@@ -36,11 +61,6 @@ func handle_flip(direction: float) -> void:
 		if !player.is_looking_down:
 			if direction != 0:
 				flip_h = direction < 0
-				$SpinDashDust.flip_h = direction < 0
-				if $SpinDashDust.flip_h == true:
-					$SpinDashDust.offset.x = 32
-				else:
-					$SpinDashDust.offset.x = 0
 func set_animation_state(state: int) -> void:
 	if state != current_state:
 		current_state = state
@@ -66,3 +86,7 @@ func set_regular_animation_speed(value: float) -> void:
 func set_rolling_animation_speed(value: float) -> void:
 	var speed = max(4 / 60.0 + value / 120.0, 1.0)
 	set_animation_speed(speed)
+
+
+func _on_idle_timer_timeout():
+	animation_tree.set("parameters/idle-shot/active", true)

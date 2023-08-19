@@ -29,6 +29,7 @@ func step(player: Player, delta):
 	p -= int(p / 7.5) / 15360.0
 
 func exit(player: Player):
+	player.audios.spindashcharge.stop()
 	player.dash_dust.visible = false
 
 	var scaletemp = 0
@@ -38,7 +39,6 @@ func exit(player: Player):
 	else:
 		scaletemp = 1
 	player.velocity.x = (480 + (floor(p) / 2)) * scaletemp
-	player.audios.spindashcharge.stop()
 	player.audios.spindashrelease.play()
 	player.delay_cam = true
 	#player.player_vfx.stop('ChargeDust')

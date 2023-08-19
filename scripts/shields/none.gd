@@ -1,7 +1,5 @@
 extends Shield
 
-onready var sprite = $Sprite
-
 func _ready():
 	pass
 

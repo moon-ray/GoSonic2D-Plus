@@ -8,7 +8,7 @@ var destination: Vector2
 var movement: bool
 var visible_timer: float
 
-onready var iconswap = $IconSwapper
+onready var iconswap = get_node_or_null("IconSwapper")
 
 onready var shield_type = get_parent().shield_type
 

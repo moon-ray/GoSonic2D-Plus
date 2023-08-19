@@ -4,6 +4,7 @@ class_name DebugHUD
 
 export(NodePath) var zone_path
 
+onready var fps = $Labels/FPS
 onready var x_pos = $Labels/XPOS
 onready var y_pos = $Labels/YPOS
 onready var x_sp = $Labels/XSP
@@ -14,10 +15,39 @@ onready var lookup = $Labels/LOOKUP
 onready var crouch = $Labels/CROUCH
 onready var isrolling = $Labels/ISROLLING
 onready var isgrounded = $Labels/ISGROUNDED
+onready var ispushing = $Labels/ISPUSHING
+onready var animstate = $Labels/ANIMSTATE
+onready var groundangle = $Labels/GROUNDANGLE
+onready var lifesadded = $Labels/LIFESADDED
 
 onready var zone = get_node(zone_path)
 
+var score_manager = ScoreManager
+
 const FORMAT = "%.2f"
+
+const ANIMATION_STATES = {
+    0: "idle",
+    1: "walking",
+    2: "running",
+    3: "peel_out",
+    4: "rolling",
+    5: "skidding",
+    6: "corkscrew",
+    7: "crouch",
+    8: "spindash",
+    9: "lookup",
+    10: "dropdash",
+    11: "balance",
+    12: "panic_balance",
+    13: "idle_wait",
+	14: "pushing",
+	15: "no set",
+	16: "no set",
+	17: "no set",
+	18: "no set",
+	19: "no set",
+}
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_debug"):
@@ -41,8 +71,19 @@ func _process(_delta):
 	crouch.text = str(zone.player.is_looking_down)
 	isrolling.text = str(zone.player.is_rolling)
 	isgrounded.text = str(zone.player.__is_grounded)
+	ispushing.text = str(zone.player.is_pushing)
+	animstate.text = str(convertIntToString(zone.player.skin.current_state))
+	groundangle.text = str(abs(zone.player.ground_angle))
+	lifesadded.text = str(score_manager.lifes_added)
+	fps.text = str(Engine.get_frames_per_second())
 	
 	if cstate.text == "SuperPeelOut":
 		cstate.text = "PeelOut"
 	if lstate.text == "SuperPeelOut":
 		lstate.text = "PeelOut"
+
+func convertIntToString(state_id: int) -> String:
+    if state_id in ANIMATION_STATES:
+        return ANIMATION_STATES[state_id]
+    else:
+        return "Unknown State"

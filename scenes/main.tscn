@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://objects/players/sonic.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/hud/HUD.tscn" type="PackedScene" id=2]
@@ -18,6 +18,8 @@
 [ext_resource path="res://objects/springs/yellow_spring_left.tscn" type="PackedScene" id=16]
 [ext_resource path="res://objects/monitors/LifeMonitor.tscn" type="PackedScene" id=17]
 [ext_resource path="res://objects/monitors/ShieldMonitor.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scripts/player/player_death_checker.gd" type="Script" id=19]
+[ext_resource path="res://objects/springs/yellow_spring_right.tscn" type="PackedScene" id=20]
 
 [sub_resource type="TileSet" id=1]
 0/name = "isolated_island_details.png 0"
@@ -545,9 +547,10 @@ player_resource = ExtResource( 1 )
 camera_resource = ExtResource( 8 )
 
 [node name="StartPoint" type="Node2D" parent="."]
-position = Vector2( 222, 672 )
+position = Vector2( 232, 704 )
 
 [node name="ZoneMusic" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 7 )
 autoplay = true
 
@@ -562,7 +565,7 @@ zone_path = NodePath("../..")
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( 655430, 1, 0, 655434, 536870913, 0, 786502, 25, 0, 786506, 536870937, 0, 786522, 536870913, 0, 786526, 536870913, 0, 917594, 536870938, 0, 917598, 536870937, 0, 1179705, 0, 0, 1179706, 1, 0, 1179710, 1, 0, 1179714, 1, 0, 1179726, 1, 0, 1179730, 536870915, 0, 1245254, 536870934, 0, 1245258, 536870932, 0, 1245270, 536870915, 0, 1310768, 0, 0, 1310769, 1, 0, 1310773, 1, 0, 1310777, 9, 0, 1310778, 8, 0, 1310782, 8, 0, 1310786, 10, 0, 1310790, 14, 0, 1310794, 16, 0, 1310798, 10, 0, 1310818, 536870915, 0, 1376292, 3, 0, 1376296, 1, 0, 1376300, 1, 0, 1376338, 16, 0, 1376346, 536870934, 0, 1376350, 536870932, 0, 1376358, 536870915, 0, 1507327, 0, 0, 1441792, 1, 0, 1441796, 1, 0, 1441800, 1, 0, 1441804, 1, 0, 1441808, 1, 0, 1441812, 1, 0, 1441816, 1, 0, 1441820, 5, 0, 1441824, 1, 0, 1441840, 9, 0, 1441841, 10, 0, 1441845, 8, 0, 1441878, 14, 0, 1441882, 16, 0, 1441886, 14, 0, 1441898, 536870912, 0, 1441951, 0, 0, 1441952, 1, 0, 1441956, 1, 0, 1441960, 1, 0, 1507368, 8, 0, 1507372, 8, 0, 1507426, 8, 0, 1507483, 12, 0, 1638399, 7, 0, 1572864, 8, 0, 1572868, 10, 0, 1572872, 8, 0, 1572876, 8, 0, 1572880, 11, 0, 1572884, 8, 0, 1572888, 8, 0, 1572892, 8, 0, 1572896, 10, 0, 1572900, 14, 0, 1572921, 13, 0, 1572922, 14, 0, 1572926, 16, 0, 1572930, 14, 0, 1572966, 536870920, 0, 1572970, 536870919, 0, 1572971, 536870914, 0, 1572972, 536870913, 0, 1572976, 536870913, 0, 1572980, 536870913, 0, 1572984, 536870913, 0, 1572988, 536870913, 0, 1572992, 536870913, 0, 1572996, 536870913, 0, 1573000, 536870912, 0, 1573023, 7, 0, 1573024, 536870923, 0, 1573028, 536870920, 0, 1573032, 536870920, 0, 1704043, 536870919, 0, 1704044, 536870920, 0, 1704048, 536870922, 0, 1704052, 536870920, 0, 1704056, 536870920, 0, 1704060, 536870923, 0, 1704064, 536870920, 0, 1704068, 536870920, 0, 1704072, 536870919, 0, 1704073, 536870914, 0, 1704074, 536870913, 0, 1704078, 536870913, 0, 1704082, 536870913, 0, 1704086, 536870913, 0, 1704090, 536870913, 0, 1704094, 536870912, 0, 1835110, 536870926, 0, 1835114, 536870925, 0, 1835145, 7, 0, 1835146, 10, 0, 1835150, 8, 0, 1835154, 4, 0, 1835158, 8, 0, 1835162, 11, 0, 1835166, 536870919, 0, 1835167, 536870925, 0, 1835168, 536870926, 0, 1835172, 536870926, 0, 1835176, 536870926, 0, 1900690, 14, 0, 1966187, 536870925, 0, 1966204, 536870926, 0, 1966208, 536870928, 0, 1966212, 536870926, 0, 1966216, 536870925, 0, 2097289, 13, 0, 2097290, 14, 0, 2097294, 16, 0, 2097302, 14, 0, 2097306, 16, 0, 2097310, 13, 0 )
+tile_data = PoolIntArray( 655430, 1, 0, 655434, 536870913, 0, 786502, 25, 0, 786506, 536870937, 0, 786522, 536870913, 0, 786526, 536870913, 0, 917594, 536870938, 0, 917598, 536870937, 0, 1048633, 1, 0, 1048637, 536870915, 0, 1114165, 12, 0, 1114177, 536870915, 0, 1179705, 536870920, 0, 1179710, 1, 0, 1179717, 536870912, 0, 1179726, 1, 0, 1179730, 536870915, 0, 1245241, 16, 0, 1245244, 16, 0, 1245245, 17, 0, 1245254, 536870934, 0, 1245258, 536870932, 0, 1245270, 536870915, 0, 1310768, 0, 0, 1310769, 1, 0, 1310773, 1, 0, 1310777, 9, 0, 1310778, 8, 0, 1310782, 8, 0, 1310786, 10, 0, 1310790, 14, 0, 1310794, 16, 0, 1310798, 10, 0, 1310818, 536870915, 0, 1376292, 3, 0, 1376296, 1, 0, 1376300, 1, 0, 1376338, 16, 0, 1376346, 536870934, 0, 1376350, 536870932, 0, 1376358, 536870915, 0, 1441792, 5, 0, 1441796, 1, 0, 1441800, 1, 0, 1441804, 1, 0, 1441808, 1, 0, 1441812, 1, 0, 1441816, 1, 0, 1441820, 5, 0, 1441824, 1, 0, 1441840, 9, 0, 1441841, 10, 0, 1441845, 8, 0, 1441878, 14, 0, 1441882, 16, 0, 1441886, 14, 0, 1441898, 536870912, 0, 1441908, 536870913, 0, 1441911, 536870915, 0, 1441951, 0, 0, 1441952, 1, 0, 1441956, 1, 0, 1441960, 1, 0, 1507368, 8, 0, 1507372, 8, 0, 1507426, 8, 0, 1507451, 536870915, 0, 1507483, 12, 0, 1572864, 8, 0, 1572868, 10, 0, 1572872, 8, 0, 1572876, 8, 0, 1572880, 11, 0, 1572884, 8, 0, 1572888, 8, 0, 1572892, 8, 0, 1572896, 10, 0, 1572900, 14, 0, 1572921, 13, 0, 1572922, 14, 0, 1572926, 16, 0, 1572930, 14, 0, 1572966, 536870920, 0, 1572970, 536870919, 0, 1572971, 536870914, 0, 1572972, 536870913, 0, 1572976, 536870913, 0, 1572980, 536870920, 0, 1572991, 536870917, 0, 1572992, 536870913, 0, 1572996, 536870913, 0, 1573000, 536870912, 0, 1573023, 7, 0, 1573024, 536870923, 0, 1573028, 536870920, 0, 1573032, 536870920, 0, 1638516, 536870920, 0, 1638518, 536870920, 0, 1704043, 536870919, 0, 1704044, 536870920, 0, 1704048, 536870922, 0, 1704052, 536870920, 0, 1704056, 536870920, 0, 1704060, 536870923, 0, 1704064, 536870920, 0, 1704068, 536870920, 0, 1704072, 536870919, 0, 1704073, 536870914, 0, 1704074, 536870913, 0, 1704078, 536870913, 0, 1704082, 536870913, 0, 1704086, 536870913, 0, 1704090, 536870913, 0, 1704094, 536870912, 0, 1835110, 536870926, 0, 1835114, 536870925, 0, 1835145, 7, 0, 1835146, 10, 0, 1835150, 8, 0, 1835154, 4, 0, 1835158, 8, 0, 1835162, 11, 0, 1835166, 536870919, 0, 1835167, 536870925, 0, 1835168, 536870926, 0, 1835172, 536870926, 0, 1835176, 536870926, 0, 1900690, 14, 0, 1966187, 536870925, 0, 1966204, 536870926, 0, 1966208, 536870928, 0, 1966212, 536870926, 0, 1966216, 536870925, 0, 2097289, 13, 0, 2097290, 14, 0, 2097294, 16, 0, 2097302, 14, 0, 2097306, 16, 0, 2097310, 13, 0 )
 
 [node name="OneWayTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 4 )
@@ -614,33 +617,382 @@ position = Vector2( 1756, 520 )
 z_index = -2
 
 [node name="ShieldMonitor3" parent="." instance=ExtResource( 18 )]
-position = Vector2( 3439, 781 )
+position = Vector2( 1864, 528 )
 shield_type = "ThunderShield"
 
-[node name="LifeMonitor" parent="." instance=ExtResource( 17 )]
-position = Vector2( 910, 624 )
-
-[node name="LifeMonitor2" parent="." instance=ExtResource( 17 )]
-position = Vector2( 940, 624 )
-
-[node name="LifeMonitor3" parent="." instance=ExtResource( 17 )]
-position = Vector2( 970, 624 )
-
 [node name="LifeMonitor4" parent="." instance=ExtResource( 17 )]
-position = Vector2( 1000, 623 )
+position = Vector2( 3011, 400 )
+
+[node name="LifeMonitor5" parent="." instance=ExtResource( 17 )]
+position = Vector2( 2376, 337 )
+
+[node name="YellowSpringRight2" parent="." instance=ExtResource( 20 )]
+position = Vector2( 3439, 782 )
+spring_audio_path = NodePath("../YellowSpringRight/SpringAudio")
 
 [node name="YellowSpringUp" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1100, 560 )
 z_index = -2
 
 [node name="Ring" parent="." instance=ExtResource( 10 )]
-position = Vector2( 700, 632 )
+position = Vector2( 698, 647 )
 
 [node name="Ring2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 728, 632 )
+position = Vector2( 726, 647 )
 
 [node name="Ring3" parent="." instance=ExtResource( 10 )]
-position = Vector2( 756, 632 )
+position = Vector2( 754, 647 )
+
+[node name="Ring10" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1321, 628 )
+
+[node name="Ring11" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1349, 628 )
+
+[node name="Ring12" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1377, 628 )
+
+[node name="Ring13" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2341, 578 )
+
+[node name="Ring25" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2608, 549 )
+
+[node name="Ring26" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2681, 558 )
+
+[node name="Ring27" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2750, 576 )
+
+[node name="Ring28" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3267, 625 )
+
+[node name="Ring29" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3335, 644 )
+
+[node name="Ring30" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3405, 672 )
+
+[node name="Ring31" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3565, 537 )
+
+[node name="Ring32" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3584, 537 )
+
+[node name="Ring33" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3603, 537 )
+
+[node name="Ring34" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3565, 556 )
+
+[node name="Ring35" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3584, 556 )
+
+[node name="Ring36" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3603, 556 )
+
+[node name="Ring37" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3621, 537 )
+
+[node name="Ring38" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3640, 537 )
+
+[node name="Ring39" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3659, 537 )
+
+[node name="Ring40" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3621, 556 )
+
+[node name="Ring41" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3640, 556 )
+
+[node name="Ring42" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3659, 556 )
+
+[node name="Ring43" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3565, 575 )
+
+[node name="Ring44" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3584, 575 )
+
+[node name="Ring45" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3603, 575 )
+
+[node name="Ring46" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3565, 594 )
+
+[node name="Ring47" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3584, 594 )
+
+[node name="Ring48" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3603, 594 )
+
+[node name="Ring49" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3621, 575 )
+
+[node name="Ring50" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3640, 575 )
+
+[node name="Ring51" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3659, 575 )
+
+[node name="Ring52" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3621, 594 )
+
+[node name="Ring53" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3640, 594 )
+
+[node name="Ring54" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3659, 594 )
+
+[node name="Ring55" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3678, 537 )
+
+[node name="Ring56" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3697, 537 )
+
+[node name="Ring57" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3716, 537 )
+
+[node name="Ring58" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3678, 556 )
+
+[node name="Ring59" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3697, 556 )
+
+[node name="Ring60" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3716, 556 )
+
+[node name="Ring61" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3734, 537 )
+
+[node name="Ring62" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3753, 537 )
+
+[node name="Ring63" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3772, 537 )
+
+[node name="Ring64" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3734, 556 )
+
+[node name="Ring65" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3753, 556 )
+
+[node name="Ring66" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3772, 556 )
+
+[node name="Ring67" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3678, 575 )
+
+[node name="Ring68" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3697, 575 )
+
+[node name="Ring69" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3716, 575 )
+
+[node name="Ring70" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3678, 594 )
+
+[node name="Ring71" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3697, 594 )
+
+[node name="Ring72" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3716, 594 )
+
+[node name="Ring73" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3734, 575 )
+
+[node name="Ring74" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3753, 575 )
+
+[node name="Ring75" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3772, 575 )
+
+[node name="Ring76" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3734, 594 )
+
+[node name="Ring77" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3753, 594 )
+
+[node name="Ring78" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3772, 594 )
+
+[node name="Ring79" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3791, 537 )
+
+[node name="Ring80" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3810, 537 )
+
+[node name="Ring81" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3829, 537 )
+
+[node name="Ring82" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3791, 556 )
+
+[node name="Ring83" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3810, 556 )
+
+[node name="Ring84" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3829, 556 )
+
+[node name="Ring85" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3847, 537 )
+
+[node name="Ring86" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3866, 537 )
+
+[node name="Ring87" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3885, 537 )
+
+[node name="Ring88" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3847, 556 )
+
+[node name="Ring89" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3866, 556 )
+
+[node name="Ring90" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3885, 556 )
+
+[node name="Ring91" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3791, 575 )
+
+[node name="Ring92" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3810, 575 )
+
+[node name="Ring93" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3829, 575 )
+
+[node name="Ring94" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3791, 594 )
+
+[node name="Ring95" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3810, 594 )
+
+[node name="Ring96" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3829, 594 )
+
+[node name="Ring97" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3847, 575 )
+
+[node name="Ring98" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3866, 575 )
+
+[node name="Ring99" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3885, 575 )
+
+[node name="Ring100" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3847, 594 )
+
+[node name="Ring101" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3866, 594 )
+
+[node name="Ring102" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3885, 594 )
+
+[node name="Ring103" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3904, 537 )
+
+[node name="Ring104" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3923, 537 )
+
+[node name="Ring105" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3942, 537 )
+
+[node name="Ring106" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3904, 556 )
+
+[node name="Ring107" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3923, 556 )
+
+[node name="Ring108" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3942, 556 )
+
+[node name="Ring109" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3960, 537 )
+
+[node name="Ring110" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3979, 537 )
+
+[node name="Ring111" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3998, 537 )
+
+[node name="Ring112" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3960, 556 )
+
+[node name="Ring113" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3979, 556 )
+
+[node name="Ring114" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3998, 556 )
+
+[node name="Ring115" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3904, 575 )
+
+[node name="Ring116" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3923, 575 )
+
+[node name="Ring117" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3942, 575 )
+
+[node name="Ring118" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3904, 594 )
+
+[node name="Ring119" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3923, 594 )
+
+[node name="Ring120" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3942, 594 )
+
+[node name="Ring121" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3960, 575 )
+
+[node name="Ring122" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3979, 575 )
+
+[node name="Ring123" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3998, 575 )
+
+[node name="Ring124" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3960, 594 )
+
+[node name="Ring125" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3979, 594 )
+
+[node name="Ring126" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3998, 594 )
+
+[node name="Ring14" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2369, 578 )
+
+[node name="Ring15" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2397, 578 )
+
+[node name="Ring16" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2342, 410 )
+
+[node name="Ring17" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2370, 410 )
+
+[node name="Ring18" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2398, 410 )
+
+[node name="Ring19" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2981, 648 )
+
+[node name="Ring20" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3009, 648 )
+
+[node name="Ring21" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3037, 648 )
+
+[node name="Ring22" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2976, 470 )
+
+[node name="Ring23" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3004, 470 )
+
+[node name="Ring24" parent="." instance=ExtResource( 10 )]
+position = Vector2( 3032, 470 )
 
 [node name="Ring4" parent="." instance=ExtResource( 10 )]
 position = Vector2( 1100, 480 )
@@ -658,10 +1010,10 @@ position = Vector2( 1100, 396 )
 position = Vector2( 1100, 368 )
 
 [node name="Ring9" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1100, 340 )
+position = Vector2( 1712, 584 )
 
 [node name="YellowSpringLeft" parent="." instance=ExtResource( 16 )]
-position = Vector2( 1808, 656 )
+position = Vector2( 1520, 688 )
 
 [node name="LowerTileActivatorBig" parent="." instance=ExtResource( 14 )]
 position = Vector2( 2514, 538 )
@@ -688,3 +1040,19 @@ position = Vector2( 2987, 470 )
 
 [node name="UpperTileActivatorSmall2" parent="." instance=ExtResource( 15 )]
 position = Vector2( 3021, 469 )
+
+[node name="DeathChecker" type="Node2D" parent="."]
+pause_mode = 2
+script = ExtResource( 19 )
+
+[node name="restart_time" type="Timer" parent="DeathChecker"]
+pause_mode = 2
+wait_time = 2.0
+
+[node name="YellowSpringRight" parent="." instance=ExtResource( 20 )]
+position = Vector2( 16, 722 )
+
+[node name="YellowSpringLeft2" parent="." instance=ExtResource( 16 )]
+position = Vector2( 3696, 785 )
+
+[connection signal="timeout" from="DeathChecker/restart_time" to="DeathChecker" method="_on_restart_time_timeout"]

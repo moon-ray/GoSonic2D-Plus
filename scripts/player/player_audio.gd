@@ -10,3 +10,5 @@ onready var spindashrelease = $SpinDashRelease
 onready var peeloutcharge = $PeeloutCharge
 onready var peeloutrelease = $PeeloutRelease
 onready var dropdash = $DropDash
+onready var yes = $Yes
+onready var hurt = $Hurt
