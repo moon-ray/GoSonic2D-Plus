@@ -1,4 +1,4 @@
-# Sonic-Godot-Physics
+# GoSonic2D+
 A fork of marmitoTH's "GoSonic2D" that aims to add more features.
 
 ## Added features so far:
