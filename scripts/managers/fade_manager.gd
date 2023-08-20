@@ -11,3 +11,4 @@ func fade_in():
 func fade_out():
 	if !animation.current_animation == "fade_out":
 		animation.play("fade_out")
+

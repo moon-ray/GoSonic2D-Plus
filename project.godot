@@ -237,6 +237,7 @@ config/icon="res://icon.png"
 [autoload]
 
 ScoreManager="*res://scripts/managers/score_manager.gd"
+global_load="*res://scripts/general/global_loading.gd"
 
 [display]
 
@@ -245,7 +246,7 @@ window/size/height=240
 window/size/test_width=1280
 window/size/test_height=720
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/stretch/aspect="keep"
 
 [editor_plugins]
 

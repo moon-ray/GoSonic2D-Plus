@@ -28,10 +28,13 @@ It not compatible with Godot version 4 and up.
 * Game Overs are now implemented (after the game over sequence it just restarts the main scene and all the score)
 * Time Overs are now implemented
 * Sonic will also now respawn if he dies.
+* Loading screen after death or Game/Time Over
 
 ## Notes:
 
+* You can kill Sonic by pressing the Tilde key (~)
 * Sonic can only balance at a maximum ground angle of 3
 * In the debug screen, "lifes_gained" is one more than how much lives you gained with rings.
 * Thank you [Sonic Physics Guide](https://info.sonicretro.org/Sonic_Physics_Guide), for helping me implement most of these features.
 * Credits to raphaklaus for the [fading shader](https://github.com/raphaklaus/sonic-palette-fade) used for fading transitions
+* Credits to Dicode for the [loading screen script](https://www.youtube.com/watch?v=5aV_GSAE1kM)

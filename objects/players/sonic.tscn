@@ -681,7 +681,7 @@ pause_mode = 2
 visible = false
 position = Vector2( -16, 9 )
 frames = SubResource( 36 )
-frame = 6
+frame = 1
 playing = true
 
 [node name="DropDustSpawn" type="Position2D" parent="Skin"]
@@ -691,6 +691,10 @@ position = Vector2( -8, 3 )
 [node name="idle_timer" type="Timer" parent="Skin"]
 pause_mode = 2
 wait_time = 3.5
+
+[node name="onscreen_check" type="VisibilityNotifier2D" parent="Skin"]
+position = Vector2( 0, 59 )
+scale = Vector2( 2.4, 8.25 )
 
 [node name="LedgeCheckers" type="Node2D" parent="."]
 pause_mode = 2
@@ -754,3 +758,4 @@ cast_to = Vector2( 2.18557e-07, 5 )
 
 [connection signal="timeout" from="StateMachine/Air/DropDashTimer" to="StateMachine/Air" method="dropdash_timer_timeout"]
 [connection signal="timeout" from="Skin/idle_timer" to="Skin" method="_on_idle_timer_timeout"]
+[connection signal="screen_exited" from="Skin/onscreen_check" to="Skin" method="_on_exit_screen"]

@@ -90,3 +90,7 @@ func set_rolling_animation_speed(value: float) -> void:
 
 func _on_idle_timer_timeout():
 	animation_tree.set("parameters/idle-shot/active", true)
+
+
+func _on_exit_screen():
+	visible = false

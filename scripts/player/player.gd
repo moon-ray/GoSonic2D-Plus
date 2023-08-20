@@ -73,11 +73,12 @@ func _ready():
 	initialize_skin()
 
 func _physics_process(delta):
-	ground_angle = 0
 	score_manager.extra_life(self)
 	if score_manager.time_limit_over():
 		if !state_machine.current_state == "Dead":
 			state_machine.change_state("Dead")
+	if Input.is_action_just_pressed("player_debug"):
+		state_machine.change_state("Dead")
 	handle_input()
 	handle_control_lock(delta)
 	handle_state_update(delta)
@@ -112,6 +113,7 @@ func initialize_state_machine():
 func initialize_skin():
 	remove_child(skin)
 	get_tree().root.call_deferred("add_child", skin)
+	get_tree().root.call_deferred("queue_free", skin)
 
 func get_position():
 	var y_offset = transform.y * current_bounds.offset.y
