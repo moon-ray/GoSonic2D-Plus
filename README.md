@@ -6,7 +6,7 @@ This is based on marimitoTH's [GoSonic2D](https://github.com/marmitoTH/GoSonic2D
 
 This framework is being worked on Godot version 3.5.1.
 
-It has some compatibility issues with 4.0 that I can't be bothered to fix for now.
+It not compatible with Godot version 4 and up.
 
 ## Added features so far:
 
