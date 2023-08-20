@@ -24,13 +24,14 @@ It has some compatibility issues with 4.0 that I can't be bothered to fix for no
 * Lightning shield has particles now
 * Sonic can now do his pushing animation
 * Sonic now has a full idle animation from Sonic 3
-* Sonic can now die if he touches the bottom of the camera 
+* Sonic can now die if he touches the bottom of the camera
+* Game Overs are now implemented (after the game over sequence it just restarts the main scene and all the score)
+* Time Overs are now implemented
 * Sonic will also now respawn if he dies.
-* When Sonic runs out of lives, the game will now exit.
 
 ## Notes:
 
 * Sonic can only balance at a maximum ground angle of 3
 * In the debug screen, "lifes_gained" is one more than how much lives you gained with rings.
-* Sonic's dying routine is still a heavy work in progress. It seems to work for the most part.
 * Thank you [Sonic Physics Guide](https://info.sonicretro.org/Sonic_Physics_Guide), for helping me implement most of these features.
+* Credits to raphaklaus for the [fading shader](https://github.com/raphaklaus/sonic-palette-fade) used for fading transitions
