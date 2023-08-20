@@ -60,10 +60,8 @@ var __is_grounded : bool
 
 var delay_cam = false
 
-const drpspd = 480
-const drpmax = 720
-const drpspdsup = 720
-const drpmaxsup = 780
+var colliding = true
+
 
 onready var dash_dust = $Skin/SpinDashDust
 
@@ -75,7 +73,11 @@ func _ready():
 	initialize_skin()
 
 func _physics_process(delta):
+	ground_angle = 0
 	score_manager.extra_life(self)
+	if score_manager.time_limit_over():
+		if !state_machine.current_state == "Dead":
+			state_machine.change_state("Dead")
 	handle_input()
 	handle_control_lock(delta)
 	handle_state_update(delta)
@@ -83,6 +85,7 @@ func _physics_process(delta):
 	handle_limits()
 	handle_state_animation(delta)
 	handle_skin(delta)
+	
 	
 	# Crappy way of uncrouching but it works
 	
@@ -94,11 +97,10 @@ func initialize_collider():
 	collider_shape = RectangleShape2D.new()
 	collider = Area2D.new()
 	collision.shape = collider_shape
-	collision.pause_mode = Node.PAUSE_MODE_PROCESS
 	collider.add_child(collision)
-	collider.pause_mode = Node.PAUSE_MODE_PROCESS
 	add_child(collider)
-
+	collider.set_name("Collider")
+	collision.set_name("Collision")
 func initialize_resources():
 	world = get_world_2d()
 	set_bounds(0)
@@ -180,68 +182,71 @@ func handle_skin(delta):
 		skin.rotation_degrees = 0
 
 func handle_wall_collision():
-	var ray_size = current_bounds.width_radius + current_bounds.push_radius
-	var origin = global_position + transform.y * current_bounds.push_height_offset if __is_grounded and absolute_ground_angle < 10 else global_position
-	var right_ray = GoPhysics.cast_ray(world, origin, transform.x, ray_size, [self], wall_layer)
-	var left_ray = GoPhysics.cast_ray(world, origin, -transform.x, ray_size, [self], wall_layer)
+	if colliding == true:
+		var ray_size = current_bounds.width_radius + current_bounds.push_radius
+		var origin = global_position + transform.y * current_bounds.push_height_offset if __is_grounded and absolute_ground_angle < 10 else global_position
+		var right_ray = GoPhysics.cast_ray(world, origin, transform.x, ray_size, [self], wall_layer)
+		var left_ray = GoPhysics.cast_ray(world, origin, -transform.x, ray_size, [self], wall_layer)
 
-	if right_ray or left_ray:
-		if right_ray:
-			handle_contact(right_ray.collider, "player_right_wall_collision")
+		if right_ray or left_ray:
+			if right_ray:
+				handle_contact(right_ray.collider, "player_right_wall_collision")
+				
+				if not right_ray.collider is SolidObject or right_ray.collider.is_enabled():
+					velocity.x = min(velocity.x, 0)
+					position -= transform.x * (right_ray.penetration + GoPhysics.EPSILON)
 			
-			if not right_ray.collider is SolidObject or right_ray.collider.is_enabled():
-				velocity.x = min(velocity.x, 0)
-				position -= transform.x * (right_ray.penetration + GoPhysics.EPSILON)
-		
-		if left_ray:
-			handle_contact(left_ray.collider, "player_left_wall_collision")
-			
-			if not left_ray.collider is SolidObject or left_ray.collider.is_enabled():
-				velocity.x = max(velocity.x, 0)
-				position += transform.x * (left_ray.penetration + GoPhysics.EPSILON)
+			if left_ray:
+				handle_contact(left_ray.collider, "player_left_wall_collision")
+				
+				if not left_ray.collider is SolidObject or left_ray.collider.is_enabled():
+					velocity.x = max(velocity.x, 0)
+					position += transform.x * (left_ray.penetration + GoPhysics.EPSILON)
 
 func handle_ceiling_collision():
-	var ray_size = current_bounds.height_radius
-	var ray_offset = transform.x * current_bounds.width_radius
-	var hits = GoPhysics.cast_parallel_rays(world, global_position, ray_offset, -transform.y, ray_size, [self], ceiling_layer)
-	
-	if hits and velocity.y <= 0:
-		handle_contact(hits.closest_hit.collider, "player_ceiling_collision")
+	if colliding == true:
+		var ray_size = current_bounds.height_radius
+		var ray_offset = transform.x * current_bounds.width_radius
+		var hits = GoPhysics.cast_parallel_rays(world, global_position, ray_offset, -transform.y, ray_size, [self], ceiling_layer)
 		
-		if not __is_grounded and (not hits.closest_hit.collider is SolidObject or hits.closest_hit.collider.is_enabled()):
-			var ceiling_normal = hits.closest_hit.normal
-			var ceiling_angle = GoUtils.get_angle_from(ceiling_normal)
+		if hits and velocity.y <= 0:
+			handle_contact(hits.closest_hit.collider, "player_ceiling_collision")
+			
+			if not __is_grounded and (not hits.closest_hit.collider is SolidObject or hits.closest_hit.collider.is_enabled()):
+				var ceiling_normal = hits.closest_hit.normal
+				var ceiling_angle = GoUtils.get_angle_from(ceiling_normal)
 
-			if abs(ceiling_angle) < 135:
-				set_ground_data(ceiling_normal)
-				rotate_to(ceiling_angle)
-				enter_ground(hits.closest_hit)
-			else:
-				velocity.y = 0
-		
-			position += transform.y * hits.closest_hit.penetration
+				if abs(ceiling_angle) < 135:
+					set_ground_data(ceiling_normal)
+					rotate_to(ceiling_angle)
+					enter_ground(hits.closest_hit)
+				else:
+					velocity.y = 0
+			
+				position += transform.y * hits.closest_hit.penetration
 
 func handle_ground_collision():
-	var ray_offset = transform.x * current_bounds.width_radius
-	var ray_size = current_bounds.height_radius + current_bounds.ground_extension if __is_grounded else current_bounds.height_radius
-	var hits = GoPhysics.cast_parallel_rays(world, global_position, ray_offset, transform.y, ray_size, [self], ground_layer)
+	if colliding == true:
+		var ray_offset = transform.x * current_bounds.width_radius
+		var ray_size = current_bounds.height_radius + current_bounds.ground_extension if __is_grounded else current_bounds.height_radius
+		var hits = GoPhysics.cast_parallel_rays(world, global_position, ray_offset, transform.y, ray_size, [self], ground_layer)
 
-	if hits and velocity.y >= 0:
-		handle_contact(hits.closest_hit.collider, "player_ground_collision")
-		
-		if not hits.closest_hit.collider is SolidObject or hits.closest_hit.collider.is_enabled():
-			if not __is_grounded and velocity.y >= 0:
-				set_ground_data(hits.closest_hit.normal)
-				rotate_to(ground_angle)
-				position -= transform.y * hits.closest_hit.penetration
-				enter_ground(hits.closest_hit)
-			elif hits.left_hit or hits.right_hit:
-				var safe_distance = hits.closest_hit.penetration - current_bounds.ground_extension
-				set_ground_data(hits.closest_hit.normal)
-				rotate_to(ground_angle)
-				position -= transform.y * safe_distance
-	else:
-		exit_ground()
+		if hits and velocity.y >= 0:
+			handle_contact(hits.closest_hit.collider, "player_ground_collision")
+			
+			if not hits.closest_hit.collider is SolidObject or hits.closest_hit.collider.is_enabled():
+				if not __is_grounded and velocity.y >= 0:
+					set_ground_data(hits.closest_hit.normal)
+					rotate_to(ground_angle)
+					position -= transform.y * hits.closest_hit.penetration
+					enter_ground(hits.closest_hit)
+				elif hits.left_hit or hits.right_hit:
+					var safe_distance = hits.closest_hit.penetration - current_bounds.ground_extension
+					set_ground_data(hits.closest_hit.normal)
+					rotate_to(ground_angle)
+					position -= transform.y * safe_distance
+		else:
+			exit_ground()
 
 func handle_contact(static_body: StaticBody2D, signal_name: String):
 	if static_body is SolidObject:
@@ -254,9 +259,12 @@ func handle_platform(platform_collider: StaticBody2D):
 		reparent(initial_parent)
 
 func apply_motion(desired_velocity: Vector2, delta: float):
-	if __is_grounded:
-		var global_velocity = GoUtils.ground_to_global_velocity(desired_velocity, ground_normal)
-		position += global_velocity * delta
+	if colliding:
+		if __is_grounded:
+			var global_velocity = GoUtils.ground_to_global_velocity(desired_velocity, ground_normal)
+			position += global_velocity * delta
+		else:
+			position += desired_velocity * delta
 	else:
 		position += desired_velocity * delta
 
@@ -366,20 +374,22 @@ func reparent(new_parent: Node):
 		global_transform = old_transform
 
 func enter_ground(ground_data: Dictionary):
-	if not __is_grounded:
-		is_jumping = false
-		is_rolling = false
-		__is_grounded = true
-		velocity = GoUtils.global_to_ground_velocity(velocity, ground_normal)
-		handle_platform(ground_data.collider)
-		emit_signal("ground_enter")
+	if colliding:
+		if not __is_grounded:
+			is_jumping = false
+			is_rolling = false
+			__is_grounded = true
+			velocity = GoUtils.global_to_ground_velocity(velocity, ground_normal)
+			handle_platform(ground_data.collider)
+			emit_signal("ground_enter")
 
 func exit_ground():
-	if __is_grounded:
-		__is_grounded = false
-		reparent(initial_parent)
-		velocity = GoUtils.ground_to_global_velocity(velocity, ground_normal)
-		rotate_to(0)
+	if colliding:
+		if __is_grounded:
+			__is_grounded = false
+			reparent(initial_parent)
+			velocity = GoUtils.ground_to_global_velocity(velocity, ground_normal)
+			rotate_to(0)
 
 #func _draw():
 #	var ground_ray_size = current_bounds.height_radius + current_bounds.ground_extension if is_grounded else current_bounds.height_radius

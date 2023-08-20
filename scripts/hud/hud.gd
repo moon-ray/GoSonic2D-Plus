@@ -33,8 +33,13 @@ func connect_signals():
 
 func initialize_labels():
 	score_label.text = str(score_manager.score)
+	if sign(score_manager.lifes) == -1:
+		lifes_label.text = str("25%s"%score_manager.lifes)
+		print("neg")
+	else:
+		lifes_label.text = str(score_manager.lifes)
+		print("pos")
 	rings_label.text = str(score_manager.rings)
-	lifes_label.text = str(score_manager.lifes)
 
 func on_score_added(score: int):
 	score_label.text = str(score)

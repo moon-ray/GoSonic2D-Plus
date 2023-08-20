@@ -2,7 +2,7 @@ extends Node
 
 var score = 0
 var rings = 0
-var lifes = 3
+var lifes = 1
 
 var time: float
 var time_stoped: bool
@@ -70,3 +70,8 @@ func reset_score(reset_score, reset_time, reset_rings):
 		time = 0
 	lifes_added = 1
 	
+func time_limit_over():
+	if time_stoped == true:
+		return true
+	else:
+		return false

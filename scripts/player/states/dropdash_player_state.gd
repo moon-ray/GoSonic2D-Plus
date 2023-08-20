@@ -7,10 +7,10 @@ var dropdash_dust = preload("res://objects/particles/DropDashDust.tscn")
 func enter(host: Player):
 	pass
 func step(host, delta):
-	var drpspd = host.drpspd
-	var drpmax = host.drpmax
-	var drpspdsup = host.drpspdsup
-	var drpmaxsup = host.drpmaxsup
+	var drpspd = host.current_stats.drpspd
+	var drpmax = host.current_stats.drpmax
+	var drpspdsup = host.current_stats.drpspdsup
+	var drpmaxsup = host.current_stats.drpmaxsup
 	
 	# This if statement is to check if the player is facing backwards.
 	# (If you are facing right but you are moving left)

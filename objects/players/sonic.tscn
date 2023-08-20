@@ -75,6 +75,10 @@ slide_angle = 45.0
 fall_angle = 80.0
 min_speed_to_fall = 150.0
 control_lock_duration = 0.5
+drpspd = 480.0
+drpmax = 720.0
+drpspdsup = 720.0
+drpmaxsup = 780.0
 
 [sub_resource type="Animation" id=47]
 length = 0.001
@@ -529,83 +533,110 @@ stats = [ SubResource( 3 ) ]
 ground_layer = 3
 
 [node name="StateMachine" type="Node2D" parent="."]
+pause_mode = 2
 script = ExtResource( 7 )
 
 [node name="Regular" type="Node2D" parent="StateMachine"]
+pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="Rolling" type="Node2D" parent="StateMachine"]
+pause_mode = 2
 position = Vector2( -212, -716 )
 script = ExtResource( 1 )
 
 [node name="Braking" type="Node2D" parent="StateMachine"]
+pause_mode = 2
 position = Vector2( -212, -716 )
 script = ExtResource( 4 )
 
 [node name="Air" type="Node2D" parent="StateMachine"]
+pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="DropDashTimer" type="Timer" parent="StateMachine/Air"]
 wait_time = 0.333
 
 [node name="Spring" type="Node2D" parent="StateMachine"]
+pause_mode = 2
 script = ExtResource( 11 )
 
 [node name="SpinDash" type="Node2D" parent="StateMachine"]
+pause_mode = 2
 script = ExtResource( 21 )
 
 [node name="SuperPeelOut" type="Node2D" parent="StateMachine"]
+pause_mode = 2
 script = ExtResource( 25 )
 
 [node name="DropDash" type="Node2D" parent="StateMachine"]
+pause_mode = 2
 script = ExtResource( 29 )
 
 [node name="Dead" type="Node2D" parent="StateMachine"]
+pause_mode = 2
 script = ExtResource( 32 )
 
 [node name="Shields" type="Node2D" parent="."]
+pause_mode = 2
 script = ExtResource( 17 )
 
 [node name="InstaShield" parent="Shields" instance=ExtResource( 16 )]
+pause_mode = 2
 
 [node name="BlueShield" parent="Shields" instance=ExtResource( 18 )]
+pause_mode = 2
 
 [node name="ThunderShield" parent="Shields" instance=ExtResource( 19 )]
+pause_mode = 2
 
 [node name="FlameShield" parent="Shields" instance=ExtResource( 20 )]
+pause_mode = 2
 
 [node name="None" type="Node2D" parent="Shields"]
+pause_mode = 2
 script = ExtResource( 22 )
 
 [node name="Audios" type="Node2D" parent="."]
+pause_mode = 2
 script = ExtResource( 12 )
 
 [node name="JumpAudio" parent="Audios" instance=ExtResource( 15 )]
+pause_mode = 2
 
 [node name="BrakeAudio" parent="Audios" instance=ExtResource( 14 )]
+pause_mode = 2
 
 [node name="SpinAudio" parent="Audios" instance=ExtResource( 13 )]
+pause_mode = 2
 
 [node name="SpinDashCharge" type="AudioStreamPlayer" parent="Audios"]
+pause_mode = 2
 stream = ExtResource( 23 )
 
 [node name="SpinDashRelease" type="AudioStreamPlayer" parent="Audios"]
+pause_mode = 2
 stream = ExtResource( 24 )
 volume_db = 5.0
 
 [node name="PeeloutCharge" type="AudioStreamPlayer" parent="Audios"]
+pause_mode = 2
 stream = ExtResource( 26 )
 
 [node name="PeeloutRelease" type="AudioStreamPlayer" parent="Audios"]
+pause_mode = 2
 stream = ExtResource( 27 )
 
 [node name="DropDash" type="AudioStreamPlayer" parent="Audios"]
+pause_mode = 2
 stream = ExtResource( 30 )
 
 [node name="Yes" type="AudioStreamPlayer" parent="Audios"]
+pause_mode = 2
 stream = ExtResource( 31 )
 
 [node name="Hurt" type="AudioStreamPlayer" parent="Audios"]
+pause_mode = 2
 stream = ExtResource( 33 )
 
 [node name="Skin" type="Sprite" parent="."]
@@ -646,20 +677,26 @@ parameters/speed/scale = 1.0
 parameters/state/current = 0
 
 [node name="SpinDashDust" type="AnimatedSprite" parent="Skin"]
+pause_mode = 2
 visible = false
 position = Vector2( -16, 9 )
 frames = SubResource( 36 )
+frame = 6
 playing = true
 
 [node name="DropDustSpawn" type="Position2D" parent="Skin"]
+pause_mode = 2
 position = Vector2( -8, 3 )
 
 [node name="idle_timer" type="Timer" parent="Skin"]
+pause_mode = 2
 wait_time = 3.5
 
 [node name="LedgeCheckers" type="Node2D" parent="."]
+pause_mode = 2
 
 [node name="LeftChecker" type="RayCast2D" parent="LedgeCheckers"]
+pause_mode = 2
 modulate = Color( 0.592157, 1, 0, 1 )
 position = Vector2( -9, 2 )
 enabled = true
@@ -667,6 +704,7 @@ cast_to = Vector2( 0, 20 )
 collision_mask = 15
 
 [node name="MidChecker" type="RayCast2D" parent="LedgeCheckers"]
+pause_mode = 2
 modulate = Color( 0.85098, 0, 1, 1 )
 position = Vector2( 0, 2 )
 enabled = true
@@ -674,6 +712,7 @@ cast_to = Vector2( 0, 20 )
 collision_mask = 15
 
 [node name="MidRightChecker" type="RayCast2D" parent="LedgeCheckers"]
+pause_mode = 2
 modulate = Color( 0.85098, 0, 1, 1 )
 position = Vector2( 5, 2 )
 enabled = true
@@ -681,6 +720,7 @@ cast_to = Vector2( 0, 20 )
 collision_mask = 15
 
 [node name="MidLeftChecker" type="RayCast2D" parent="LedgeCheckers"]
+pause_mode = 2
 modulate = Color( 0.85098, 0, 1, 1 )
 position = Vector2( -5, 2 )
 enabled = true
@@ -688,6 +728,7 @@ cast_to = Vector2( 0, 20 )
 collision_mask = 15
 
 [node name="RightChecker" type="RayCast2D" parent="LedgeCheckers"]
+pause_mode = 2
 modulate = Color( 0.592157, 1, 0, 1 )
 position = Vector2( 9, 2 )
 enabled = true
@@ -695,14 +736,17 @@ cast_to = Vector2( 0, 20 )
 collision_mask = 15
 
 [node name="PushCheckers" type="Node2D" parent="."]
+pause_mode = 2
 
 [node name="Right" type="RayCast2D" parent="PushCheckers"]
+pause_mode = 2
 position = Vector2( 7, 0 )
 rotation = -1.5708
 enabled = true
 cast_to = Vector2( -2.38419e-07, 5 )
 
 [node name="Left" type="RayCast2D" parent="PushCheckers"]
+pause_mode = 2
 position = Vector2( -7, 0 )
 rotation = 1.5708
 enabled = true

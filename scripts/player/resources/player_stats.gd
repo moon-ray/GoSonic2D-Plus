@@ -26,3 +26,8 @@ export(float) var slide_angle = 45
 export(float) var fall_angle = 80
 export(float) var min_speed_to_fall = 150
 export(float) var control_lock_duration = 0.5
+
+export(float) var drpspd = 480
+export(float) var drpmax = 720
+export(float) var drpspdsup = 720
+export(float) var drpmaxsup = 780

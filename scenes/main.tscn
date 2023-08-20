@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://objects/players/sonic.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/hud/HUD.tscn" type="PackedScene" id=2]
@@ -18,8 +18,11 @@
 [ext_resource path="res://objects/springs/yellow_spring_left.tscn" type="PackedScene" id=16]
 [ext_resource path="res://objects/monitors/LifeMonitor.tscn" type="PackedScene" id=17]
 [ext_resource path="res://objects/monitors/ShieldMonitor.tscn" type="PackedScene" id=18]
-[ext_resource path="res://scripts/player/player_death_checker.gd" type="Script" id=19]
+[ext_resource path="res://objects/players/death_handler.tscn" type="PackedScene" id=19]
 [ext_resource path="res://objects/springs/yellow_spring_right.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scripts/managers/fade_manager.gd" type="Script" id=21]
+[ext_resource path="res://sprites/zones/isolated_island/placeholder..png" type="Texture" id=22]
+[ext_resource path="res://shaders/shader.tres" type="Shader" id=23]
 
 [sub_resource type="TileSet" id=1]
 0/name = "isolated_island_details.png 0"
@@ -541,13 +544,89 @@
 36/shapes = [  ]
 36/z_index = 0
 
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Background/Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Fader/ColorRect:material:shader_param/frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fade_in"
+length = 100.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fader/ColorRect:material:shader_param/frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 2.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "fade_out"
+length = 100.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fader/ColorRect:material:shader_param/frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 2.0 ]
+}
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 23 )
+shader_param/frame = 2.0
+
 [node name="Zone" type="Node2D"]
 script = ExtResource( 6 )
 player_resource = ExtResource( 1 )
 camera_resource = ExtResource( 8 )
+death_handler_resource = ExtResource( 19 )
 
 [node name="StartPoint" type="Node2D" parent="."]
-position = Vector2( 232, 704 )
+position = Vector2( 232, 711 )
 
 [node name="ZoneMusic" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
@@ -565,7 +644,7 @@ zone_path = NodePath("../..")
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( 655430, 1, 0, 655434, 536870913, 0, 786502, 25, 0, 786506, 536870937, 0, 786522, 536870913, 0, 786526, 536870913, 0, 917594, 536870938, 0, 917598, 536870937, 0, 1048633, 1, 0, 1048637, 536870915, 0, 1114165, 12, 0, 1114177, 536870915, 0, 1179705, 536870920, 0, 1179710, 1, 0, 1179717, 536870912, 0, 1179726, 1, 0, 1179730, 536870915, 0, 1245241, 16, 0, 1245244, 16, 0, 1245245, 17, 0, 1245254, 536870934, 0, 1245258, 536870932, 0, 1245270, 536870915, 0, 1310768, 0, 0, 1310769, 1, 0, 1310773, 1, 0, 1310777, 9, 0, 1310778, 8, 0, 1310782, 8, 0, 1310786, 10, 0, 1310790, 14, 0, 1310794, 16, 0, 1310798, 10, 0, 1310818, 536870915, 0, 1376292, 3, 0, 1376296, 1, 0, 1376300, 1, 0, 1376338, 16, 0, 1376346, 536870934, 0, 1376350, 536870932, 0, 1376358, 536870915, 0, 1441792, 5, 0, 1441796, 1, 0, 1441800, 1, 0, 1441804, 1, 0, 1441808, 1, 0, 1441812, 1, 0, 1441816, 1, 0, 1441820, 5, 0, 1441824, 1, 0, 1441840, 9, 0, 1441841, 10, 0, 1441845, 8, 0, 1441878, 14, 0, 1441882, 16, 0, 1441886, 14, 0, 1441898, 536870912, 0, 1441908, 536870913, 0, 1441911, 536870915, 0, 1441951, 0, 0, 1441952, 1, 0, 1441956, 1, 0, 1441960, 1, 0, 1507368, 8, 0, 1507372, 8, 0, 1507426, 8, 0, 1507451, 536870915, 0, 1507483, 12, 0, 1572864, 8, 0, 1572868, 10, 0, 1572872, 8, 0, 1572876, 8, 0, 1572880, 11, 0, 1572884, 8, 0, 1572888, 8, 0, 1572892, 8, 0, 1572896, 10, 0, 1572900, 14, 0, 1572921, 13, 0, 1572922, 14, 0, 1572926, 16, 0, 1572930, 14, 0, 1572966, 536870920, 0, 1572970, 536870919, 0, 1572971, 536870914, 0, 1572972, 536870913, 0, 1572976, 536870913, 0, 1572980, 536870920, 0, 1572991, 536870917, 0, 1572992, 536870913, 0, 1572996, 536870913, 0, 1573000, 536870912, 0, 1573023, 7, 0, 1573024, 536870923, 0, 1573028, 536870920, 0, 1573032, 536870920, 0, 1638516, 536870920, 0, 1638518, 536870920, 0, 1704043, 536870919, 0, 1704044, 536870920, 0, 1704048, 536870922, 0, 1704052, 536870920, 0, 1704056, 536870920, 0, 1704060, 536870923, 0, 1704064, 536870920, 0, 1704068, 536870920, 0, 1704072, 536870919, 0, 1704073, 536870914, 0, 1704074, 536870913, 0, 1704078, 536870913, 0, 1704082, 536870913, 0, 1704086, 536870913, 0, 1704090, 536870913, 0, 1704094, 536870912, 0, 1835110, 536870926, 0, 1835114, 536870925, 0, 1835145, 7, 0, 1835146, 10, 0, 1835150, 8, 0, 1835154, 4, 0, 1835158, 8, 0, 1835162, 11, 0, 1835166, 536870919, 0, 1835167, 536870925, 0, 1835168, 536870926, 0, 1835172, 536870926, 0, 1835176, 536870926, 0, 1900690, 14, 0, 1966187, 536870925, 0, 1966204, 536870926, 0, 1966208, 536870928, 0, 1966212, 536870926, 0, 1966216, 536870925, 0, 2097289, 13, 0, 2097290, 14, 0, 2097294, 16, 0, 2097302, 14, 0, 2097306, 16, 0, 2097310, 13, 0 )
+tile_data = PoolIntArray( 655430, 1, 0, 655434, 536870913, 0, 786502, 25, 0, 786506, 536870937, 0, 786522, 536870913, 0, 786526, 536870913, 0, 917594, 536870938, 0, 917598, 536870937, 0, 1048633, 1, 0, 1048637, 536870915, 0, 1114165, 12, 0, 1114177, 536870915, 0, 1179705, 536870920, 0, 1179710, 1, 0, 1179717, 536870912, 0, 1179726, 1, 0, 1179730, 536870915, 0, 1245241, 16, 0, 1245244, 16, 0, 1245245, 17, 0, 1245254, 536870934, 0, 1245258, 536870932, 0, 1245270, 536870915, 0, 1310768, 0, 0, 1310769, 1, 0, 1310773, 1, 0, 1310777, 9, 0, 1310778, 8, 0, 1310782, 8, 0, 1310786, 10, 0, 1310790, 14, 0, 1310794, 16, 0, 1310798, 10, 0, 1310818, 536870915, 0, 1376292, 3, 0, 1376296, 1, 0, 1376300, 1, 0, 1376338, 16, 0, 1376346, 536870934, 0, 1376350, 536870932, 0, 1376358, 536870915, 0, 1441796, 1, 0, 1441800, 1, 0, 1441804, 1, 0, 1441808, 1, 0, 1441812, 1, 0, 1441816, 1, 0, 1441820, 5, 0, 1441824, 1, 0, 1441840, 9, 0, 1441841, 10, 0, 1441845, 8, 0, 1441878, 14, 0, 1441882, 16, 0, 1441886, 14, 0, 1441898, 536870912, 0, 1441908, 536870913, 0, 1441911, 536870915, 0, 1441951, 0, 0, 1441952, 1, 0, 1441956, 1, 0, 1441960, 1, 0, 1507368, 8, 0, 1507372, 8, 0, 1507426, 8, 0, 1507451, 536870915, 0, 1507483, 12, 0, 1572868, 10, 0, 1572872, 8, 0, 1572876, 8, 0, 1572880, 11, 0, 1572884, 8, 0, 1572888, 8, 0, 1572892, 8, 0, 1572896, 10, 0, 1572900, 14, 0, 1572921, 13, 0, 1572922, 14, 0, 1572926, 16, 0, 1572930, 14, 0, 1572966, 536870920, 0, 1572970, 536870919, 0, 1572971, 536870914, 0, 1572972, 536870913, 0, 1572976, 536870913, 0, 1572980, 536870920, 0, 1572991, 536870917, 0, 1572992, 536870913, 0, 1572996, 536870913, 0, 1573000, 536870912, 0, 1573023, 7, 0, 1573024, 536870923, 0, 1573028, 536870920, 0, 1573032, 536870920, 0, 1638516, 536870920, 0, 1638518, 536870920, 0, 1704043, 536870919, 0, 1704044, 536870920, 0, 1704048, 536870922, 0, 1704052, 536870920, 0, 1704056, 536870920, 0, 1704060, 536870923, 0, 1704064, 536870920, 0, 1704068, 536870920, 0, 1704072, 536870919, 0, 1704073, 536870914, 0, 1704074, 536870913, 0, 1704078, 536870913, 0, 1704082, 536870913, 0, 1704086, 536870913, 0, 1704090, 536870913, 0, 1704094, 536870912, 0, 1835110, 536870926, 0, 1835114, 536870925, 0, 1835145, 7, 0, 1835146, 10, 0, 1835150, 8, 0, 1835154, 4, 0, 1835158, 8, 0, 1835162, 11, 0, 1835166, 536870919, 0, 1835167, 536870925, 0, 1835168, 536870926, 0, 1835172, 536870926, 0, 1835176, 536870926, 0, 1900690, 14, 0, 1966187, 536870925, 0, 1966204, 536870926, 0, 1966208, 536870928, 0, 1966212, 536870926, 0, 1966216, 536870925, 0, 2097289, 13, 0, 2097290, 14, 0, 2097294, 16, 0, 2097302, 14, 0, 2097306, 16, 0, 2097310, 13, 0 )
 
 [node name="OneWayTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 4 )
@@ -587,7 +666,7 @@ tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 8
 format = 1
-tile_data = PoolIntArray( 983110, 23, 0, 1114202, 536870936, 0 )
+tile_data = PoolIntArray( 983110, 23, 0, 1114202, 536870936, 0, 1441792, 1, 0, 1572864, 8, 0, 1572865, 8, 0 )
 
 [node name="BackgroundTiles" type="TileMap" parent="."]
 z_index = -1
@@ -1039,18 +1118,34 @@ position = Vector2( 2987, 470 )
 [node name="UpperTileActivatorSmall2" parent="." instance=ExtResource( 15 )]
 position = Vector2( 3021, 469 )
 
-[node name="DeathChecker" type="Node2D" parent="."]
-pause_mode = 2
-script = ExtResource( 19 )
-
-[node name="restart_time" type="Timer" parent="DeathChecker"]
-pause_mode = 2
-wait_time = 2.0
-
 [node name="YellowSpringRight" parent="." instance=ExtResource( 20 )]
 position = Vector2( 16, 722 )
 
 [node name="YellowSpringLeft2" parent="." instance=ExtResource( 16 )]
 position = Vector2( 3696, 785 )
 
-[connection signal="timeout" from="DeathChecker/restart_time" to="DeathChecker" method="_on_restart_time_timeout"]
+[node name="FadeManager" type="Node2D" parent="."]
+pause_mode = 2
+script = ExtResource( 21 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FadeManager"]
+anims/RESET = SubResource( 2 )
+anims/fade_in = SubResource( 3 )
+anims/fade_out = SubResource( 6 )
+
+[node name="Fader" type="CanvasLayer" parent="FadeManager"]
+layer = 100
+
+[node name="ColorRect" type="ColorRect" parent="FadeManager/Fader"]
+material = SubResource( 7 )
+margin_left = -7.0
+margin_top = -10.0
+margin_right = 430.0
+margin_bottom = 248.0
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -7
+
+[node name="Sprite" type="Sprite" parent="Background"]
+position = Vector2( 221, 252 )
+texture = ExtResource( 22 )

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/player/player_death_checker.gd" type="Script" id=1]
+[ext_resource path="res://audios/musics/game_over_1-2.wav" type="AudioStream" id=2]
+
+[node name="DeathChecker" type="Node2D"]
+pause_mode = 2
+script = ExtResource( 1 )
+game_over = ExtResource( 2 )

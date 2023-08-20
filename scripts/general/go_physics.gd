@@ -5,6 +5,7 @@ class_name GoPhysics
 const EPSILON = 0.001
 const MAX_RAY_ORIGIN_OVERLAPS = 1
 
+
 static func cast_ray(world: World2D, origin: Vector2, direction: Vector2, length: float, exclude: Array = [], layer: int = 1) -> Dictionary:
 	var destination = origin + direction * length
 	var space_state = world.direct_space_state
