@@ -25,6 +25,8 @@ It not compatible with Godot version 4 and up.
 * Sonic can now do his pushing animation
 * Sonic now has a full idle animation from Sonic 3
 * Sonic can now die if he touches the bottom of the camera
+* Sonic can now lose rings from damage and will die if none.
+* The camera now pans if you look up and down.
 * Game Overs are now implemented (after the game over sequence it just restarts the main scene and all the score)
 * Time Overs are now implemented
 * Sonic will also now respawn if he dies.
@@ -32,7 +34,8 @@ It not compatible with Godot version 4 and up.
 
 ## Notes:
 
-* You can kill Sonic by pressing the Tilde key (~)
+* You can make Sonic take damage as if there were spikes by pressing the Tilde key (~)
+* Bubble Shield is not exactly accurate to games, since I couldn't translate it to Godot that well.
 * Sonic can only balance at a maximum ground angle of 3
 * In the debug screen, "lifes_gained" is one more than how much lives you gained with rings.
 * Thank you [Sonic Physics Guide](https://info.sonicretro.org/Sonic_Physics_Guide), for helping me implement most of these features.

@@ -2,27 +2,29 @@ extends Camera2D
 
 class_name PlayerCamera
 
-export(float) var high_velocity_speed = 960
-export(float) var low_velocity_speed = 360
-export(float) var high_velocity_xsp = 480
-export(float) var right_margin = 0
-export(float) var left_margin = -16
-export(float) var top_margin = -32
-export(float) var bottom_margin = 32
+export(float) var high_velocity_speed = 960.00
+export(float) var low_velocity_speed = 360.00
+export(float) var high_velocity_xsp = 480.00
+export(float) var right_margin = 0.00
+export(float) var left_margin = -16.00
+export(float) var top_margin = -32.00
+export(float) var bottom_margin = 32.00
 
 var player: Player
 
 var delay_timer: float = 0
 var is_delaying: bool = false
-var delay_duration: float = 0.2
+var delay_duration: float = 0.26666666666
 var original_target_position: Vector2
+var scrolled_up = false
+var scrolled_down = false
 
-
+var stop_scroll = ""
 
 func _ready():
 	initialize_camera()
 
-func _physics_process(delta):	
+func _physics_process(delta):
 	if delay_timer > 0:
 		delay_timer -= delta
 		if delay_timer <= 0:
@@ -34,10 +36,54 @@ func _physics_process(delta):
 	if player.delay_cam == true:
 		player.delay_cam = false
 		start_camera_delay()
-
+		
+	if player.is_looking_up:
+		if stop_scroll == "back":
+			yield(get_tree().create_timer(2), "timeout")
+		if player.is_looking_up:
+			if !stop_scroll == "up":
+				scroll("up")
+	elif player.is_looking_down:
+		if stop_scroll == "back":
+			yield(get_tree().create_timer(2), "timeout")
+		if player.is_looking_down: # may look dumb, but its to check if player is still looking down.
+			if !stop_scroll == "down":
+				scroll("down")
+		
+	else:
+		if !stop_scroll == "back":
+			scroll("back")
 func initialize_camera():
 	current = true
 
+func scroll(direction: String):
+	stop_scroll = direction
+
+	# Determine the target offset based on the direction
+	var target_offset = Vector2()
+	if direction == "up":
+		target_offset.y = -104
+		scrolled_up = true
+		scrolled_down = false
+	elif direction == "down":
+		target_offset.y = 88
+		scrolled_up = false
+		scrolled_down = true
+
+	# Scroll towards the target offset
+	while offset.y != target_offset.y:
+		var step = 2 * sign(target_offset.y - offset.y)
+		offset.y += step
+		yield(get_tree().create_timer(0.01), "timeout")
+
+	# Check if scrolling needs to be stopped
+		if stop_scroll != direction:
+			break
+
+	# Reset scrolled flags
+	scrolled_up = false
+	scrolled_down = false
+	
 func set_player(desired_player: Player):
 	player = desired_player
 	position = player.global_position
@@ -79,11 +125,6 @@ func handle_vertical_borders(delta: float):
 func start_camera_delay():
     delay_timer = delay_duration
     original_target_position = player.get_position()
-	
-func halt_forever():
-	delay_duration = 9223372036854775807
-	start_camera_delay()
-
 #func _draw():
 #	var right = Vector2.RIGHT * right_margin
 #	var left = Vector2.RIGHT * left_margin
@@ -97,10 +138,7 @@ func halt_forever():
 #	draw_line(bottom_left, bottom_right, Color.white)
 #	draw_line(right, left, Color.green)
 
-
 func _on_area_entered(area):
 	if area.get_parent() is Player:
-		halt_forever()
-		var player = area.get_parent()
 		if !player.state_machine.current_state == "Dead":
 			player.state_machine.change_state("Dead")

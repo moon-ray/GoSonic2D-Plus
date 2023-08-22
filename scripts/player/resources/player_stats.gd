@@ -31,3 +31,7 @@ export(float) var drpspd = 480
 export(float) var drpmax = 720
 export(float) var drpspdsup = 720
 export(float) var drpmaxsup = 780
+
+export(float) var hurt_x_force = 120
+export(float) var hurt_y_force = -240
+export(float) var hurt_gravity_force = 11.25

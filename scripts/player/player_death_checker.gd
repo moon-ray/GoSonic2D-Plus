@@ -38,6 +38,7 @@ func _process(delta):
 
 func _handle_death():
 	if !routined:
+		player.pause_mode = PAUSE_MODE_PROCESS
 		get_tree().paused = true
 		
 		ScoreManager.lifes -= 1 # subtract lives to ensure proper calculations
@@ -49,7 +50,7 @@ func _handle_death():
 		routined = true # just to prevent it from running over and over again
 		ScoreManager.time_stoped = true
 		
-		while player.skin.is_visible(): # Waits until player is off screen
+		while !player.skin.off_screen: # Waits until player is off screen
 			yield(get_tree().create_timer(0.1), "timeout")
 		
 		yield(get_tree().create_timer(1), "timeout") # Waits 1 second for dramatic effect

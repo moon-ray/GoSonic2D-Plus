@@ -2,16 +2,20 @@ extends PlayerState
 
 class_name DeadPlayerState
 
+var typeof_death = ""
 
 func enter(host: Player):
 	host.shields.visible = false
-	host.audios.hurt.play()
 	host.is_jumping = false
 	host.is_rolling = false
 	host.velocity.x = 0
 	host.velocity.y = 0
-	host.velocity.y -= 500
+	host.velocity.y -= 420
 	host.colliding = false
+	if typeof_death == "":
+		host.audios.hurt.play()
+	elif typeof_death == "spikes":
+		host.audios.spike.play()
 
 func step(host, delta):
 	host.velocity.y += host.current_stats.gravity * delta

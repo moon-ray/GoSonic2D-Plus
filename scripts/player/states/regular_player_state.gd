@@ -13,6 +13,7 @@ func enter(player: Player):
 func step(player: Player, delta: float):
 	player.is_looking_down = false
 	player.is_looking_up = false
+	player.is_pushing = false
 	
 	if player.__is_grounded and Input.is_action_pressed("player_down") and Input.is_action_just_pressed("player_a") and !player.is_pushing:
 		player.state_machine.change_state("SpinDash")
@@ -103,6 +104,8 @@ func animate(player: Player, _delta: float):
 			idle()
 func exit(player: Player):
 	player.is_pushing = false
+	player.is_looking_down = false
+	player.is_looking_up = false
 
 func idle():
 	host.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.idle)

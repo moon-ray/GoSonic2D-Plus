@@ -14,3 +14,5 @@ func add_score(player):
 		player.shields.change(shields.ThunderShield)
 	elif shield_type == "FlameShield":
 		player.shields.change(shields.FlameShield)
+	elif shield_type == "BubbleShield":
+		player.shields.change(shields.BubbleShield)

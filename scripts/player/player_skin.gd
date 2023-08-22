@@ -22,8 +22,11 @@ const ANIMATION_STATES = {
 	"panic_balance": 12,
 	"idle_wait": 13,
 	"pushing": 14,
-	"dead": 15
+	"dead": 15,
+	"hurt": 16,
 }
+
+var off_screen = false
 
 var current_state : int
 
@@ -93,4 +96,6 @@ func _on_idle_timer_timeout():
 
 
 func _on_exit_screen():
-	visible = false
+	if player.state_machine.current_state == "Dead":
+		off_screen = true
+		visible = false

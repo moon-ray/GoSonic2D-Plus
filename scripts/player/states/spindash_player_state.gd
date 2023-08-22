@@ -6,6 +6,7 @@ class_name SpinDashPlayerState
 var p : float # spin dash release power
 
 func enter(player: Player):
+	player.is_looking_down = false
 	player.dash_dust.visible = true
 	player.audios.spindashcharge.play()
 	p = 0
@@ -14,7 +15,22 @@ func enter(player: Player):
 	#player.audio_player.play('spin_dash_charge')
 
 func step(player: Player, delta):
+	player.is_looking_down = false
 	if Input.is_action_just_released("player_down"):
+
+		player.audios.spindashcharge.stop()
+		var scaletemp = 0
+		player.is_rolling = true
+		if player.skin.flip_h == true:
+			scaletemp = -1
+		else:
+			scaletemp = 1
+		player.velocity.x = (480 + (floor(p) / 2)) * scaletemp
+		player.audios.spindashrelease.play()
+		player.delay_cam = true
+		#player.player_vfx.stop('ChargeDust')
+		#player.audio_player.stop('spin_dash_charge')
+		#player.audio_player.play('spin_dash_release')
 		player.state_machine.change_state("Rolling")
 	
 	if Input.is_action_just_pressed("player_a"):
@@ -29,21 +45,7 @@ func step(player: Player, delta):
 	p -= int(p / 7.5) / 15360.0
 
 func exit(player: Player):
-	player.audios.spindashcharge.stop()
 	player.dash_dust.visible = false
-
-	var scaletemp = 0
-	player.is_rolling = true
-	if player.skin.flip_h == true:
-		scaletemp = -1
-	else:
-		scaletemp = 1
-	player.velocity.x = (480 + (floor(p) / 2)) * scaletemp
-	player.audios.spindashrelease.play()
-	player.delay_cam = true
-	#player.player_vfx.stop('ChargeDust')
-	#player.audio_player.stop('spin_dash_charge')
-	#player.audio_player.play('spin_dash_release')
 
 func animate(player: Player, _delta: float):
 	player.skin.set_animation_speed(1)

@@ -10,7 +10,7 @@ export(bool) var shield
 
 export(int, LAYERS_2D_PHYSICS) var ground_layer = 1
 
-export(String, "BlueShield", "ThunderShield", "FlameShield") var shield_type
+export(String, "BlueShield", "ThunderShield", "FlameShield", "BubbleShield") var shield_type
 
 onready var tree = get_tree()
 onready var world = get_world_2d()
@@ -52,6 +52,13 @@ func handle_collision():
 func destroy(player):
 	if not destroyed:
 		explosion.play()
+		if player.shields.current_shield == player.shields.shields.BubbleShield:
+			var bShield = player.shields.get_node("BubbleShield")
+			if bShield.descending == true:
+				bShield.descending = false
+				bShield.set_attacking(false)
+				bShield.special_audio.play()
+				bShield.animation_player.play("bounce")
 		icon.set_movement(true)
 		explosion_audio.play()
 		solid_object.set_enabled(false)
@@ -68,6 +75,7 @@ func handle_item(player):
 
 func bump_up():
 	allow_movement = true
+	z_index = 0
 	velocity.y = -bump_force
 
 func _on_SolidObject_player_ceiling_collision(player: Player):

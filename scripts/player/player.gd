@@ -47,6 +47,8 @@ onready var ledge_mid_right = raycasts.get_node("MidRightChecker")
 onready var ledge_mid_left = raycasts.get_node("MidLeftChecker")
 onready var left_push = raycastspush.get_node("Left")
 onready var right_push = raycastspush.get_node("Right")
+onready var dash_dust = $Skin/SpinDashDust
+export(PackedScene) var ring
 
 var is_jumping : bool
 var is_rolling : bool
@@ -55,15 +57,21 @@ var is_looking_down : bool
 var is_looking_up : bool
 var is_control_locked : bool
 var is_locked_to_limits: bool
-
 var __is_grounded : bool
 
 var delay_cam = false
-
 var colliding = true
+var control_lock = true
+var vulnerable = true
+var can_collect_rings = true
 
+var ring_starting_angle = deg2rad(101.25)
+var ring_angle = ring_starting_angle
+var ring_default_speed = 100
+var ring_speed = ring_default_speed
+var ring_flip = false
 
-onready var dash_dust = $Skin/SpinDashDust
+var has_been_spiked = false  # To prevent 2 spikes from insta killing
 
 func _ready():
 	dash_dust.visible = false
@@ -78,7 +86,7 @@ func _physics_process(delta):
 		if !state_machine.current_state == "Dead":
 			state_machine.change_state("Dead")
 	if Input.is_action_just_pressed("player_debug"):
-		state_machine.change_state("Dead")
+		hurt("", self)
 	handle_input()
 	handle_control_lock(delta)
 	handle_state_update(delta)
@@ -90,9 +98,27 @@ func _physics_process(delta):
 	
 	# Crappy way of uncrouching but it works
 	
-	if Input.is_action_just_released("player_down"):
-		is_looking_down = false
+	#if Input.is_action_just_released("player_down"):
+		#is_looking_down = false
 
+func iframes():
+	if vulnerable == true:
+		can_collect_rings = false
+		yield(get_tree().create_timer(0.1), "timeout")
+		vulnerable = false
+		while !__is_grounded:
+			yield(get_tree().create_timer(0.1), "timeout")
+		$iframe_timer.start()
+		while $iframe_timer.time_left > 0:
+			yield(get_tree().create_timer(0.06666666666), "timeout")
+			if $iframe_timer.time_left > 1.5:
+				can_collect_rings = true
+			if skin.visible == true:
+				skin.visible = false
+			elif skin.visible == false:
+				skin.visible = true
+		if skin.visible == false:
+			skin.visible = true
 func initialize_collider():
 	var collision = CollisionShape2D.new()
 	collider_shape = RectangleShape2D.new()
@@ -100,12 +126,67 @@ func initialize_collider():
 	collision.shape = collider_shape
 	collider.add_child(collision)
 	add_child(collider)
-	collider.set_name("Collider")
-	collision.set_name("Collision")
 func initialize_resources():
 	world = get_world_2d()
 	set_bounds(0)
 	set_stats(0)
+
+func hurt(type: String, hazard):
+	if vulnerable:
+		if score_manager.rings > 0:
+			hurt_routine(type, hazard)
+		else:
+			if shields.current_shield == shields.shields.InstaShield:
+				state_machine.get_node("Dead").typeof_death = type
+				state_machine.change_state("Dead")
+			else:
+				hurt_routine(type, hazard)
+		
+func hurt_routine(type: String, hazard):
+	if vulnerable:
+		state_machine.get_node("Hurt").launch(self, hazard)
+		state_machine.change_state("Hurt")
+		if type == "spikes":
+			has_been_spiked = true
+		if shields.current_shield == shields.shields.InstaShield:
+			if score_manager.rings >= 32:
+				drop_rings(32)
+			else:
+				drop_rings(score_manager.rings)
+			audios.loserings.play()
+		else:
+			shields.change_to_default()
+			audios.hurt.play()
+		
+func drop_rings(amount: int):
+	score_manager.remove_ring(score_manager.rings)
+	var rings_drop_amnt = 0
+	while rings_drop_amnt < amount:
+		rings_drop_amnt += 1
+		var ring_instance = ring.instance()
+		ring_instance.global_position = global_position
+		ring_instance.gravitised = true
+		ring_instance.velocity.x = ring_speed
+		ring_instance.velocity.y = ring_speed
+		
+		if ring_flip == true:
+			ring_instance.velocity.x *= -1
+			
+		ring_angle += deg2rad(22)
+			
+		ring_flip = !ring_flip
+		
+		if rings_drop_amnt == round(rings_drop_amnt/2):
+			ring_speed = ring_default_speed
+			ring_angle = ring_starting_angle
+			
+		var delta_x = ring_speed * cos(ring_angle)
+		var delta_y = ring_speed * sin(ring_angle)
+		ring_instance.velocity.x = delta_x
+		ring_instance.velocity.y = delta_y
+
+		get_parent().add_child(ring_instance)
+		
 
 func initialize_state_machine():
 	state_machine.initialize()
@@ -291,7 +372,7 @@ func handle_input():
 	input_dot_velocity = input_direction.dot(velocity)
 
 func lock_controls():
-	if not is_control_locked:
+	if not is_control_locked and control_lock:
 		input_direction.x = 0
 		is_control_locked = true
 		control_lock_timer = current_stats.control_lock_duration
@@ -347,11 +428,6 @@ func handle_friction(delta: float):
 		var amount = current_stats.roll_friction if is_rolling else current_stats.friction
 		velocity.x = move_toward(velocity.x, 0, amount * delta)
 
-func handle_spindash():
-	if __is_grounded and Input.is_action_pressed("player_down") and Input.is_action_just_pressed("player_a"):
-		print("OK")
-		state_machine.change_state("SpinDash")
-
 func handle_jump():
 	if __is_grounded and Input.is_action_just_pressed("player_a"):
 		is_jumping = true
@@ -403,3 +479,9 @@ func exit_ground():
 #	draw_line(-Vector2.RIGHT * current_bounds.width_radius, -Vector2.RIGHT * current_bounds.width_radius - Vector2.UP * ground_ray_size, Color.green)
 #	draw_line(Vector2.RIGHT * current_bounds.width_radius, Vector2.RIGHT * current_bounds.width_radius + Vector2.UP * current_bounds.height_radius, Color.yellow)
 #	draw_line(-Vector2.RIGHT * current_bounds.width_radius, -Vector2.RIGHT * current_bounds.width_radius + Vector2.UP * current_bounds.height_radius, Color.blue)
+
+
+func _on_iframe_timer_timeout():
+	$iframe_timer.stop()
+	vulnerable = true
+	has_been_spiked = false

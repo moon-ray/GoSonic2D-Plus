@@ -1,4 +1,4 @@
-extends Label
+extends Sprite
 
 func _process(delta):
-	set_text(get_parent().get_parent().name)
+	global_position = get_parent().get_node("StaticBody2D").global_position

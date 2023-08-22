@@ -17,6 +17,13 @@ func activate():
 
 func apply_vertical_force(player: Player, direction: int):
 	player.velocity.y = power * -direction
+	if player.shields.current_shield == player.shields.shields.BubbleShield:
+		var bShield = player.shields.get_node("BubbleShield")
+		if bShield.descending == true:
+			bShield.descending = false
+			bShield.set_attacking(false)
+			bShield.special_audio.play()
+			bShield.animation_player.play("bounce")
 	activate()
 
 func apply_horizontal_force(player: Player, direction: int):

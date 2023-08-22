@@ -15,7 +15,8 @@ onready var states = {
 	"SpinDash": $SpinDash,
 	"SuperPeelOut": $SuperPeelOut,
 	"DropDash": $DropDash,
-	"Dead": $Dead
+	"Dead": $Dead,
+	"Hurt": $Hurt
 }
 
 var current_state: String

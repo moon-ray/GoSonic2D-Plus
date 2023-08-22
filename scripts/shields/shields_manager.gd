@@ -7,17 +7,14 @@ onready var shields = {
 	"InstaShield": $InstaShield,
 	"BlueShield": $BlueShield,
 	"ThunderShield": $ThunderShield,
-	"FlameShield": $FlameShield
+	"FlameShield": $FlameShield,
+	"BubbleShield": $BubbleShield
 }
 
 onready var shield_user = get_parent()
 onready var default_shield = shields.InstaShield
 
 var current_shield: Shield
-
-#func _process(delta):
-	#if Input.is_action_just_pressed("player_debug"):
-		#change(shields.InstaShield)
 
 func _ready():
 	change(default_shield)

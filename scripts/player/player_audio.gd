@@ -12,3 +12,6 @@ onready var peeloutrelease = $PeeloutRelease
 onready var dropdash = $DropDash
 onready var yes = $Yes
 onready var hurt = $Hurt
+onready var loserings = $LoseRings
+onready var spike = $Spike
+onready var ring_audio = $RingAudio

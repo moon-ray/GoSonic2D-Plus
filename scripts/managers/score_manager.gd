@@ -36,6 +36,12 @@ func add_score(amount = 1):
 		score += amount
 		emit_signal("score_added", score)
 
+func remove_ring(amount):
+	rings -= amount
+	if rings < 0:
+		rings = 0
+	emit_signal("ring_added", rings)
+
 func add_ring(amount = 1):
 	if amount > 0:
 		if cap_rings == true:
