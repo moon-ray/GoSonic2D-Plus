@@ -63,11 +63,11 @@ Fades the current track in
 ### extra_life_jingle()
 Plays the extra life jingle. (Mutes the current track then fades the music track back in after jingle.)
 
-### reset_volume():
+### reset_volume()
 Resets the volume to the stream_volume variable (adjustable in MusicManager)
 
-### replay_music():
+### replay_music()
 Stops and starts the current track
 
-### is_playing():
+### is_playing()
 Returns a bool if the track is playing anything.
