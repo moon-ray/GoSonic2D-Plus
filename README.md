@@ -51,26 +51,28 @@ It not compatible with Godot version 4 and up.
 
 ## MusicManager functions:
 
-### play_music(AudioStream)
+All functions must be ran as ```MusicManager.replace_with_function()```
+
+### ```play_music(AudioStream)```
 Stops current track then plays the AudioStream provided.
 
-### stop_music()
+### ```stop_music()```
 Stops current track
 
-### fade_out()
+### ```fade_out()```
 Fades the current track out
 
-### fade_in()
+### ```fade_in()```
 Fades the current track in
 
-### extra_life_jingle()
+### ```extra_life_jingle()```
 Plays the extra life jingle. (Mutes the current track then fades the music track back in after jingle.)
 
-### reset_volume()
+### ```reset_volume()```
 Resets the volume to the stream_volume variable (adjustable in MusicManager)
 
-### replay_music()
+### ```replay_music()```
 Stops and starts the current track
 
-### is_playing()
+### ```is_playing()```
 Returns a bool if the track is playing anything.
