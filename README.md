@@ -4,6 +4,8 @@
 ## About the framework
 This is based on marimitoTH's [GoSonic2D](https://github.com/marmitoTH/GoSonic2D), and aims to add more features from the classic Sonic games.
 
+~~(The "+" in the name means "+ More features" not engine improvement.)~~
+
 This framework is being worked on Godot version 3.5.1.
 
 It not compatible with Godot version 4 and up.
@@ -37,6 +39,7 @@ It not compatible with Godot version 4 and up.
 
 ## Notes:
 
+* Music Manager is still in early development, expect bugs
 * Super Sonic is still in late development, expect bugs.
 * You can make Sonic take damage as if there were spikes by pressing the Tilde key (~)
 * Bubble Shield is not exactly accurate to games, but still functions (since I couldn't translate it to Godot that well.)
