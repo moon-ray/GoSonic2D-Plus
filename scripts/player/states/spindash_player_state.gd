@@ -11,8 +11,6 @@ func enter(player: Player):
 	player.audios.spindashcharge.play()
 	p = 0
 	player.is_rolling = true
-	#player.player_vfx.play('ChargeDust', true)
-	#player.audio_player.play('spin_dash_charge')
 
 func step(player: Player, delta):
 	player.is_looking_down = false
@@ -28,9 +26,6 @@ func step(player: Player, delta):
 		player.velocity.x = (480 + (floor(p) / 2)) * scaletemp
 		player.audios.spindashrelease.play()
 		player.delay_cam = true
-		#player.player_vfx.stop('ChargeDust')
-		#player.audio_player.stop('spin_dash_charge')
-		#player.audio_player.play('spin_dash_release')
 		player.state_machine.change_state("Rolling")
 	
 	if Input.is_action_just_pressed("player_a"):

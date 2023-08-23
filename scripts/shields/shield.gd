@@ -30,7 +30,7 @@ func deactivate():
 
 func action():
 	if active:
-		if action_audio:
+		if action_audio and !shield_user.super_state:
 			action_audio.play()
 		
 		on_action()

@@ -16,7 +16,8 @@ onready var states = {
 	"SuperPeelOut": $SuperPeelOut,
 	"DropDash": $DropDash,
 	"Dead": $Dead,
-	"Hurt": $Hurt
+	"Hurt": $Hurt,
+	"Transform": $Transform
 }
 
 var current_state: String

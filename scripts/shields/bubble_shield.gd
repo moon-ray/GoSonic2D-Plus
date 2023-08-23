@@ -25,12 +25,13 @@ func on_deactivate():
 	animation_player.stop()
 
 func _process(delta):
-	if get_parent().current_shield == get_parent().shields.BubbleShield:
-		if Input.is_action_just_pressed("player_a") and !shield_user.__is_grounded and shield_user.is_rolling:
-			shield_user.velocity.x = 0
-			shield_user.velocity.y = down_force
-			descending = true
-			set_attacking(true)
+	if !get_parent().get_parent().super_state:
+		if get_parent().current_shield == get_parent().shields.BubbleShield:
+			if Input.is_action_just_pressed("player_a") and !shield_user.__is_grounded and shield_user.is_rolling:
+				shield_user.velocity.x = 0
+				shield_user.velocity.y = down_force
+				descending = true
+				set_attacking(true)
 		
 func set_attacking(value: bool):
 	if value:

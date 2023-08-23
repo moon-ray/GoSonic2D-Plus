@@ -75,19 +75,19 @@ func animate(player: Player, _delta: float):
 		elif left_sensor_collision != right_sensor_collision and absolute_speed == 0 and abs(player.ground_angle) <= 3:
 			if !left_sensor_collision && right_sensor_collision:
 				if !middle_sensor_collision:
-					player.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.panic_balance)
+					balance("panic", player)
 					player.skin.flip_h = true
 				elif !middleL_sensor_collision:
-					player.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.balance)
+					balance("balance", player)
 					player.skin.flip_h = true
 				else:
 					host.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.idle)
 			elif left_sensor_collision && !right_sensor_collision:
 				if !middle_sensor_collision:
-					player.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.panic_balance)
+					balance("panic", player)
 					player.skin.flip_h = false
 				elif !middleR_sensor_collision:
-					player.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.balance)
+					balance("balance", player)
 					player.skin.flip_h = false
 				else:
 					host.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.idle)
@@ -108,4 +108,15 @@ func exit(player: Player):
 	player.is_looking_up = false
 
 func idle():
-	host.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.idle)
+	if !host.super_state:
+		host.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.idle)
+	else:
+		host.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.idle_super)
+func balance(type: String, player):
+	if player.super_state:
+		player.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.balancing_super)
+	else:
+		if type == "panic":
+			player.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.panic_balance)
+		else:
+			player.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.balance)

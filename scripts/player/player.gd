@@ -47,8 +47,12 @@ onready var ledge_mid_right = raycasts.get_node("MidRightChecker")
 onready var ledge_mid_left = raycasts.get_node("MidLeftChecker")
 onready var left_push = raycastspush.get_node("Left")
 onready var right_push = raycastspush.get_node("Right")
-onready var dash_dust = $Skin/SpinDashDust
+onready var dash_dust = skin.get_node("SpinDashDust")
+
 export(PackedScene) var ring
+export(AudioStream) var super_music
+export(Texture) var super_sonic_texture
+export(Texture) var sonic_texture
 
 var is_jumping : bool
 var is_rolling : bool
@@ -72,6 +76,10 @@ var ring_speed = ring_default_speed
 var ring_flip = false
 
 var has_been_spiked = false  # To prevent 2 spikes from insta killing
+var flashing = false
+var super_state = false
+var can_transform = false
+export var super_ring_amount : int
 
 func _ready():
 	dash_dust.visible = false
@@ -81,12 +89,6 @@ func _ready():
 	initialize_skin()
 
 func _physics_process(delta):
-	score_manager.extra_life(self)
-	if score_manager.time_limit_over():
-		if !state_machine.current_state == "Dead":
-			state_machine.change_state("Dead")
-	if Input.is_action_just_pressed("player_debug"):
-		hurt("", self)
 	handle_input()
 	handle_control_lock(delta)
 	handle_state_update(delta)
@@ -94,13 +96,59 @@ func _physics_process(delta):
 	handle_limits()
 	handle_state_animation(delta)
 	handle_skin(delta)
+	handle_super_sonic()
 	
+func _process(delta):
+	score_manager.extra_life(self)
 	
-	# Crappy way of uncrouching but it works
-	
-	#if Input.is_action_just_released("player_down"):
-		#is_looking_down = false
-
+	if score_manager.time_limit_over():
+		if !state_machine.current_state == "Dead":
+			state_machine.change_state("Dead")
+			
+	if Input.is_action_just_pressed("player_debug"):
+		hurt("",self)
+			
+	if ScoreManager.rings >= super_ring_amount:
+		if !super_state:
+			can_transform = true
+		else:
+			can_transform = false
+	else:
+		can_transform = false
+			
+	if ScoreManager.rings == 0:
+		if super_state:
+			set_super_state(false)
+		
+func handle_super_sonic():
+	if super_state == true:
+		set_stats(1)
+		skin.set_pallete("super")
+		skin.texture = super_sonic_texture
+		shields.visible = false
+		vulnerable = false
+		#skin.vframes = 11
+		MusicManager.play_music(super_music)
+	else:
+		set_stats(0)
+		if !skin.transitioning_pallete:
+			skin.set_pallete("normal")
+		skin.texture = sonic_texture
+		shields.visible = true
+		vulnerable = true
+		#skin.vframes = 10
+		if !state_machine.current_state == "Dead":
+			get_parent()._zone_music()
+		skin = skin
+		
+func set_super_state(value: bool):
+	if value:
+		super_state = true
+	else:
+		super_state = false
+		if !skin.pal_swapper.current_animation == "Detransform":
+			skin.transitioning_pallete = true
+			skin.pal_swapper.play("Detransform")
 func iframes():
 	if vulnerable == true:
 		can_collect_rings = false
@@ -109,6 +157,7 @@ func iframes():
 		while !__is_grounded:
 			yield(get_tree().create_timer(0.1), "timeout")
 		$iframe_timer.start()
+		flashing = true
 		while $iframe_timer.time_left > 0:
 			yield(get_tree().create_timer(0.06666666666), "timeout")
 			if $iframe_timer.time_left > 1.5:
@@ -117,8 +166,11 @@ func iframes():
 				skin.visible = false
 			elif skin.visible == false:
 				skin.visible = true
-		if skin.visible == false:
-			skin.visible = true
+			if super_state:
+				break
+		skin.visible = true
+		flashing = false
+			
 func initialize_collider():
 	var collision = CollisionShape2D.new()
 	collider_shape = RectangleShape2D.new()
@@ -195,7 +247,7 @@ func initialize_skin():
 	remove_child(skin)
 	get_tree().root.call_deferred("add_child", skin)
 	get_tree().root.call_deferred("queue_free", skin)
-
+	
 func get_position():
 	var y_offset = transform.y * current_bounds.offset.y
 	var x_offset = transform.x * current_bounds.offset.x
@@ -253,7 +305,6 @@ func handle_state_animation(delta):
 
 func handle_skin(delta):
 	skin.position = global_position
-	
 	if not is_rolling and abs(velocity.x) > 0:
 		if not __is_grounded:
 			var current_rotation = skin.rotation_degrees

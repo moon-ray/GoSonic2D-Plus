@@ -20,13 +20,14 @@ func on_deactivate():
 	attacking_animation_player.stop()
 
 func on_action():
-	var direction = -1 if shield_user.skin.flip_h else 1
-	shield_user.velocity.x = horizontal_force * direction
-	shield_user.velocity.y = 0
-	attacking_sprite.offset.x = attacking_sprite_offset * direction
-	attacking_sprite.flip_h = shield_user.skin.flip_h
-	shield_user.delay_cam = true
-	set_attacking(true)
+	if !shield_user.super_state:
+		var direction = -1 if shield_user.skin.flip_h else 1
+		shield_user.velocity.x = horizontal_force * direction
+		shield_user.velocity.y = 0
+		attacking_sprite.offset.x = attacking_sprite_offset * direction
+		attacking_sprite.flip_h = shield_user.skin.flip_h
+		shield_user.delay_cam = true
+		set_attacking(true)
 
 func set_attacking(value: bool):
 	attacking_sprite.visible = value
@@ -42,4 +43,5 @@ func set_attacking(value: bool):
 func on_user_ground_enter():
 	if get_parent().current_shield == get_parent().shields.FlameShield:
 		set_attacking(false)
-		shield_user.state_machine.change_state("Regular") # literally the fix for the glitch lmao
+		if !shield_user.super_state:
+			shield_user.state_machine.change_state("Regular") # literally the fix for the glitch lmao

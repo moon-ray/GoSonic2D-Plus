@@ -27,12 +27,12 @@ func _process(delta):
 		_handle_death()
 
 	if (press_a and can_skip) or (acceptpr and can_skip):
-		lower_music(zone_music)
+		MusicManager.fade_out()
 		skip_gameover()
 		can_skip = false
 
 	if (press_a and can_time_skip) or (acceptpr and can_time_skip):
-		lower_music(zone_music)
+		MusicManager.fade_out()
 		skip()
 		can_time_skip = false
 
@@ -52,27 +52,28 @@ func _handle_death():
 		
 		while !player.skin.off_screen: # Waits until player is off screen
 			yield(get_tree().create_timer(0.1), "timeout")
+			
 		
 		yield(get_tree().create_timer(1), "timeout") # Waits 1 second for dramatic effect
 		
 		life_counter.set_text(str(ScoreManager.lifes)) # doing this manually because it doesnt update when paused
 		
 		if lives > 0 and !current_time == time_limit: # If lives > 0 and player hasnt reached time limit
-			lower_music(zone_music)
+			MusicManager.fade_out()
 			skip()
 		elif !lives == 0 and current_time == time_limit: # If player has lives and player has reached time limit
 			can_time_skip = true
-			game_over_music(zone_music)
+			game_over_music()
 			animation_ui.play("timeover")
 			yield(get_tree().create_timer(game_over.get_length()), "timeout")
-			lower_music(zone_music)
+			MusicManager.fade_out()
 			skip()
 		else: # If player has no lives, doesn't matter if player has reached time limit or not
 			can_skip = true
-			game_over_music(zone_music)
+			game_over_music()
 			animation_ui.play("gameover")
 			yield(get_tree().create_timer(game_over.get_length()), "timeout")
-			lower_music(zone_music)
+			MusicManager.fade_out()
 			skip_gameover()
 
 func skip_gameover():
@@ -95,12 +96,5 @@ func _reset_scores():
 	ScoreManager.time_stoped = false
 	#if ScoreManager.lifes == 0:
 		#get_tree().quit()
-func game_over_music(zone_music):
-	zone_music.stop()
-	zone_music.stream = game_over
-	zone_music.play()
-
-func lower_music(music):
-	while !music.volume_db == -80:
-		yield(get_tree().create_timer(0.1), "timeout")
-		music.volume_db -= 2
+func game_over_music():
+	MusicManager.play_music(game_over)

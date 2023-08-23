@@ -7,6 +7,7 @@ func load_scene(current_scene, next_scene):
 	var loading_scene_instance = loading_scene.instance()
 	get_tree().get_root().call_deferred("add_child",loading_scene_instance)
 	
+	
 	# find the targeted scene
 	var loader = ResourceLoader.load_interactive(next_scene)
 	
@@ -33,6 +34,11 @@ func load_scene(current_scene, next_scene):
 			# creating scene instance from loaded data
 			var scene = loader.get_resource().instance()
 			# adding scene to the root
+			var skin = get_tree().get_root().get_node_or_null("Skin")
+			if skin:
+				skin.call_deferred("free")
+			MusicManager.replay_music()
+			MusicManager.reset_volume()
 			get_tree().get_root().call_deferred("add_child",scene)
 			# removing loading scene
 			loading_scene_instance.queue_free()

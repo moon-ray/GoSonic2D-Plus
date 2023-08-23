@@ -56,31 +56,31 @@ func _process(_delta):
 		elif $Labels.visible == false:
 			$Labels.visible = true
 
-	
-	var player_position = zone.player.position
-	var player_velocity = zone.player.velocity
-	var statemachine = zone.player.state_machine
-	
-	x_pos.text = FORMAT % player_position.x
-	y_pos.text = FORMAT % player_position.y
-	x_sp.text = FORMAT % player_velocity.x
-	y_sp.text = FORMAT % player_velocity.y
-	cstate.text = statemachine.current_state
-	lstate.text = statemachine.last_state
-	lookup.text = str(zone.player.is_looking_up)
-	crouch.text = str(zone.player.is_looking_down)
-	isrolling.text = str(zone.player.is_rolling)
-	isgrounded.text = str(zone.player.__is_grounded)
-	ispushing.text = str(zone.player.is_pushing)
-	animstate.text = str(convertIntToString(zone.player.skin.current_state))
-	groundangle.text = str(abs(zone.player.ground_angle))
-	lifesadded.text = str(score_manager.lifes_added)
-	fps.text = str(Engine.get_frames_per_second())
-	
-	if cstate.text == "SuperPeelOut":
-		cstate.text = "PeelOut"
-	if lstate.text == "SuperPeelOut":
-		lstate.text = "PeelOut"
+	if zone.get_node_or_null("Player"):
+		var player_position = zone.player.position
+		var player_velocity = zone.player.velocity
+		var statemachine = zone.player.state_machine
+		
+		x_pos.text = FORMAT % player_position.x
+		y_pos.text = FORMAT % player_position.y
+		x_sp.text = FORMAT % player_velocity.x
+		y_sp.text = FORMAT % player_velocity.y
+		cstate.text = statemachine.current_state
+		lstate.text = statemachine.last_state
+		lookup.text = str(zone.player.is_looking_up)
+		crouch.text = str(zone.player.is_looking_down)
+		isrolling.text = str(zone.player.is_rolling)
+		isgrounded.text = str(zone.player.__is_grounded)
+		ispushing.text = str(zone.player.is_pushing)
+		animstate.text = str(convertIntToString(zone.player.skin.current_state))
+		groundangle.text = str(abs(zone.player.ground_angle))
+		lifesadded.text = str(score_manager.lifes_added)
+		fps.text = str(Engine.get_frames_per_second())
+		
+		if cstate.text == "SuperPeelOut":
+			cstate.text = "PeelOut"
+		if lstate.text == "SuperPeelOut":
+			lstate.text = "PeelOut"
 
 func convertIntToString(state_id: int) -> String:
     if state_id in ANIMATION_STATES:

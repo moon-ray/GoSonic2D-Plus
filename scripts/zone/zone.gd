@@ -6,6 +6,7 @@ export(PackedScene) var player_resource
 export(PackedScene) var camera_resource
 export(PackedScene) var death_handler_resource
 export(PackedScene) var fade_manager_resource
+export(AudioStream) var zone_music
 
 export(float) var limit_left = 0
 export(float) var limit_right = 10000
@@ -26,6 +27,7 @@ func _ready():
 	initialize_player()
 	initialize_camera()
 	initialize_death_handler()
+	_zone_music()
 	fade_manager.fade_out()
 
 func initialize_player():
@@ -47,3 +49,6 @@ func initialize_camera():
 	camera.set_player(player)
 	camera.set_limits(limit_left, limit_right, limit_top, limit_bottom)
 	add_child(camera)
+
+func _zone_music():
+	MusicManager.play_music(zone_music)

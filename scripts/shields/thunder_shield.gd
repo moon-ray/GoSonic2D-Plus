@@ -27,7 +27,8 @@ func on_deactivate():
 	collision.set_deferred("disabled", true)
 
 func on_action():
-	shield_user.velocity.y = vertical_force
-	var sparkle = particle.instance()
-	sparkle.global_position = player.global_position
-	player.get_parent().add_child(sparkle)
+	if !shield_user.super_state:
+		shield_user.velocity.y = vertical_force
+		var sparkle = particle.instance()
+		sparkle.global_position = player.global_position
+		player.get_parent().add_child(sparkle)

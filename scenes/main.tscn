@@ -553,15 +553,11 @@ player_resource = ExtResource( 1 )
 camera_resource = ExtResource( 8 )
 death_handler_resource = ExtResource( 19 )
 fade_manager_resource = ExtResource( 21 )
+zone_music = ExtResource( 7 )
 limit_right = 6400.0
 
 [node name="StartPoint" type="Node2D" parent="."]
 position = Vector2( 615, 721 )
-
-[node name="ZoneMusic" type="AudioStreamPlayer" parent="."]
-pause_mode = 2
-stream = ExtResource( 7 )
-autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -579,15 +575,6 @@ position = Vector2( 221, 252 )
 texture = ExtResource( 22 )
 
 [node name="Rings" type="Node2D" parent="."]
-
-[node name="Ring" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 670, 637 )
-
-[node name="Ring2" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 670, 638 )
-
-[node name="Ring3" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 670, 637 )
 
 [node name="Ring10" parent="Rings" instance=ExtResource( 10 )]
 position = Vector2( 1321, 628 )
@@ -958,15 +945,15 @@ position = Vector2( 1100, 368 )
 [node name="Ring9" parent="Rings" instance=ExtResource( 10 )]
 position = Vector2( 1712, 584 )
 
-[node name="Spikes" type="Node2D" parent="."]
+[node name="Hazards" type="Node2D" parent="."]
 
-[node name="Spike" parent="Spikes" instance=ExtResource( 23 )]
+[node name="Spike" parent="Hazards" instance=ExtResource( 23 )]
 position = Vector2( 4226, 786 )
 
-[node name="Spike2" parent="Spikes" instance=ExtResource( 23 )]
+[node name="Spike2" parent="Hazards" instance=ExtResource( 23 )]
 position = Vector2( 4257, 786 )
 
-[node name="Spike3" parent="Spikes" instance=ExtResource( 23 )]
+[node name="Spike3" parent="Hazards" instance=ExtResource( 23 )]
 position = Vector2( 4288, 786 )
 
 [node name="Activators" type="Node2D" parent="."]

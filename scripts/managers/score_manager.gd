@@ -2,7 +2,7 @@ extends Node
 
 var score = 0
 var rings = 0
-var lifes = 3
+var lifes = 1
 
 var time: float
 var time_stoped: bool
@@ -59,13 +59,13 @@ func add_ring(amount = 1):
 func add_life(amount = 1):
 	if amount > 0:
 		lifes += amount
+		MusicManager.extra_life_jingle()
 		emit_signal("life_added", lifes)
 		
 func extra_life(player):
 	if rings >= (lifes_added*life_for_every):
 		add_life(1)
 		lifes_added += 1
-		player.audios.yes.play()
 
 func reset_score(reset_score, reset_time, reset_rings):
 	if reset_score:

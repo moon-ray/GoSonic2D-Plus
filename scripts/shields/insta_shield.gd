@@ -8,10 +8,11 @@ func _ready():
 	set_attacking(false)
 
 func on_action():
-	set_attacking(true)
-	animation_player.play("default")
-	yield(animation_player, "animation_finished")
-	set_attacking(false)
+	if !shield_user.super_state:
+		set_attacking(true)
+		animation_player.play("default")
+		yield(animation_player, "animation_finished")
+		set_attacking(false)
 
 func set_attacking(value: bool):
 	invincible = value

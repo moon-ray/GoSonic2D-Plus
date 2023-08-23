@@ -85,6 +85,7 @@ script = ExtResource( 5 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 hframes = 4
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/destroyed = SubResource( 1 )
@@ -112,6 +113,7 @@ lifes = 1
 [node name="Audios" type="Node" parent="."]
 
 [node name="ItemAudio" parent="Audios" instance=ExtResource( 4 )]
+stream = null
 
 [node name="ExplosionAudio" parent="Audios" instance=ExtResource( 6 )]
 

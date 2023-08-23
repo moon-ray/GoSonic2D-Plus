@@ -9,8 +9,6 @@ func enter(host: Player):
 func step(host, delta):
 	var drpspd = host.current_stats.drpspd
 	var drpmax = host.current_stats.drpmax
-	var drpspdsup = host.current_stats.drpspdsup # Super variable
-	var drpmaxsup = host.current_stats.drpmaxsup # Super variable
 	
 	# This if statement is to check if the player is facing backwards.
 	# (If you are facing right but you are moving left)

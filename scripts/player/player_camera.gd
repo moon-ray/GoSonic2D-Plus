@@ -39,13 +39,25 @@ func _physics_process(delta):
 		
 	if player.is_looking_up:
 		if stop_scroll == "back":
-			yield(get_tree().create_timer(2), "timeout")
+			var time = 0
+			while time < 2:
+				yield(get_tree().create_timer(0.1), "timeout")
+				time += 0.1
+				if !player.is_looking_up:
+					time = 0
+					break
 		if player.is_looking_up:
 			if !stop_scroll == "up":
 				scroll("up")
 	elif player.is_looking_down:
 		if stop_scroll == "back":
-			yield(get_tree().create_timer(2), "timeout")
+			var time = 0
+			while time < 2:
+				yield(get_tree().create_timer(0.1), "timeout")
+				time += 0.1
+				if !player.is_looking_down:
+					time = 0
+					break
 		if player.is_looking_down: # may look dumb, but its to check if player is still looking down.
 			if !stop_scroll == "down":
 				scroll("down")

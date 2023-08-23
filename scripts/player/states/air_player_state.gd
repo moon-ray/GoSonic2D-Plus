@@ -36,12 +36,17 @@ func step(player: Player, delta: float):
 	elif Input.is_action_just_pressed("player_a") and can_use_shield:
 		can_use_shield = false
 		player.shields.use_current()
+	elif Input.is_action_just_pressed("player_b") and player.can_transform:
+		player.state_machine.change_state("Transform")
 
 	if Input.is_action_just_pressed("player_a") and player.is_rolling:
 		if player.shields.current_shield == player.shields.shields.InstaShield:
 			if can_drop_dash:
 				$DropDashTimer.start()
 		elif player.shields.current_shield == player.shields.shields.BlueShield:
+			if can_drop_dash:
+				$DropDashTimer.start()
+		elif player.super_state:
 			if can_drop_dash:
 				$DropDashTimer.start()
 		
@@ -57,8 +62,9 @@ func exit(player: Player):
 
 func animate(player: Player, _delta: float):
 	player.skin.handle_flip(player.input_direction.x)
-	
-	if !drop_dash:
+	if player.state_machine.last_state == "Transform":
+		player.skin.set_running_animation_state(last_absolute_horizontal_speed)
+	elif !drop_dash:
 		if player.is_rolling:
 			player.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.rolling)
 			player.skin.set_rolling_animation_speed(last_absolute_horizontal_speed)

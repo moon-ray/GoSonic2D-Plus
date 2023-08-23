@@ -15,3 +15,4 @@ onready var hurt = $Hurt
 onready var loserings = $LoseRings
 onready var spike = $Spike
 onready var ring_audio = $RingAudio
+onready var transform_audio = $Transform

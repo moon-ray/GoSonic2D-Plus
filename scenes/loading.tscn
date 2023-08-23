@@ -55,5 +55,5 @@ color = Color( 0, 0, 0, 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 401, 218 )
 frames = SubResource( 9 )
-frame = 1
+frame = 2
 playing = true

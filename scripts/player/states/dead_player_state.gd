@@ -22,4 +22,5 @@ func step(host, delta):
 	host.velocity.x = 0
 
 func animate(player: Player, _delta: float):
-	player.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.dead)
+	if player.skin:
+		player.skin.set_animation_state(PlayerSkin.ANIMATION_STATES.dead)

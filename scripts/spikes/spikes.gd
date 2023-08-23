@@ -8,6 +8,9 @@ func _on_area_entered(area):
 		loop = true
 		if loop == true:
 			var player = area.get_parent()
+			if player.super_state == true:
+				while player.super_state == true:
+					yield(get_tree().create_timer(0.1), "timeout")
 			while player.has_been_spiked == true: # To prevent 2 spikes insta killing
 				yield(get_tree().create_timer(0.1), "timeout")
 			if loop == true:
