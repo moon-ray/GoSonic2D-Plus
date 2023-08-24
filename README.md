@@ -1,6 +1,9 @@
 # ![cool logo](https://github.com/son-ray/Sonic-Godot-Physics/blob/main/read_me/logo.png)
 
 
+## IMPORTANT!!
+The project is not exportable without debug. I am working on fixing this.
+
 ## About the framework
 This is based on marimitoTH's [GoSonic2D](https://github.com/marmitoTH/GoSonic2D), and aims to add more features from the classic Sonic games.
 
