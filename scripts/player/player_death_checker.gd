@@ -27,12 +27,12 @@ func _process(delta):
 		_handle_death()
 
 	if (press_a and can_skip) or (acceptpr and can_skip):
-		MusicManager.fade_out()
+		MusicManager.fade_out(2)
 		skip_gameover()
 		can_skip = false
 
 	if (press_a and can_time_skip) or (acceptpr and can_time_skip):
-		MusicManager.fade_out()
+		MusicManager.fade_out(2)
 		skip()
 		can_time_skip = false
 
@@ -59,21 +59,21 @@ func _handle_death():
 		life_counter.set_text(str(ScoreManager.lifes)) # doing this manually because it doesnt update when paused
 		
 		if lives > 0 and !current_time == time_limit: # If lives > 0 and player hasnt reached time limit
-			MusicManager.fade_out()
+			MusicManager.fade_out(2)
 			skip()
 		elif !lives == 0 and current_time == time_limit: # If player has lives and player has reached time limit
 			can_time_skip = true
 			game_over_music()
 			animation_ui.play("timeover")
 			yield(get_tree().create_timer(game_over.get_length()), "timeout")
-			MusicManager.fade_out()
+			MusicManager.fade_out(2)
 			skip()
 		else: # If player has no lives, doesn't matter if player has reached time limit or not
 			can_skip = true
 			game_over_music()
 			animation_ui.play("gameover")
 			yield(get_tree().create_timer(game_over.get_length()), "timeout")
-			MusicManager.fade_out()
+			MusicManager.fade_out(2)
 			skip_gameover()
 
 func skip_gameover():

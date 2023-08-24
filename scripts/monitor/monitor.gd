@@ -7,6 +7,7 @@ export(float) var gravity = 700
 export(float) var ground_distance = 16
 
 export(bool) var shield
+export(bool) var s_monitor
 
 export(int, LAYERS_2D_PHYSICS) var ground_layer = 1
 
@@ -72,6 +73,9 @@ func handle_item(player):
 		score_controller.add_score(player)
 	else:
 		score_controller.add_score()
+		if s_monitor and !player.super_state:
+			player.state_machine.change_state("Transform")
+
 
 func bump_up():
 	allow_movement = true

@@ -87,7 +87,6 @@ func _ready():
 	initialize_resources()
 	initialize_state_machine()
 	initialize_skin()
-
 func _physics_process(delta):
 	handle_input()
 	handle_control_lock(delta)
@@ -99,6 +98,8 @@ func _physics_process(delta):
 	handle_super_sonic()
 	
 func _process(delta):
+	var super_em_requirement = globalvars.ch_emerald_super_requirement
+	var chaos_emeralds = globalvars.chaos_emeralds
 	score_manager.extra_life(self)
 	
 	if score_manager.time_limit_over():
@@ -108,7 +109,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("player_debug"):
 		hurt("",self)
 			
-	if ScoreManager.rings >= super_ring_amount:
+	if ScoreManager.rings >= super_ring_amount and chaos_emeralds >= super_em_requirement:
 		if !super_state:
 			can_transform = true
 		else:
@@ -127,16 +128,15 @@ func handle_super_sonic():
 		skin.texture = super_sonic_texture
 		shields.visible = false
 		vulnerable = false
-		#skin.vframes = 11
 		MusicManager.play_music(super_music)
 	else:
 		set_stats(0)
 		if !skin.transitioning_pallete:
 			skin.set_pallete("normal")
 		skin.texture = sonic_texture
-		shields.visible = true
-		vulnerable = true
-		#skin.vframes = 10
+		if !state_machine.current_state == "Transform":
+			vulnerable = true
+			shields.visible = true
 		if !state_machine.current_state == "Dead":
 			get_parent()._zone_music()
 		skin = skin

@@ -921,7 +921,7 @@ nodes/spindash/node = SubResource( 27 )
 nodes/spindash/position = Vector2( -140, 980 )
 nodes/state/node = SubResource( 19 )
 nodes/state/position = Vector2( 220, 380 )
-node_connections = [ "speed", 0, "state", "state", 0, "idle-shot", "state", 1, "Animation 2", "state", 2, "Animation 3", "state", 3, "Animation 5", "state", 4, "Animation 4", "state", 5, "Animation 6", "state", 6, "Animation 7", "state", 7, "Animation 8", "state", 8, "spindash", "state", 9, "lookup", "state", 10, "Animation 9", "state", 11, "Animation 11", "state", 12, "Animation 10", "state", 14, "Animation 13", "state", 15, "Animation 14", "state", 16, "Animation 15", "state", 18, "Animation 17", "state", 19, "Animation 16", "state", 20, "Animation 18", "output", 0, "speed", "idle-shot", 0, "Animation", "idle-shot", 1, "Animation 12" ]
+node_connections = [ "idle-shot", 0, "Animation", "idle-shot", 1, "Animation 12", "speed", 0, "state", "state", 0, "idle-shot", "state", 1, "Animation 2", "state", 2, "Animation 3", "state", 3, "Animation 5", "state", 4, "Animation 4", "state", 5, "Animation 6", "state", 6, "Animation 7", "state", 7, "Animation 8", "state", 8, "spindash", "state", 9, "lookup", "state", 10, "Animation 9", "state", 11, "Animation 11", "state", 12, "Animation 10", "state", 14, "Animation 13", "state", 15, "Animation 14", "state", 16, "Animation 15", "state", 18, "Animation 17", "state", 19, "Animation 16", "state", 20, "Animation 18", "output", 0, "speed" ]
 
 [node name="Sonic" type="Node2D"]
 pause_mode = 1
@@ -1048,7 +1048,7 @@ script = ExtResource( 10 )
 visible = false
 position = Vector2( -15, 8 )
 frames = SubResource( 36 )
-frame = 2
+frame = 6
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Skin"]
@@ -1157,6 +1157,7 @@ cast_to = Vector2( 2.18557e-07, 5 )
 wait_time = 2.0
 
 [node name="RingDecreaser" type="Node2D" parent="."]
+pause_mode = 1
 script = ExtResource( 40 )
 
 [node name="decrease_rings" type="Timer" parent="RingDecreaser"]

@@ -39,6 +39,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/spring/diagonal_spring.gd"
 }, {
+"base": "Node",
+"class": "DiscordRPC",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPC.gd"
+}, {
+"base": "Reference",
+"class": "DiscordRPCEnum",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPCEnum.gd"
+}, {
+"base": "Reference",
+"class": "DiscordRPCUtil",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/RPC.gd"
+}, {
 "base": "PlayerState",
 "class": "DropDashPlayerState",
 "language": "GDScript",
@@ -68,6 +83,11 @@ _global_script_classes=[ {
 "class": "HurtPlayerState",
 "language": "GDScript",
 "path": "res://scripts/player/states/hurt_player_state.gd"
+}, {
+"base": "Reference",
+"class": "IPCUtil",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/IPCUtil.gd"
 }, {
 "base": "Node2D",
 "class": "Monitor",
@@ -139,6 +159,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/player/states/regular_player_state.gd"
 }, {
+"base": "Reference",
+"class": "RichPresence",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresence.gd"
+}, {
+"base": "Reference",
+"class": "RichPresenceButton",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresenceButton.gd"
+}, {
+"base": "",
+"class": "RichPresenceModule",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPreseneModule.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Ring",
 "language": "GDScript",
@@ -189,6 +224,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/player/states/spring_player_state.gd"
 }, {
+"base": "",
+"class": "StreamPeerUnix",
+"language": "NativeScript",
+"path": "res://addons/godot-unix-socket/unix-socket.gdns"
+}, {
 "base": "PlayerState",
 "class": "SuperPeeloutPlayerState",
 "language": "GDScript",
@@ -209,6 +249,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/player/states/transform_player_state.gd"
 }, {
+"base": "Reference",
+"class": "URLUtil",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/URLUtil.gd"
+}, {
+"base": "Reference",
+"class": "UUID",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/UUID.gd"
+}, {
+"base": "",
+"class": "UpdateRichPresencePayload",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/UpdateRichPresencePayload.gd"
+}, {
 "base": "Node2D",
 "class": "Zone",
 "language": "GDScript",
@@ -221,12 +276,16 @@ _global_script_class_icons={
 "DeathChecker": "",
 "DebugHUD": "",
 "DiagonalSpring": "",
+"DiscordRPC": "",
+"DiscordRPCEnum": "",
+"DiscordRPCUtil": "",
 "DropDashPlayerState": "",
 "FadeManager": "",
 "GoPhysics": "",
 "GoUtils": "",
 "HUD": "",
 "HurtPlayerState": "",
+"IPCUtil": "",
 "Monitor": "",
 "MovingPlatform": "",
 "NewPlayerState": "",
@@ -241,6 +300,9 @@ _global_script_class_icons={
 "PlayerStateMachine": "",
 "PlayerStats": "",
 "RegularPlayerState": "",
+"RichPresence": "",
+"RichPresenceButton": "",
+"RichPresenceModule": "",
 "Ring": "",
 "RollingPlayerState": "",
 "ScoreController": "",
@@ -251,10 +313,14 @@ _global_script_class_icons={
 "SpinDashPlayerState": "",
 "Spring": "",
 "SpringPlayerState": "",
+"StreamPeerUnix": "",
 "SuperPeeloutPlayerState": "",
 "SuperStats": "",
 "ThunderShield": "",
 "TransformPlayerState": "",
+"URLUtil": "",
+"UUID": "",
+"UpdateRichPresencePayload": "",
 "Zone": ""
 }
 
@@ -271,6 +337,10 @@ global_load="*res://scripts/general/global_loading.gd"
 globalvars="*res://scripts/general/global_variables.gd"
 MusicManager="*res://objects/managers/music_manager.tscn"
 
+[discord_presence]
+
+settings/change_time_per_screen=true
+
 [display]
 
 window/size/width=426
@@ -278,10 +348,6 @@ window/size/height=240
 window/size/test_width=1280
 window/size/test_height=720
 window/stretch/mode="2d"
-
-[editor_plugins]
-
-enabled=PoolStringArray(  )
 
 [importer_defaults]
 

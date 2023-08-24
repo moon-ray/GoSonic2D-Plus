@@ -16,17 +16,17 @@ func play_music(music):
 func stop_music():
 	stream.stop()
 
-func fade_out():
+func fade_out(speed : int):
 	while stream.volume_db > -36:
 		yield(get_tree().create_timer(0.1), "timeout")
-		stream.volume_db -= 2
+		stream.volume_db -= speed
 		if stream.volume_db < -36:
 			stream.volume_db = -36
 		
-func fade_in():
+func fade_in(speed : int):
 	while stream.volume_db < stream_volume:
 		yield(get_tree().create_timer(0.1), "timeout")
-		stream.volume_db += 1
+		stream.volume_db += speed
 		if stream.volume_db > stream_volume:
 			stream.volume_db = stream_volume
 
@@ -35,7 +35,14 @@ func extra_life_jingle():
 	extra_life.play()
 	while extra_life.is_playing():
 		yield(get_tree().create_timer(0.1), "timeout")
-	fade_in()
+	while stream.volume_db < stream_volume:
+		yield(get_tree().create_timer(0.1), "timeout")
+		stream.volume_db += 4
+		if extra_life.is_playing():
+			stream.volume_db = -36
+			break
+		if stream.volume_db > stream_volume:
+			stream.volume_db = stream_volume
 	
 func reset_volume():
 	stream.volume_db = stream_volume
