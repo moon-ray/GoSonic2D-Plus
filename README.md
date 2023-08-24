@@ -1,9 +1,4 @@
-# ![cool logo](https://github.com/son-ray/Sonic-Godot-Physics/blob/main/read_me/logo.png)
-
-
-## IMPORTANT!!
-The project is not exportable without debug. I am working on fixing this.
-
+![cool logo](https://github.com/son-ray/Sonic-Godot-Physics/blob/main/read_me/logo.png)
 ## About the framework
 This is based on marimitoTH's [GoSonic2D](https://github.com/marmitoTH/GoSonic2D), and aims to add more features from the classic Sonic games.
 
@@ -17,6 +12,7 @@ It not compatible with Godot version 4 and up.
 
 * Super Sonic, along with all of his ring draining, 50 ring requirement and pallete swapping.
 * Music Manager, play all your music by doing MusicManager.play_music(insert audio stream here)
+* Mobile Touch Controls
 * Spindash
 * Camera lag (for spindash, etc.)
 * Super Peel Out
