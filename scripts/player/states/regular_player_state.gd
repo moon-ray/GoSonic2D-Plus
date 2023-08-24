@@ -15,9 +15,9 @@ func step(player: Player, delta: float):
 	player.is_looking_up = false
 	player.is_pushing = false
 	
-	if player.__is_grounded and Input.is_action_pressed("player_down") and Input.is_action_just_pressed("player_a") and !player.is_pushing:
+	if player.__is_grounded and Input.is_action_pressed("player_down") and (Input.is_action_just_pressed("player_a") or Input.is_action_just_pressed("player_b")) and !player.is_pushing:
 		player.state_machine.change_state("SpinDash")
-	elif player.__is_grounded and Input.is_action_pressed("player_up") and Input.is_action_just_pressed("player_a"):
+	elif player.__is_grounded and Input.is_action_pressed("player_up") and (Input.is_action_just_pressed("player_a") or Input.is_action_just_pressed("player_b")):
 		if abs(player.velocity.x) < player.current_stats.min_speed_to_roll and !player.is_pushing:
 			player.state_machine.change_state("SuperPeelOut")
 	else:

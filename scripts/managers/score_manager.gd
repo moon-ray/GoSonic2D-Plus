@@ -2,7 +2,7 @@ extends Node
 
 var score = 0
 var rings = 0
-var lifes = 3
+var lifes = 1
 
 var time: float
 var time_stoped: bool

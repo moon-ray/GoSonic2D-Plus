@@ -140,7 +140,7 @@ func handle_super_sonic():
 		if !state_machine.current_state == "Dead":
 			get_parent()._zone_music()
 		skin = skin
-		
+		 
 func set_super_state(value: bool):
 	if value:
 		super_state = true
@@ -246,8 +246,6 @@ func initialize_state_machine():
 func initialize_skin():
 	remove_child(skin)
 	get_tree().root.call_deferred("add_child", skin)
-	get_tree().root.call_deferred("queue_free", skin)
-	
 func get_position():
 	var y_offset = transform.y * current_bounds.offset.y
 	var x_offset = transform.x * current_bounds.offset.x
@@ -480,13 +478,13 @@ func handle_friction(delta: float):
 		velocity.x = move_toward(velocity.x, 0, amount * delta)
 
 func handle_jump():
-	if __is_grounded and Input.is_action_just_pressed("player_a"):
+	if __is_grounded and (Input.is_action_just_pressed("player_a") or Input.is_action_just_pressed("player_b")):
 		is_jumping = true
 		is_rolling = true
 		audios.jump_audio.play()
 		velocity.y = -current_stats.max_jump_height
 
-	if is_jumping and Input.is_action_just_released("player_a") and velocity.y < -current_stats.min_jump_height:
+	if is_jumping and (Input.is_action_just_released("player_a") or Input.is_action_just_released("player_b")) and velocity.y < -current_stats.min_jump_height:
 		velocity.y = -current_stats.min_jump_height
 
 func lock_to_limits(left: float, right: float):

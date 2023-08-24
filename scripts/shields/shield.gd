@@ -8,8 +8,8 @@ export(bool) var ring_protection = true
 export(NodePath) var activation_audio_path
 export(NodePath) var action_audio_path
 
-onready var activate_audio = get_node(activation_audio_path)
-onready var action_audio = get_node(action_audio_path)
+onready var activate_audio = get_node_or_null(activation_audio_path)
+onready var action_audio = get_node_or_null(action_audio_path)
 
 var active: bool
 var shield_user

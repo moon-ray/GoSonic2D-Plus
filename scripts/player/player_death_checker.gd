@@ -10,8 +10,7 @@ var routined = false
 var can_skip = false
 var can_time_skip = false
 
-onready var zone_music = get_parent().get_node("ZoneMusic")
-onready var animation_ui = get_parent().hud.get_node("AnimationPlayer")
+onready var hud = get_parent().gameover
 onready var life_counter = get_parent().hud.get_node("Lifes").get_node("Counter")
 
 func _ready():
@@ -64,14 +63,14 @@ func _handle_death():
 		elif !lives == 0 and current_time == time_limit: # If player has lives and player has reached time limit
 			can_time_skip = true
 			game_over_music()
-			animation_ui.play("timeover")
+			hud.over_anim("time")
 			yield(get_tree().create_timer(game_over.get_length()), "timeout")
 			MusicManager.fade_out(2)
 			skip()
 		else: # If player has no lives, doesn't matter if player has reached time limit or not
 			can_skip = true
 			game_over_music()
-			animation_ui.play("gameover")
+			hud.over_anim("game")
 			yield(get_tree().create_timer(game_over.get_length()), "timeout")
 			MusicManager.fade_out(2)
 			skip_gameover()

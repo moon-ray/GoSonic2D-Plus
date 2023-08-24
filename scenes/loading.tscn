@@ -47,13 +47,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 427.0
-margin_bottom = 242.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 color = Color( 0, 0, 0, 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 401, 218 )
+[node name="Ring" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -40.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Ring"]
+position = Vector2( 14, 18 )
 frames = SubResource( 9 )
-frame = 2
+frame = 3
 playing = true

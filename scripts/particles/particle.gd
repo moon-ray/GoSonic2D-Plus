@@ -19,3 +19,5 @@ func stop():
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	stop()
+	if get_parent() is Ring:
+		get_parent().queue_free()

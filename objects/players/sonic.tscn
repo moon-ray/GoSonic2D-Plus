@@ -1048,7 +1048,7 @@ script = ExtResource( 10 )
 visible = false
 position = Vector2( -15, 8 )
 frames = SubResource( 36 )
-frame = 6
+frame = 1
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Skin"]

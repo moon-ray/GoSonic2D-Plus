@@ -28,7 +28,7 @@ func step(player: Player, delta):
 		player.delay_cam = true
 		player.state_machine.change_state("Rolling")
 	
-	if Input.is_action_just_pressed("player_a"):
+	if (Input.is_action_just_pressed("player_a") or Input.is_action_just_pressed("player_b")):
 		p += 120
 		player.skin.get_node("AnimationPlayer").play("spindash")
 		player.skin.get_node("AnimationPlayer").stop()

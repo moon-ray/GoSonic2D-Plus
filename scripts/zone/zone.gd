@@ -7,6 +7,7 @@ export(PackedScene) var camera_resource
 export(PackedScene) var death_handler_resource
 export(PackedScene) var fade_manager_resource
 export(AudioStream) var zone_music
+export(PackedScene) var ring_resource
 
 export(float) var limit_left = 0
 export(float) var limit_right = 10000
@@ -14,12 +15,14 @@ export(float) var limit_top = 0
 export(float) var limit_bottom = 10000
 
 onready var start_point = $StartPoint
+onready var rings = $Rings
 
 var player: Player
 var camera: PlayerCamera
 var death_handler: DeathChecker
 var fade_manager: FadeManager
 
+onready var gameover = $CanvasLayer/GameOver
 onready var hud = $CanvasLayer/HUD
 
 func _ready():
@@ -52,3 +55,12 @@ func initialize_camera():
 
 func _zone_music():
 	MusicManager.play_music(zone_music)
+
+func load_ring(pos):
+	var ring = ring_resource.instance()
+	ring.global_position = pos.global_position
+	ring.position_tracker = pos
+	rings.add_child(ring)
+
+func unload_ring(ring):
+	ring.queue_free()

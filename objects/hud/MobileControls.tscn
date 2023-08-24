@@ -1,0 +1,170 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://sprites/hud/mobile_controls/b-pressed.png" type="Texture" id=1]
+[ext_resource path="res://sprites/hud/mobile_controls/b-neutral.png" type="Texture" id=2]
+[ext_resource path="res://scripts/hud/mobile_controls.gd" type="Script" id=3]
+[ext_resource path="res://sprites/hud/mobile_controls/a-neutral.png" type="Texture" id=4]
+[ext_resource path="res://sprites/hud/mobile_controls/dpad-up.png" type="Texture" id=5]
+[ext_resource path="res://sprites/hud/mobile_controls/dpad-left.png" type="Texture" id=6]
+[ext_resource path="res://sprites/hud/mobile_controls/dpad-down.png" type="Texture" id=7]
+[ext_resource path="res://sprites/hud/mobile_controls/a-pressed.png" type="Texture" id=8]
+[ext_resource path="res://sprites/hud/mobile_controls/dpad-right.png" type="Texture" id=9]
+[ext_resource path="res://sprites/hud/mobile_controls/dpad-neutral.png" type="Texture" id=10]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 21.754, 8.919 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 9.718, 16.746 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "down"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 7 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "left"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "neutral"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 10 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "right"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 9 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "up"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 5 ) ]
+}
+
+[node name="MobileControls" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="Dpad" type="TextureRect" parent="."]
+anchor_left = 0.056338
+anchor_top = 0.55
+anchor_right = 0.258216
+anchor_bottom = 0.908333
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Right" type="TouchScreenButton" parent="Dpad"]
+position = Vector2( 43, 34 )
+shape = SubResource( 2 )
+passby_press = true
+action = "player_right"
+
+[node name="Left" type="TouchScreenButton" parent="Dpad"]
+position = Vector2( -1.99999, 34 )
+shape = SubResource( 2 )
+passby_press = true
+action = "player_left"
+
+[node name="Down" type="TouchScreenButton" parent="Dpad"]
+position = Vector2( 33, 53 )
+shape = SubResource( 3 )
+passby_press = true
+action = "player_down"
+
+[node name="Up" type="TouchScreenButton" parent="Dpad"]
+position = Vector2( 33, -1 )
+shape = SubResource( 3 )
+passby_press = true
+action = "player_up"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Dpad"]
+anims/down = SubResource( 4 )
+anims/left = SubResource( 5 )
+anims/neutral = SubResource( 8 )
+anims/right = SubResource( 6 )
+anims/up = SubResource( 7 )
+
+[node name="Buttons" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -40.0
+
+[node name="A" type="TouchScreenButton" parent="Buttons"]
+position = Vector2( -103, -38 )
+normal = ExtResource( 4 )
+pressed = ExtResource( 8 )
+action = "player_a"
+
+[node name="B" type="TouchScreenButton" parent="Buttons"]
+position = Vector2( -39, -38 )
+normal = ExtResource( 2 )
+pressed = ExtResource( 1 )
+action = "player_b"
+
+[connection signal="pressed" from="Dpad/Right" to="." method="_on_Right_pressed"]
+[connection signal="released" from="Dpad/Right" to="." method="_on_Right_released"]
+[connection signal="pressed" from="Dpad/Left" to="." method="_on_Left_pressed"]
+[connection signal="released" from="Dpad/Left" to="." method="_on_Left_released"]
+[connection signal="pressed" from="Dpad/Down" to="." method="_on_Down_pressed"]
+[connection signal="released" from="Dpad/Down" to="." method="_on_Down_released"]
+[connection signal="pressed" from="Dpad/Up" to="." method="_on_Up_pressed"]
+[connection signal="released" from="Dpad/Up" to="." method="_on_Up_released"]

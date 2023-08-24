@@ -13,20 +13,22 @@ onready var ring_audio = $RingAudio
 var magnetised = false
 export var gravitised = false
 
-const turn_speed = 0.0125/3
-const follow_speed = 0.003125/3
+const turn_speed = 0.5
+const follow_speed = 0.3
 
 var velocity = Vector2(0,0)
-var gravity = 1
+var gravity = 8
 
 var y_speed : float
 var x_speed : float
+
+var position_tracker : Position2D
 
 var ring_acceleration = [turn_speed, follow_speed]
 
 var _player : Player
 var bounce_damp = 70
-var bounce = 400
+var bounce = 300
 
 var ring_drop = globalvars.ring_drop
 
@@ -53,10 +55,8 @@ func _on_Area2D_area_entered(area):
 	if player.name == "ThunderShield":
 		_player = player.player
 		magnetised = true
-	if player.get("is_ring"):
-		add_collision_exception_with(player)
-
-func _process(delta):
+		
+func _physics_process(delta):
 	if magnetised:
 		
 		var sx = sign(_player.position.x - position.x)
@@ -93,9 +93,11 @@ func _on_despawn():
 
 
 func _on_screen_exited():
-	if gravitised:
-		# queue_free()
-		pass
+	hide()
+	
+
+func _on_screen_entered():
+	show()
 
 func should_bounce():
 	var random_generator = RandomNumberGenerator.new()
@@ -113,3 +115,4 @@ func _bounce():
 	bounce -= bounce_damp
 	if bounce < 0:
 		bounce = 0
+
