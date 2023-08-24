@@ -1,6 +1,9 @@
 # ![cool logo](https://github.com/son-ray/Sonic-Godot-Physics/blob/main/read_me/logo.png)
 
 
+## IMPORTANT!!
+The project is not exportable without debug. I am working on fixing this.
+
 ## About the framework
 This is based on marimitoTH's [GoSonic2D](https://github.com/marmitoTH/GoSonic2D), and aims to add more features from the classic Sonic games.
 
@@ -54,17 +57,17 @@ It not compatible with Godot version 4 and up.
 
 All functions must be ran as ```MusicManager.replace_with_function()```
 
-### ```play_music(AudioStream)```
+### ```play_music(music : AudioStream)```
 Stops current track then plays the AudioStream provided.
 
 ### ```stop_music()```
 Stops current track
 
-### ```fade_out()```
-Fades the current track out
+### ```fade_out(speed : Int)```
+Fades the current track out, speed will be how much db is subtracted per 0.1 seconds.
 
-### ```fade_in()```
-Fades the current track in
+### ```fade_in(speed : Int)```
+Fades the current track in, speed will be how much db is added per 0.1 seconds.
 
 ### ```extra_life_jingle()```
 Plays the extra life jingle. (Mutes the current track then fades the music track back in after jingle.)
