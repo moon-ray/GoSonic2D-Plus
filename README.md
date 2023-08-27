@@ -2,6 +2,8 @@
 ## About the framework
 This is based on marimitoTH's [GoSonic2D](https://github.com/marmitoTH/GoSonic2D), and aims to add more features from the classic Sonic games.
 
+Do not use this as a base for your fan games yet, as it is still in early development.
+
 ~~(The "+" in the name means "+ More features" not engine improvement.)~~
 
 This framework is being worked on Godot version 3.5.1.
