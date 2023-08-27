@@ -14,6 +14,7 @@ It not compatible with Godot version 4 and up.
 
 * Super Sonic, along with all of his ring draining, 50 ring requirement and pallete swapping.
 * Music Manager, play all your music by doing MusicManager.play_music(insert audio stream here)
+* Snowboarding, early development
 * Mobile Touch Controls
 * Spindash
 * Camera lag (for spindash, etc.)
