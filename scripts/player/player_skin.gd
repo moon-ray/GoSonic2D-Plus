@@ -29,7 +29,11 @@ const ANIMATION_STATES = {
 	"hurt_2": 17,
 	"idle_super": 18,
 	"balancing_super": 19,
-	"transform": 20
+	"transform": 20,
+	"victory": 21,
+	"victory_loop": 22,
+	"snowboard": 23,
+	"snowboard_jump": 24
 }
 
 var off_screen = false
@@ -114,9 +118,10 @@ func _on_idle_timer_timeout():
 
 
 func _on_exit_screen():
-	if player.state_machine.current_state == "Dead":
-		off_screen = true
-		visible = false
+	if !off_screen:
+		if player.state_machine.current_state == "Dead":
+			off_screen = true
+			visible = false
 
 
 func _on_pallete_swap_finished(anim_name):

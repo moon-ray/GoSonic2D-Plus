@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://sprites/hud/mobile_controls/b-pressed.png" type="Texture" id=1]
-[ext_resource path="res://sprites/hud/mobile_controls/b-neutral.png" type="Texture" id=2]
+[ext_resource path="res://sprites/hud/mobile_controls/transform-neutral.png" type="Texture" id=1]
+[ext_resource path="res://sprites/hud/mobile_controls/transform-pressed.png" type="Texture" id=2]
 [ext_resource path="res://scripts/hud/mobile_controls.gd" type="Script" id=3]
 [ext_resource path="res://sprites/hud/mobile_controls/a-neutral.png" type="Texture" id=4]
 [ext_resource path="res://sprites/hud/mobile_controls/dpad-up.png" type="Texture" id=5]
@@ -10,9 +10,12 @@
 [ext_resource path="res://sprites/hud/mobile_controls/a-pressed.png" type="Texture" id=8]
 [ext_resource path="res://sprites/hud/mobile_controls/dpad-right.png" type="Texture" id=9]
 [ext_resource path="res://sprites/hud/mobile_controls/dpad-neutral.png" type="Texture" id=10]
+[ext_resource path="res://fonts/title_screen.fnt" type="BitmapFont" id=11]
+[ext_resource path="res://sprites/hud/mobile_controls/b-pressed.png" type="Texture" id=12]
+[ext_resource path="res://sprites/hud/mobile_controls/b-neutral.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 21.754, 8.919 )
+extents = Vector2( 21.754, 30.394 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 9.718, 16.746 )
@@ -92,16 +95,21 @@ tracks/0/keys = {
 "values": [ ExtResource( 5 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 69.794, 36.105 )
+
 [node name="MobileControls" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 
 [node name="Dpad" type="TextureRect" parent="."]
-anchor_left = 0.056338
-anchor_top = 0.55
-anchor_right = 0.258216
-anchor_bottom = 0.908333
+anchor_left = 0.0680751
+anchor_top = 0.629167
+anchor_right = 0.269953
+anchor_bottom = 0.9875
+margin_right = -22.0
+margin_bottom = -21.9999
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 5
@@ -110,25 +118,29 @@ __meta__ = {
 }
 
 [node name="Right" type="TouchScreenButton" parent="Dpad"]
-position = Vector2( 43, 34 )
+position = Vector2( 36, 11.641 )
+scale = Vector2( 0.631, 0.631 )
 shape = SubResource( 2 )
 passby_press = true
 action = "player_right"
 
 [node name="Left" type="TouchScreenButton" parent="Dpad"]
-position = Vector2( -1.99999, 34 )
+position = Vector2( -4, 11 )
+scale = Vector2( 0.631, 0.631 )
 shape = SubResource( 2 )
 passby_press = true
 action = "player_left"
 
 [node name="Down" type="TouchScreenButton" parent="Dpad"]
-position = Vector2( 33, 53 )
+position = Vector2( 21.096, 42 )
+scale = Vector2( 1.041, 0.631 )
 shape = SubResource( 3 )
 passby_press = true
 action = "player_down"
 
 [node name="Up" type="TouchScreenButton" parent="Dpad"]
-position = Vector2( 33, -1 )
+position = Vector2( 22, -1 )
+scale = Vector2( 1.001, 0.631 )
 shape = SubResource( 3 )
 passby_press = true
 action = "player_up"
@@ -149,22 +161,44 @@ margin_left = -40.0
 margin_top = -40.0
 
 [node name="A" type="TouchScreenButton" parent="Buttons"]
-position = Vector2( -103, -38 )
+position = Vector2( -41, -39 )
 normal = ExtResource( 4 )
 pressed = ExtResource( 8 )
 action = "player_a"
 
 [node name="B" type="TouchScreenButton" parent="Buttons"]
-position = Vector2( -39, -38 )
-normal = ExtResource( 2 )
-pressed = ExtResource( 1 )
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -104, -39 )
+normal = ExtResource( 1 )
+pressed = ExtResource( 2 )
 action = "player_b"
 
-[connection signal="pressed" from="Dpad/Right" to="." method="_on_Right_pressed"]
-[connection signal="released" from="Dpad/Right" to="." method="_on_Right_released"]
-[connection signal="pressed" from="Dpad/Left" to="." method="_on_Left_pressed"]
-[connection signal="released" from="Dpad/Left" to="." method="_on_Left_released"]
-[connection signal="pressed" from="Dpad/Down" to="." method="_on_Down_pressed"]
-[connection signal="released" from="Dpad/Down" to="." method="_on_Down_released"]
-[connection signal="pressed" from="Dpad/Up" to="." method="_on_Up_pressed"]
-[connection signal="released" from="Dpad/Up" to="." method="_on_Up_released"]
+[node name="Debug" type="TouchScreenButton" parent="."]
+position = Vector2( -20, -13 )
+shape = SubResource( 9 )
+action = "player_debug"
+
+[node name="F3" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -213.0
+margin_top = -120.0
+margin_right = 213.0
+margin_bottom = 120.0
+
+[node name="Button" type="TouchScreenButton" parent="F3"]
+position = Vector2( 194, 165 )
+normal = ExtResource( 13 )
+pressed = ExtResource( 12 )
+action = "ui_debug"
+
+[node name="Label" type="Label" parent="F3/Button"]
+margin_left = 4.0
+margin_top = 20.0
+margin_right = 44.0
+margin_bottom = 34.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 11 )
+text = "debug"

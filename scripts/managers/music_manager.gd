@@ -4,6 +4,7 @@ onready var stream = $Stream
 onready var extra_life = $ExtraLife
 
 var stream_volume = 2.5
+var fading : bool
 
 func _ready():
 	stream.volume_db = stream_volume
@@ -16,19 +17,25 @@ func play_music(music):
 func stop_music():
 	stream.stop()
 
-func fade_out(speed : int):
+func fade_out(speed : float):
+	fading = true
 	while stream.volume_db > -36:
 		yield(get_tree().create_timer(0.1), "timeout")
 		stream.volume_db -= speed
 		if stream.volume_db < -36:
 			stream.volume_db = -36
-		
-func fade_in(speed : int):
+			break
+	fading = false
+	
+func fade_in(speed : float):
+	fading = true
 	while stream.volume_db < stream_volume:
 		yield(get_tree().create_timer(0.1), "timeout")
 		stream.volume_db += speed
 		if stream.volume_db > stream_volume:
 			stream.volume_db = stream_volume
+			break
+	fading = false
 
 func extra_life_jingle():
 	stream.volume_db = -36

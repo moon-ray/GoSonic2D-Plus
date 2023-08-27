@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://objects/particles/Explosion0.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprites/monitor/monitor.png" type="Texture" id=2]
@@ -7,8 +7,80 @@
 [ext_resource path="res://scripts/monitor/icon.gd" type="Script" id=5]
 [ext_resource path="res://objects/audios/ExplosionAudio.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/nodes/score_controller.gd" type="Script" id=7]
+[ext_resource path="res://shaders/supersonic.tres" type="Shader" id=8]
 [ext_resource path="res://sprites/monitor/icons.png" type="Texture" id=9]
 [ext_resource path="res://scripts/monitor/monitor.gd" type="Script" id=10]
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 8 )
+shader_param/original_0 = null
+shader_param/original_1 = null
+shader_param/original_2 = null
+shader_param/original_3 = null
+shader_param/replace_0 = null
+shader_param/replace_1 = null
+shader_param/replace_2 = null
+shader_param/replace_3 = null
+
+[sub_resource type="Animation" id=10]
+resource_name = "Knuckles"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 12 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Sonic"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 10 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "Super Sonic"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 13 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "Tails"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 11 ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "destroyed"
@@ -72,20 +144,27 @@ extents = Vector2( 14, 16 )
 
 [node name="LifeMonitor" type="Node2D"]
 script = ExtResource( 10 )
+life_monitor = true
 ground_layer = 3
 
 [node name="Icon" type="Sprite" parent="."]
+material = SubResource( 8 )
 position = Vector2( 0, -4 )
 texture = ExtResource( 9 )
 hframes = 5
 vframes = 3
-frame = 10
+frame = 13
 script = ExtResource( 5 )
+
+[node name="IconSwapper" type="AnimationPlayer" parent="Icon"]
+anims/Knuckles = SubResource( 10 )
+anims/Sonic = SubResource( 9 )
+"anims/Super Sonic" = SubResource( 11 )
+anims/Tails = SubResource( 12 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 hframes = 4
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/destroyed = SubResource( 1 )

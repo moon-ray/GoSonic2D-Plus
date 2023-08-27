@@ -17,7 +17,9 @@ onready var states = {
 	"DropDash": $DropDash,
 	"Dead": $Dead,
 	"Hurt": $Hurt,
-	"Transform": $Transform
+	"Transform": $Transform,
+	"Victory": $Victory,
+	"Snowboarding": $Snowboarding
 }
 
 var current_state: String

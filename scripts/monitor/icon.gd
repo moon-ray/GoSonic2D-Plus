@@ -21,7 +21,13 @@ func _process(delta):
 	if movement:
 		handle_movement(delta)
 		handle_visibility(delta)
-
+	if get_parent().life_monitor == true:
+		if get_tree().root.get_node_or_null("Zone").player != null:
+			var player = get_tree().root.get_node("Zone").player
+			if player.player_id == "Sonic" and player.super_state:
+				iconswap.play("Super Sonic")
+			else:
+				iconswap.play(player.player_id)
 func handle_movement(delta: float):
 	var speed = move_speed * delta
 	position = position.move_toward(destination, speed)

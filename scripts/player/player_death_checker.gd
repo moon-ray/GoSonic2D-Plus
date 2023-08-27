@@ -4,6 +4,8 @@ class_name DeathChecker
 
 onready var player = get_parent().player
 
+var zone_to_reload : String
+
 export(AudioStream) var game_over
 
 var routined = false
@@ -11,7 +13,8 @@ var can_skip = false
 var can_time_skip = false
 
 onready var hud = get_parent().gameover
-onready var life_counter = get_parent().hud.get_node("Lifes").get_node("Counter")
+onready var life_counter = get_parent().hud.get_node("Lives").get_node("Counter")
+onready var mobile_life_counter = get_parent().hud.get_node("MobileLifes").get_node("Counter")
 
 func _ready():
 	routined = false
@@ -55,7 +58,8 @@ func _handle_death():
 		
 		yield(get_tree().create_timer(1), "timeout") # Waits 1 second for dramatic effect
 		
-		life_counter.set_text(str(ScoreManager.lifes)) # doing this manually because it doesnt update when paused
+		life_counter.set_text(str(ScoreManager.lifes))
+		mobile_life_counter.set_text(str(ScoreManager.lifes)) # doing this manually because it doesnt update when paused
 		
 		if lives > 0 and !current_time == time_limit: # If lives > 0 and player hasnt reached time limit
 			MusicManager.fade_out(2)
@@ -76,18 +80,18 @@ func _handle_death():
 			skip_gameover()
 
 func skip_gameover():
-	get_parent().fade_manager.fade_in()
+	FadeManager.fade_in()
 	yield(get_tree().create_timer(2.0), "timeout")
 	get_tree().paused = false
-	global_load.load_scene(get_tree().root.get_node("Zone"),"res://scenes/main.tscn")
+	global_load.load_scene(get_tree().root.get_node("Zone"),"res://scenes/no_way.tscn")
 	_reset_scores()
 	ScoreManager.lifes = 3
 	
 func skip():
-	get_parent().fade_manager.fade_in()
+	FadeManager.fade_in()
 	yield(get_tree().create_timer(2.0), "timeout")
 	get_tree().paused = false
-	global_load.load_scene(get_tree().root.get_node("Zone"),"res://scenes/main.tscn")
+	global_load.load_scene(get_tree().root.get_node("Zone"),zone_to_reload)
 	_reset_scores()
 
 func _reset_scores():

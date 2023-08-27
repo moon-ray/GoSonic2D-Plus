@@ -1,7 +1,5 @@
 extends Node2D
 
-class_name FadeManager
-
 onready var animation = $AnimationPlayer
 
 func fade_in():
@@ -11,4 +9,8 @@ func fade_in():
 func fade_out():
 	if !animation.current_animation == "fade_out":
 		animation.play("fade_out")
-
+func reset():
+	if !animation.current_animation == "reset":
+		animation.play("reset")
+func prefadeout():
+	animation.play("prefadeout")

@@ -1,34 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://shaders/shader.tres" type="Shader" id=1]
 [ext_resource path="res://scripts/managers/fade_manager.gd" type="Script" id=2]
-
-[sub_resource type="Animation" id=2]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("../Background/Sprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Fader/Control/ColorRect:material:shader_param/frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
 
 [sub_resource type="Animation" id=3]
 resource_name = "fade_in"
@@ -56,24 +29,58 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.3, 1.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 2.0 ]
+"values": [ 0.0, 0.0, 2.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "prefadeout"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fader/Control/ColorRect:material:shader_param/frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "reset"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fader/Control/ColorRect:material:shader_param/frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.0 ]
 }
 
 [sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 1 )
-shader_param/frame = 0.0
+shader_param/frame = 2.0
 
 [node name="FadeManager" type="Node2D"]
 pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 2 )
 anims/fade_in = SubResource( 3 )
 anims/fade_out = SubResource( 6 )
+anims/prefadeout = SubResource( 8 )
+anims/reset = SubResource( 2 )
 
 [node name="Fader" type="CanvasLayer" parent="."]
 layer = 100

@@ -1,0 +1,355 @@
+[gd_scene load_steps=43 format=2]
+
+[ext_resource path="res://sprites/no_way/kte.png" type="Texture" id=1]
+[ext_resource path="res://sprites/no_way/sonic.png" type="Texture" id=2]
+[ext_resource path="res://sprites/no_way/tails.png" type="Texture" id=3]
+[ext_resource path="res://sprites/no_way/robotnik-eggman.png" type="Texture" id=4]
+[ext_resource path="res://sprites/no_way/cast.png" type="Texture" id=5]
+[ext_resource path="res://sprites/no_way/demo-text.png" type="Texture" id=6]
+[ext_resource path="res://sprites/no_way/snklogo.png" type="Texture" id=7]
+[ext_resource path="res://scripts/zone/no_way.gd" type="Script" id=8]
+[ext_resource path="res://audios/musics/no_way.ogg" type="AudioStream" id=9]
+[ext_resource path="res://sprites/no_way/godot.png" type="Texture" id=10]
+[ext_resource path="res://audios/effects/star_post.wav" type="AudioStream" id=11]
+[ext_resource path="res://sprites/no_way/indicator8sep.png" type="Texture" id=12]
+[ext_resource path="res://sprites/no_way/start.png" type="Texture" id=13]
+[ext_resource path="res://sprites/no_way/demo-start.png" type="Texture" id=14]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 48 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 25, 0, 24, 48 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 4.0
+} ]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 17, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 34, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+} ]
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 24 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 33, 0, 32, 24 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 8 ), SubResource( 8 ), SubResource( 9 ), SubResource( 8 ), SubResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 64, 48 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 4 )
+region = Rect2( 65, 0, 64, 48 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=14]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "hahaha"
+length = 1.8
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1.05, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 1, 0, 1, 0, 1, 0 ]
+}
+
+[sub_resource type="Animation" id=16]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("No Way!:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 16 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "noway"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("No Way!:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 16 ), Vector2( -259, 16 ) ]
+}
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 12 )
+region = Rect2( 24, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 12 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 12 )
+region = Rect2( 72, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 12 )
+region = Rect2( 96, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 12 )
+region = Rect2( 120, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 12 )
+region = Rect2( 144, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 12 )
+region = Rect2( 168, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=27]
+animations = [ {
+"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
+"loop": true,
+"name": "default",
+"speed": 30.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 50, 10 )
+
+[sub_resource type="Animation" id=29]
+resource_name = "blink"
+length = 0.1
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="No Way\?" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 8 )
+music = ExtResource( 9 )
+godot = ExtResource( 10 )
+demo_start = ExtResource( 14 )
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Characters" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Cast" type="TextureRect" parent="Characters"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -161.0
+margin_top = -50.0
+margin_right = 159.0
+margin_bottom = 78.0
+texture = ExtResource( 5 )
+
+[node name="Sonic" type="AnimatedSprite" parent="Characters/Cast"]
+position = Vector2( 140, 48 )
+frames = SubResource( 3 )
+frame = 1
+playing = true
+
+[node name="Tails" type="AnimatedSprite" parent="Characters/Cast"]
+position = Vector2( 56, 56 )
+frames = SubResource( 7 )
+frame = 2
+playing = true
+
+[node name="Knuckles" type="AnimatedSprite" parent="Characters/Cast"]
+position = Vector2( 176, 44 )
+frames = SubResource( 10 )
+frame = 3
+playing = true
+
+[node name="Eggman" type="AnimatedSprite" parent="Characters/Cast"]
+position = Vector2( 248, 24 )
+frames = SubResource( 13 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Characters/Cast/Eggman"]
+autoplay = "hahaha"
+anims/RESET = SubResource( 14 )
+anims/hahaha = SubResource( 15 )
+
+[node name="NoWay" type="AnimationPlayer" parent="."]
+autoplay = "noway"
+anims/RESET = SubResource( 16 )
+anims/noway = SubResource( 17 )
+
+[node name="Snklogo" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -48.0
+margin_top = 16.0
+margin_right = 48.0
+margin_bottom = 80.0
+texture = ExtResource( 7 )
+
+[node name="No Way!" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = 16.0
+margin_right = 40.0
+margin_bottom = 56.0
+
+[node name="NoWay1" type="TextureRect" parent="No Way!"]
+anchor_right = 0.69
+margin_left = -152.0
+margin_top = 23.0
+margin_right = 80.0
+margin_bottom = 63.0
+texture = ExtResource( 6 )
+
+[node name="NoWay2" type="TextureRect" parent="No Way!"]
+margin_left = 106.0
+margin_top = 23.0
+margin_right = 338.0
+margin_bottom = 63.0
+texture = ExtResource( 6 )
+
+[node name="NoWay3" type="TextureRect" parent="No Way!"]
+margin_left = 364.0
+margin_top = 23.0
+margin_right = 596.0
+margin_bottom = 63.0
+texture = ExtResource( 6 )
+
+[node name="NoWay4" type="TextureRect" parent="No Way!"]
+margin_left = 622.0
+margin_top = 23.0
+margin_right = 854.0
+margin_bottom = 63.0
+texture = ExtResource( 6 )
+
+[node name="sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
+[node name="Start" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -40.0
+margin_right = 20.0
+
+[node name="Ball" type="AnimatedSprite" parent="Start"]
+position = Vector2( -16, 15 )
+frames = SubResource( 27 )
+frame = 1
+playing = true
+
+[node name="Ball2" type="AnimatedSprite" parent="Start"]
+position = Vector2( 65, 15 )
+frames = SubResource( 27 )
+playing = true
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Start"]
+position = Vector2( -25, 5 )
+shape = SubResource( 18 )
+action = "player_a"
+
+[node name="TextureRect" type="TextureRect" parent="Start"]
+margin_left = 6.0
+margin_top = 9.0
+margin_right = 46.0
+margin_bottom = 21.687
+texture = ExtResource( 13 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Start"]
+anims/blink = SubResource( 29 )

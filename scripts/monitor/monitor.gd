@@ -8,6 +8,7 @@ export(float) var ground_distance = 16
 
 export(bool) var shield
 export(bool) var s_monitor
+export(bool) var life_monitor
 
 export(int, LAYERS_2D_PHYSICS) var ground_layer = 1
 
@@ -85,16 +86,24 @@ func bump_up():
 func _on_SolidObject_player_ceiling_collision(player: Player):
 	if player.velocity.y <= 0:
 		bump_up()
+	elif player.state_machine.current_state == "Snowboarding":
+		destroy(player)
 
 func _on_SolidObject_player_ground_collision(player: Player):
 	if player.is_rolling and player.velocity.y > 0:
 		player.velocity.y = -player.velocity.y
 		destroy(player)
+	elif player.state_machine.current_state == "Snowboarding":
+		destroy(player)
 
 func _on_SolidObject_player_left_wall_collision(player: Player):
 	if player.is_grounded() and player.is_rolling:
 		destroy(player)
+	elif player.state_machine.current_state == "Snowboarding":
+		destroy(player)
 
 func _on_SolidObject_player_right_wall_collision(player: Player):
 	if player.is_grounded() and player.is_rolling:
+		destroy(player)
+	elif player.state_machine.current_state == "Snowboarding":
 		destroy(player)

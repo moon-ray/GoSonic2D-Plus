@@ -32,6 +32,7 @@ func step(player: Player, delta: float):
 			drop_dash = false
 			player.state_machine.change_state("DropDash")
 		$DropDashTimer.stop()
+		
 	elif Input.is_action_just_pressed("player_b") and player.can_transform:
 		player.state_machine.change_state("Transform")
 		
@@ -39,16 +40,10 @@ func step(player: Player, delta: float):
 		can_use_shield = false
 		player.shields.use_current()
 
-	if ((Input.is_action_just_pressed("player_a") or Input.is_action_just_pressed("player_b")) or Input.is_action_just_pressed("player_b")) and player.is_rolling:
-		if player.shields.current_shield == player.shields.shields.InstaShield:
-			if can_drop_dash:
-				$DropDashTimer.start()
-		elif player.shields.current_shield == player.shields.shields.BlueShield:
-			if can_drop_dash:
-				$DropDashTimer.start()
-		elif player.super_state:
-			if can_drop_dash:
-				$DropDashTimer.start()
+	if Input.is_action_just_pressed("player_a") and player.is_rolling:
+		drop_dash_checks(player)
+	elif Input.is_action_just_pressed("player_b") and player.is_rolling and !player.can_transform:
+		drop_dash_checks(player)
 		
 	if Input.is_action_just_released("player_a") or Input.is_action_just_released("player_b"):
 		$DropDashTimer.stop()
@@ -81,3 +76,14 @@ func dropdash_timer_timeout():
 		audio_player.dropdash.play()
 		drop_dash = true
 		can_drop_dash = false
+
+func drop_dash_checks(player):
+	if player.shields.current_shield == player.shields.shields.InstaShield:
+		if can_drop_dash:
+			$DropDashTimer.start()
+	elif player.shields.current_shield == player.shields.shields.BlueShield:
+		if can_drop_dash:
+			$DropDashTimer.start()
+	elif player.super_state:
+		if can_drop_dash:
+			$DropDashTimer.start()

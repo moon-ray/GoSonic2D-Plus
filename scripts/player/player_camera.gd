@@ -152,5 +152,5 @@ func start_camera_delay():
 
 func _on_area_entered(area):
 	if area.get_parent() is Player:
-		if !player.state_machine.current_state == "Dead":
+		if !player.state_machine.current_state == "Dead" and !player.state_machine.current_state == "Snowboarding":
 			player.state_machine.change_state("Dead")

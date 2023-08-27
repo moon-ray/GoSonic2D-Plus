@@ -1,8 +1,7 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://objects/players/sonic.tscn" type="PackedScene" id=1]
-[ext_resource path="res://objects/hud/HUD.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objects/hud/Debug.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/hud/hud_zone.tscn" type="PackedScene" id=2]
 [ext_resource path="res://tilemaps/isolated_island.tres" type="TileSet" id=4]
 [ext_resource path="res://sprites/zones/isolated_island/isolated_island_details.png" type="Texture" id=5]
 [ext_resource path="res://scripts/zone/zone.gd" type="Script" id=6]
@@ -24,8 +23,8 @@
 [ext_resource path="res://sprites/zones/isolated_island/placeholder..png" type="Texture" id=22]
 [ext_resource path="res://objects/spikes/spike.tscn" type="PackedScene" id=23]
 [ext_resource path="res://objects/monitors/SMonitor.tscn" type="PackedScene" id=24]
-[ext_resource path="res://objects/hud/GameOver.tscn" type="PackedScene" id=25]
-[ext_resource path="res://objects/hud/MobileControls.tscn" type="PackedScene" id=26]
+[ext_resource path="res://objects/signpost/sign_post.tscn" type="PackedScene" id=27]
+[ext_resource path="res://audios/musics/act-clear.wav" type="AudioStream" id=29]
 
 [sub_resource type="TileSet" id=1]
 0/name = "isolated_island_details.png 0"
@@ -548,33 +547,26 @@
 36/z_index = 0
 
 [node name="Zone" type="Node2D"]
+position = Vector2( 0, 3 )
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_vertical_guides_": [ 4396.0 ]
 }
+zone_name = "Test"
+act_number = 1
+next_scene = "res://scenes/icecap-test.tscn"
+zone_path = "res://scenes/main.tscn"
 player_resource = ExtResource( 1 )
 camera_resource = ExtResource( 8 )
 death_handler_resource = ExtResource( 19 )
 fade_manager_resource = ExtResource( 21 )
 zone_music = ExtResource( 7 )
-limit_right = 6400.0
+victory_music = ExtResource( 29 )
+zone_hud = ExtResource( 2 )
+limit_right = 6912.0
 
 [node name="StartPoint" type="Node2D" parent="."]
-position = Vector2( 615, 721 )
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-pause_mode = 2
-
-[node name="HUD" parent="CanvasLayer" instance=ExtResource( 2 )]
-
-[node name="Debug" parent="CanvasLayer" instance=ExtResource( 3 )]
-pause_mode = 2
-zone_path = NodePath("../..")
-
-[node name="GameOver" parent="CanvasLayer" instance=ExtResource( 25 )]
-
-[node name="MobileControls" parent="CanvasLayer" instance=ExtResource( 26 )]
-visible = false
+position = Vector2( 592, 709 )
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -7
@@ -630,6 +622,138 @@ texture = ExtResource( 22 )
 
 [node name="Ring10" parent="Rings" instance=ExtResource( 10 )]
 position = Vector2( 661, 668 )
+
+[node name="Ring320" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 3219, 653 )
+
+[node name="Ring321" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 3264, 670 )
+
+[node name="Ring322" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 3306, 686 )
+
+[node name="Ring323" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 3843, 690 )
+
+[node name="Ring324" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 3862, 690 )
+
+[node name="Ring325" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 3881, 690 )
+
+[node name="Ring326" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 4353, 744 )
+
+[node name="Ring327" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 4385, 765 )
+
+[node name="Ring328" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 4256, 713 )
+
+[node name="Ring329" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 4275, 713 )
+
+[node name="Ring330" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 4668, 816 )
+
+[node name="Ring331" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 4781, 785 )
+
+[node name="Ring332" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 4896, 757 )
+
+[node name="Ring333" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5034, 724 )
+
+[node name="Ring334" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5564, 390 )
+
+[node name="Ring363" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5543, 408 )
+
+[node name="Ring335" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5594, 373 )
+
+[node name="Ring336" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5628, 373 )
+
+[node name="Ring337" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5653, 387 )
+
+[node name="Ring338" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5679, 403 )
+
+[node name="Ring339" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5678, 682 )
+
+[node name="Ring340" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5655, 705 )
+
+[node name="Ring341" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5622, 720 )
+
+[node name="Ring342" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5585, 702 )
+
+[node name="Ring343" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5551, 677 )
+
+[node name="Ring344" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5536, 637 )
+
+[node name="Ring345" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5536, 592 )
+
+[node name="Ring346" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5536, 550 )
+
+[node name="Ring347" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5536, 506 )
+
+[node name="Ring348" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5537, 464 )
+
+[node name="Ring349" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5693, 445 )
+
+[node name="Ring350" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5694, 476 )
+
+[node name="Ring351" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5695, 521 )
+
+[node name="Ring352" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5695, 560 )
+
+[node name="Ring353" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5697, 600 )
+
+[node name="Ring354" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 5697, 633 )
+
+[node name="Ring355" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 6128, 708 )
+
+[node name="Ring356" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 6168, 692 )
+
+[node name="Ring357" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 6195, 668 )
+
+[node name="Ring358" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 6221, 631 )
+
+[node name="Ring359" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 6221, 588 )
+
+[node name="Ring360" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 6220, 541 )
+
+[node name="Ring361" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 6200, 507 )
+
+[node name="Ring362" parent="Rings" instance=ExtResource( 10 )]
+position = Vector2( 6200, 507 )
 
 [node name="Ring11" parent="Rings" instance=ExtResource( 10 )]
 position = Vector2( 690, 668 )
@@ -925,150 +1049,6 @@ position = Vector2( 5585, 98 )
 [node name="Ring127" parent="Rings" instance=ExtResource( 10 )]
 position = Vector2( 5612, 98 )
 
-[node name="Ring128" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5307, 77 )
-
-[node name="Ring129" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5336, 77 )
-
-[node name="Ring130" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5363, 77 )
-
-[node name="Ring131" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5391, 77 )
-
-[node name="Ring132" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5420, 77 )
-
-[node name="Ring133" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5447, 77 )
-
-[node name="Ring134" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5472, 77 )
-
-[node name="Ring135" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5501, 77 )
-
-[node name="Ring136" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5528, 77 )
-
-[node name="Ring137" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5556, 77 )
-
-[node name="Ring138" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5585, 77 )
-
-[node name="Ring139" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5612, 77 )
-
-[node name="Ring140" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5307, 57 )
-
-[node name="Ring141" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5336, 57 )
-
-[node name="Ring142" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5363, 57 )
-
-[node name="Ring143" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5391, 57 )
-
-[node name="Ring144" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5420, 57 )
-
-[node name="Ring145" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5447, 57 )
-
-[node name="Ring146" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5472, 57 )
-
-[node name="Ring147" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5501, 57 )
-
-[node name="Ring148" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5528, 57 )
-
-[node name="Ring149" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5556, 57 )
-
-[node name="Ring150" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5585, 57 )
-
-[node name="Ring151" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5612, 57 )
-
-[node name="Ring152" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5307, 36 )
-
-[node name="Ring153" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5336, 36 )
-
-[node name="Ring154" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5363, 36 )
-
-[node name="Ring155" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5391, 36 )
-
-[node name="Ring156" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5420, 36 )
-
-[node name="Ring157" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5447, 36 )
-
-[node name="Ring158" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5472, 36 )
-
-[node name="Ring159" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5501, 36 )
-
-[node name="Ring160" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5528, 36 )
-
-[node name="Ring161" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5556, 36 )
-
-[node name="Ring162" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5585, 36 )
-
-[node name="Ring163" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5612, 36 )
-
-[node name="Ring164" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5307, 15 )
-
-[node name="Ring165" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5336, 15 )
-
-[node name="Ring166" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5363, 15 )
-
-[node name="Ring167" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5391, 15 )
-
-[node name="Ring168" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5420, 15 )
-
-[node name="Ring169" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5447, 15 )
-
-[node name="Ring170" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5472, 15 )
-
-[node name="Ring171" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5501, 15 )
-
-[node name="Ring172" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5528, 15 )
-
-[node name="Ring173" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5556, 15 )
-
-[node name="Ring174" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5585, 15 )
-
-[node name="Ring175" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5612, 15 )
-
 [node name="Ring176" parent="Rings" instance=ExtResource( 10 )]
 position = Vector2( 5635, 247 )
 
@@ -1357,150 +1337,6 @@ position = Vector2( 5913, 98 )
 [node name="Ring271" parent="Rings" instance=ExtResource( 10 )]
 position = Vector2( 5940, 98 )
 
-[node name="Ring272" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5635, 77 )
-
-[node name="Ring273" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5664, 77 )
-
-[node name="Ring274" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5691, 77 )
-
-[node name="Ring275" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5719, 77 )
-
-[node name="Ring276" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5748, 77 )
-
-[node name="Ring277" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5775, 77 )
-
-[node name="Ring278" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5800, 77 )
-
-[node name="Ring279" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5829, 77 )
-
-[node name="Ring280" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5856, 77 )
-
-[node name="Ring281" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5884, 77 )
-
-[node name="Ring282" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5913, 77 )
-
-[node name="Ring283" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5940, 77 )
-
-[node name="Ring284" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5635, 57 )
-
-[node name="Ring285" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5664, 57 )
-
-[node name="Ring286" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5691, 57 )
-
-[node name="Ring287" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5719, 57 )
-
-[node name="Ring288" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5748, 57 )
-
-[node name="Ring289" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5775, 57 )
-
-[node name="Ring290" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5800, 57 )
-
-[node name="Ring291" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5829, 57 )
-
-[node name="Ring292" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5856, 57 )
-
-[node name="Ring293" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5884, 57 )
-
-[node name="Ring294" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5913, 57 )
-
-[node name="Ring295" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5940, 57 )
-
-[node name="Ring296" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5635, 36 )
-
-[node name="Ring297" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5664, 36 )
-
-[node name="Ring298" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5691, 36 )
-
-[node name="Ring299" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5719, 36 )
-
-[node name="Ring300" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5748, 36 )
-
-[node name="Ring301" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5775, 36 )
-
-[node name="Ring302" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5800, 36 )
-
-[node name="Ring303" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5829, 36 )
-
-[node name="Ring304" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5856, 36 )
-
-[node name="Ring305" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5884, 36 )
-
-[node name="Ring306" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5913, 36 )
-
-[node name="Ring307" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5940, 36 )
-
-[node name="Ring308" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5635, 15 )
-
-[node name="Ring309" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5664, 15 )
-
-[node name="Ring310" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5691, 15 )
-
-[node name="Ring311" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5719, 15 )
-
-[node name="Ring312" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5748, 15 )
-
-[node name="Ring313" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5775, 15 )
-
-[node name="Ring314" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5800, 15 )
-
-[node name="Ring315" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5829, 15 )
-
-[node name="Ring316" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5856, 15 )
-
-[node name="Ring317" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5884, 15 )
-
-[node name="Ring318" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5913, 15 )
-
-[node name="Ring319" parent="Rings" instance=ExtResource( 10 )]
-position = Vector2( 5940, 15 )
-
 [node name="Ring16" parent="Rings" instance=ExtResource( 10 )]
 position = Vector2( 1865, 494 )
 
@@ -1563,6 +1399,10 @@ position = Vector2( 1921, 494 )
 [node name="Spike" parent="Hazards" instance=ExtResource( 23 )]
 position = Vector2( 4226, 786 )
 
+[node name="Spike4" parent="Hazards" instance=ExtResource( 23 )]
+position = Vector2( 2225, 368 )
+rotation = -1.5708
+
 [node name="Spike2" parent="Hazards" instance=ExtResource( 23 )]
 position = Vector2( 4257, 786 )
 
@@ -1615,12 +1455,21 @@ position = Vector2( 5631, 373 )
 [node name="RingMonitor" parent="Monitors" instance=ExtResource( 11 )]
 position = Vector2( 870, 623 )
 
+[node name="RingMonitor2" parent="Monitors" instance=ExtResource( 11 )]
+position = Vector2( 3751, 721 )
+
+[node name="RingMonitor3" parent="Monitors" instance=ExtResource( 11 )]
+position = Vector2( 5591, 303 )
+
+[node name="RingMonitor4" parent="Monitors" instance=ExtResource( 11 )]
+position = Vector2( 5649, 303 )
+
 [node name="ShieldMonitor" parent="Monitors" instance=ExtResource( 18 )]
 position = Vector2( 1435, 582 )
 z_index = -2
 
 [node name="ShieldMonitor4" parent="Monitors" instance=ExtResource( 18 )]
-position = Vector2( 6310, 562 )
+position = Vector2( 5275, 631 )
 z_index = -2
 shield_type = "BubbleShield"
 
@@ -1635,6 +1484,9 @@ shield_type = "ThunderShield"
 
 [node name="LifeMonitor4" parent="Monitors" instance=ExtResource( 17 )]
 position = Vector2( 3011, 400 )
+
+[node name="LifeMonitor6" parent="Monitors" instance=ExtResource( 17 )]
+position = Vector2( 1110, 719 )
 
 [node name="LifeMonitor5" parent="Monitors" instance=ExtResource( 17 )]
 position = Vector2( 2376, 337 )
@@ -1661,7 +1513,7 @@ position = Vector2( 1100, 560 )
 z_index = -2
 
 [node name="YellowSpringUp2" parent="Springs" instance=ExtResource( 9 )]
-position = Vector2( 6310, 559 )
+position = Vector2( 5143, 717 )
 z_index = -3
 power = 1200.0
 
@@ -1682,7 +1534,7 @@ tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 32769
 format = 1
-tile_data = PoolIntArray( 655430, 1, 0, 655434, 536870913, 0, 721068, 536870938, 0, 721071, 536870937, 0, 786502, 25, 0, 786506, 536870937, 0, 786522, 536870913, 0, 786526, 536870913, 0, 917594, 536870938, 0, 917598, 536870937, 0, 1048633, 1, 0, 1048637, 536870915, 0, 1114165, 12, 0, 1114177, 536870915, 0, 1114307, 0, 0, 1114308, 1, 0, 1179705, 536870920, 0, 1179710, 1, 0, 1179717, 536870912, 0, 1179726, 1, 0, 1179730, 536870915, 0, 1245241, 16, 0, 1245244, 16, 0, 1245245, 17, 0, 1245254, 536870934, 0, 1245258, 536870932, 0, 1245270, 536870915, 0, 1245375, 12, 0, 1245379, 14, 0, 1245383, -1610612716, 0, 1310768, 0, 0, 1310769, 1, 0, 1310773, 1, 0, 1310777, 9, 0, 1310778, 8, 0, 1310782, 8, 0, 1310786, 10, 0, 1310790, 14, 0, 1310794, 16, 0, 1310798, 10, 0, 1310818, 536870915, 0, 1376292, 3, 0, 1376296, 1, 0, 1376300, 1, 0, 1376338, 16, 0, 1376346, 536870934, 0, 1376350, 536870932, 0, 1376358, 536870915, 0, 1441792, 5, 0, 1441796, 1, 0, 1441800, 1, 0, 1441804, 1, 0, 1441808, 1, 0, 1441812, 1, 0, 1441816, 1, 0, 1441820, 5, 0, 1441824, 1, 0, 1441840, 9, 0, 1441841, 10, 0, 1441845, 8, 0, 1441878, 14, 0, 1441882, 16, 0, 1441886, 14, 0, 1441898, 536870912, 0, 1441908, 0, 0, 1441909, 536870913, 0, 1441913, 536870915, 0, 1441947, 3, 0, 1441951, 0, 0, 1441952, 1, 0, 1441956, 1, 0, 1441960, 1, 0, 1441976, 536870913, 0, 1441980, 536870913, 0, 1507368, 8, 0, 1507372, 8, 0, 1507426, 8, 0, 1507453, 536870915, 0, 1507479, 3, 0, 1507500, 536870926, 0, 1507504, 536870926, 0, 1507508, 536870926, 0, 1507520, 18, 0, 1507524, 14, 0, 1572864, 8, 0, 1572868, 10, 0, 1572872, 8, 0, 1572876, 8, 0, 1572880, 11, 0, 1572884, 8, 0, 1572888, 8, 0, 1572892, 8, 0, 1572896, 10, 0, 1572900, 14, 0, 1572921, 13, 0, 1572922, 14, 0, 1572926, 16, 0, 1572930, 14, 0, 1572966, 536870920, 0, 1572970, 536870919, 0, 1572971, 536870914, 0, 1572972, 536870913, 0, 1572976, 536870913, 0, 1572980, 536870920, 0, 1572993, 536870913, 0, 1572997, 536870913, 0, 1573000, 536870912, 0, 1573011, 3, 0, 1573023, 7, 0, 1573024, 536870923, 0, 1573028, 536870920, 0, 1573032, 536870920, 0, 1573048, 536870928, 0, 1573052, 536870930, 0, 1638516, 536870920, 0, 1638518, 536870920, 0, 1638542, 3, 0, 1638555, 14, 0, 1638556, 14, 0, 1704043, 536870919, 0, 1704044, 536870920, 0, 1704048, 536870922, 0, 1704052, 536870920, 0, 1704056, 536870920, 0, 1704060, 536870923, 0, 1704064, 536870920, 0, 1704068, 536870920, 0, 1704072, 536870919, 0, 1704073, 536870914, 0, 1704074, 536870913, 0, 1704082, 20, 0, 1704086, 14, 0, 1704090, 14, 0, 1704094, 536870912, 0, 1769618, 22, 0, 1769644, 536870928, 0, 1769648, 536870928, 0, 1769652, 536870928, 0, 1835110, 536870926, 0, 1835114, 536870925, 0, 1835145, 7, 0, 1835146, 10, 0, 1835150, 8, 0, 1835154, 4, 0, 1835158, 8, 0, 1835162, 11, 0, 1835166, 536870919, 0, 1835167, 536870925, 0, 1835168, 536870926, 0, 1835172, 536870926, 0, 1835176, 536870926, 0, 1835180, 536870928, 0, 1835184, 536870928, 0, 1835187, 536870928, 0, 1835189, 536870928, 0, 1835193, 536870930, 0, 1900690, 14, 0, 1966187, 536870925, 0, 1966204, 536870926, 0, 1966208, 536870928, 0, 1966212, 536870926, 0, 1966216, 536870925, 0, 2097289, 13, 0, 2097290, 14, 0, 2097294, 16, 0, 2097302, 14, 0, 2097306, 16, 0, 2097310, 13, 0 )
+tile_data = PoolIntArray( 655430, 1, 0, 655434, 536870913, 0, 721068, 536870938, 0, 721071, 536870937, 0, 786502, 25, 0, 786506, 536870937, 0, 786522, 536870913, 0, 786526, 536870913, 0, 917594, 536870938, 0, 917598, 536870937, 0, 1048633, 1, 0, 1048637, 536870915, 0, 1114165, 12, 0, 1114177, 536870915, 0, 1114307, 0, 0, 1114308, 1, 0, 1114312, 1, 0, 1114316, 1, 0, 1114320, 1, 0, 1114324, 1, 0, 1179705, 536870920, 0, 1179710, 1, 0, 1179717, 536870912, 0, 1179726, 1, 0, 1179730, 536870915, 0, 1245241, 16, 0, 1245244, 16, 0, 1245245, 17, 0, 1245254, 536870934, 0, 1245258, 536870932, 0, 1245270, 536870915, 0, 1245375, 12, 0, 1245379, 14, 0, 1245383, -1610612716, 0, 1245384, 8, 0, 1245388, 10, 0, 1245392, 14, 0, 1245396, 14, 0, 1310768, 0, 0, 1310769, 1, 0, 1310773, 1, 0, 1310777, 9, 0, 1310778, 8, 0, 1310782, 8, 0, 1310786, 10, 0, 1310790, 14, 0, 1310794, 16, 0, 1310798, 10, 0, 1310818, 536870915, 0, 1376292, 3, 0, 1376296, 1, 0, 1376300, 1, 0, 1376338, 16, 0, 1376346, 536870934, 0, 1376350, 536870932, 0, 1376358, 536870915, 0, 1441792, 5, 0, 1441796, 1, 0, 1441800, 1, 0, 1441804, 1, 0, 1441808, 1, 0, 1441812, 1, 0, 1441816, 1, 0, 1441820, 5, 0, 1441824, 1, 0, 1441840, 9, 0, 1441841, 10, 0, 1441845, 8, 0, 1441878, 14, 0, 1441882, 16, 0, 1441886, 14, 0, 1441898, 536870912, 0, 1441908, 0, 0, 1441909, 536870913, 0, 1441913, 536870915, 0, 1441947, 3, 0, 1441951, 0, 0, 1441952, 1, 0, 1441956, 1, 0, 1441960, 1, 0, 1441976, 536870913, 0, 1441980, 536870913, 0, 1507368, 8, 0, 1507372, 8, 0, 1507426, 8, 0, 1507453, 536870915, 0, 1507479, 3, 0, 1507500, 536870926, 0, 1507504, 536870926, 0, 1507508, 536870926, 0, 1507520, 18, 0, 1507524, 14, 0, 1507528, 14, 0, 1507532, 14, 0, 1507533, 14, 0, 1507537, 14, 0, 1507540, 14, 0, 1572864, 8, 0, 1572868, 10, 0, 1572872, 8, 0, 1572876, 8, 0, 1572880, 11, 0, 1572884, 8, 0, 1572888, 8, 0, 1572892, 8, 0, 1572896, 10, 0, 1572900, 14, 0, 1572921, 13, 0, 1572922, 14, 0, 1572926, 16, 0, 1572930, 14, 0, 1572966, 536870920, 0, 1572970, 536870919, 0, 1572971, 536870914, 0, 1572972, 536870913, 0, 1572976, 536870913, 0, 1572980, 536870920, 0, 1572993, 536870913, 0, 1572997, 536870913, 0, 1573000, 536870912, 0, 1573011, 3, 0, 1573023, 7, 0, 1573024, 536870923, 0, 1573028, 536870920, 0, 1573032, 536870920, 0, 1573048, 536870928, 0, 1573052, 536870930, 0, 1638516, 536870920, 0, 1638518, 536870920, 0, 1638542, 3, 0, 1638555, 14, 0, 1638556, 14, 0, 1704043, 536870919, 0, 1704044, 536870920, 0, 1704048, 536870922, 0, 1704052, 536870920, 0, 1704056, 536870920, 0, 1704060, 536870923, 0, 1704064, 536870920, 0, 1704068, 536870920, 0, 1704072, 536870919, 0, 1704073, 536870914, 0, 1704074, 536870913, 0, 1704082, 20, 0, 1704086, 14, 0, 1704090, 14, 0, 1704094, 536870912, 0, 1769618, 22, 0, 1769644, 536870928, 0, 1769648, 536870928, 0, 1769652, 536870928, 0, 1835110, 536870926, 0, 1835114, 536870925, 0, 1835145, 7, 0, 1835146, 10, 0, 1835150, 8, 0, 1835154, 4, 0, 1835158, 8, 0, 1835162, 11, 0, 1835166, 536870919, 0, 1835167, 536870925, 0, 1835168, 536870926, 0, 1835172, 536870926, 0, 1835176, 536870926, 0, 1835180, 536870928, 0, 1835184, 536870928, 0, 1835187, 536870928, 0, 1835189, 536870928, 0, 1835193, 536870930, 0, 1900690, 14, 0, 1966187, 536870925, 0, 1966204, 536870926, 0, 1966208, 536870928, 0, 1966212, 536870926, 0, 1966216, 536870925, 0, 2097289, 13, 0, 2097290, 14, 0, 2097294, 16, 0, 2097302, 14, 0, 2097306, 16, 0, 2097310, 13, 0 )
 
 [node name="SolidTiles16x32" type="TileMap" parent="Tilemaps"]
 tile_set = ExtResource( 4 )
@@ -1745,3 +1597,5 @@ tile_set = SubResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 1638514, 4, 0, 1769595, 4, 0, 1966160, 4, 0, 1966186, 4, 0, 1966197, 5, 0, 2031733, 5, 0, 2097269, 5, 0, 2097278, 5, 0, 2162694, 4, 0, 2162713, 4, 0, 2162724, 4, 0, 2162753, 4, 0, 2162805, 5, 0, 2162814, 5, 0, 2228310, 4, 0, 2228341, 5, 0, 2228350, 5, 0, 2293843, 5, 0, 2293869, 5, 0, 2293877, 5, 0, 2293886, 5, 0, 2359310, 4, 0, 2359355, 0, 0, 2359379, 5, 0, 2359405, 5, 0, 2359413, 5, 0, 2359422, 5, 0, 2359497, 536870916, 0, 2359539, 4, 0, 2424915, 5, 0, 2424941, 5, 0, 2424949, 6, 0, 2424958, 6, 0, 2425158, 4, 0, 2490377, 5, 0, 2490396, 5, 0, 2490407, 5, 0, 2490436, 5, 0, 2490451, 5, 0, 2490467, 0, 0, 2490477, 5, 0, 2555913, 5, 0, 2555932, 5, 0, 2555943, 5, 0, 2555972, 5, 0, 2555987, 5, 0, 2555993, 5, 0, 2556013, 5, 0, 2556173, 4, 0, 2621449, 5, 0, 2621464, 1, 0, 2621468, 5, 0, 2621479, 5, 0, 2621508, 5, 0, 2621519, 0, 0, 2621523, 5, 0, 2621529, 5, 0, 2621549, 5, 0, 2621695, 4, 0, 2686985, 5, 0, 2686993, 5, 0, 2687004, 5, 0, 2687015, 5, 0, 2687044, 5, 0, 2687059, 5, 0, 2687065, 5, 0, 2687085, 6, 0, 2687181, 536870917, 0, 2687222, 5, 0, 2752513, 1, 0, 2752521, 5, 0, 2752529, 5, 0, 2752540, 5, 0, 2752551, 5, 0, 2752580, 5, 0, 2752595, 5, 0, 2752601, 5, 0, 2752717, 536870917, 0, 2752722, 536870912, 0, 2752748, 536870913, 0, 2752758, 5, 0, 2752835, 0, 0, 2752841, 5, 0, 2818057, 5, 0, 2818065, 5, 0, 2818076, 5, 0, 2818087, 5, 0, 2818116, 5, 0, 2818131, 6, 0, 2818137, 6, 0, 2818253, 536870918, 0, 2818294, 5, 0, 2818328, 4, 0, 2818369, 1, 0, 2818377, 5, 0, 2818378, 1, 0, 2818387, 1, 0, 2883593, 5, 0, 2883601, 5, 0, 2883609, 3, 0, 2883612, 5, 0, 2883623, 5, 0, 2883652, 5, 0, 2883830, 5, 0, 2883833, 536870912, 0, 2883856, 5, 0, 2883913, 5, 0, 2949129, 6, 0, 2949137, 6, 0, 2949148, 6, 0, 2949159, 6, 0, 2949188, 6, 0, 2949366, 5, 0, 2949378, 5, 0, 2949392, 5, 0, 2949407, 4, 0, 2949449, 6, 0, 2949450, 6, 0, 3014875, 536870913, 0, 3014902, 6, 0, 3014908, 536870912, 0, 3014914, 5, 0, 3014918, 536870912, 0, 3014922, 536870912, 0, 3014928, 5, 0, 3080450, 5, 0, 3080464, 5, 0, 3145986, 5, 0, 3146000, 5, 0, 3146011, 5, 0, 3211522, 5, 0, 3211536, 5, 0, 3211547, 5, 0, 3277083, 5, 0, 3277088, 0, 0, 3277090, 5, 0, 3277093, 1, 0, 3342614, 0, 0, 3342619, 5, 0, 3342626, 5, 0, 3408155, 5, 0, 3408162, 5, 0, 3473691, 5, 0, 3473698, 6, 0 )
+
+[node name="SignPost" parent="." instance=ExtResource( 27 )]

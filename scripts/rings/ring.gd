@@ -17,7 +17,7 @@ const turn_speed = 0.5
 const follow_speed = 0.3
 
 var velocity = Vector2(0,0)
-var gravity = 8
+var gravity = 16
 
 var y_speed : float
 var x_speed : float
@@ -27,8 +27,8 @@ var position_tracker : Position2D
 var ring_acceleration = [turn_speed, follow_speed]
 
 var _player : Player
-var bounce_damp = 70
-var bounce = 300
+var bounce_damp = 100
+var bounce = 500
 
 var ring_drop = globalvars.ring_drop
 

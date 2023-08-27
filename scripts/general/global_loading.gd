@@ -3,6 +3,9 @@ extends Node
 onready var loading_scene = preload("res://scenes/loading.tscn")
 
 func load_scene(current_scene, next_scene):
+	current_scene.queue_free()
+	FadeManager.reset()
+	ScoreManager.reset_score(false, false, true)
 	# add loading scene to the root
 	var loading_scene_instance = loading_scene.instance()
 	get_tree().get_root().call_deferred("add_child",loading_scene_instance)
@@ -17,7 +20,6 @@ func load_scene(current_scene, next_scene):
 		print("error occured while getting the scene")
 		return
 
-	current_scene.queue_free()
 	# creating a little delay, that lets the loading screen to appear.
 	yield(get_tree().create_timer(0.5),"timeout")
 
@@ -42,6 +44,7 @@ func load_scene(current_scene, next_scene):
 			get_tree().get_root().call_deferred("add_child",scene)
 			# removing loading scene
 			loading_scene_instance.queue_free()
+			FadeManager.prefadeout()
 			return
 		else:
 			# handle your error

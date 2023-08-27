@@ -3,6 +3,10 @@ extends Node2D
 class_name Player
 
 signal ground_enter
+signal super_transform
+signal detransform
+
+export(String, "Sonic", "Tails", "Knuckles") var player_id
 
 export(Array, Resource) var bounds
 export(Array, Resource) var stats
@@ -81,6 +85,8 @@ var super_state = false
 var can_transform = false
 export var super_ring_amount : int
 
+var spun_sign_post = false
+
 func _ready():
 	dash_dust.visible = false
 	initialize_collider()
@@ -97,6 +103,14 @@ func _physics_process(delta):
 	handle_skin(delta)
 	handle_super_sonic()
 	
+func change_state(state : String):
+	state_machine.change_state(state)
+	
+func victory_anim():
+	while !__is_grounded:
+		yield(get_tree().create_timer(0.1), "timeout")
+	change_state("Victory")
+	
 func _process(delta):
 	var super_em_requirement = globalvars.ch_emerald_super_requirement
 	var chaos_emeralds = globalvars.chaos_emeralds
@@ -107,9 +121,13 @@ func _process(delta):
 			state_machine.change_state("Dead")
 			
 	if Input.is_action_just_pressed("player_debug"):
-		hurt("",self)
+		#hurt("",self)
+		change_state("Snowboarding")
+	
+	if spun_sign_post:
+		vulnerable = false
 			
-	if ScoreManager.rings >= super_ring_amount and chaos_emeralds >= super_em_requirement:
+	if ScoreManager.rings >= super_ring_amount and chaos_emeralds >= super_em_requirement and !spun_sign_post:
 		if !super_state:
 			can_transform = true
 		else:
@@ -135,20 +153,27 @@ func handle_super_sonic():
 			skin.set_pallete("normal")
 		skin.texture = sonic_texture
 		if !state_machine.current_state == "Transform":
-			vulnerable = true
+			if !spun_sign_post:
+				vulnerable = true
 			shields.visible = true
 		if !state_machine.current_state == "Dead":
-			get_parent()._zone_music()
+			if !state_machine.current_state == "Victory":
+				if !spun_sign_post:
+					get_parent()._zone_music()
 		skin = skin
 		 
 func set_super_state(value: bool):
 	if value:
 		super_state = true
+		emit_signal("super_transform")
 	else:
-		super_state = false
-		if !skin.pal_swapper.current_animation == "Detransform":
-			skin.transitioning_pallete = true
-			skin.pal_swapper.play("Detransform")
+		if super_state:
+			super_state = false
+			get_parent()._zone_music()
+			emit_signal("detransform")
+			if !skin.pal_swapper.current_animation == "Detransform":
+				skin.transitioning_pallete = true
+				skin.pal_swapper.play("Detransform")
 func iframes():
 	if vulnerable == true:
 		can_collect_rings = false
@@ -185,6 +210,8 @@ func initialize_resources():
 
 func hurt(type: String, hazard):
 	if vulnerable:
+		ScoreManager.times_hit += 1
+			
 		if score_manager.rings > 0:
 			hurt_routine(type, hazard)
 		else:
@@ -193,6 +220,11 @@ func hurt(type: String, hazard):
 				state_machine.change_state("Dead")
 			else:
 				hurt_routine(type, hazard)
+		
+func kick_off_board(hazard):
+	audios.hurt.play()
+	state_machine.get_node("Hurt").launch(self, hazard)
+	change_state("Hurt")
 		
 func hurt_routine(type: String, hazard):
 	if vulnerable:
@@ -237,7 +269,7 @@ func drop_rings(amount: int):
 		ring_instance.velocity.x = delta_x
 		ring_instance.velocity.y = delta_y
 
-		get_parent().add_child(ring_instance)
+		get_parent().call_deferred("add_child", ring_instance)
 		
 
 func initialize_state_machine():

@@ -1,12 +1,597 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scripts/hud/hud_warning.gd" type="Script" id=1]
 [ext_resource path="res://sprites/hud/hud.png" type="Texture" id=2]
-[ext_resource path="res://sprites/hud/sonic.png" type="Texture" id=3]
 [ext_resource path="res://sprites/hud/hud_time_warning.png" type="Texture" id=4]
 [ext_resource path="res://sprites/hud/hud_rings_warning.png" type="Texture" id=5]
 [ext_resource path="res://fonts/hud_numbers.fnt" type="BitmapFont" id=6]
 [ext_resource path="res://scripts/hud/hud.gd" type="Script" id=7]
+[ext_resource path="res://fonts/system.fnt" type="BitmapFont" id=8]
+[ext_resource path="res://sprites/hud/icons.png" type="Texture" id=10]
+[ext_resource path="res://sprites/hud/names.png" type="Texture" id=11]
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 11 )
+region = Rect2( 32, 0, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 11 )
+region = Rect2( 64, 0, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 16, 32, 16 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Shader" id=22]
+code = "shader_type canvas_item;
+
+
+uniform vec4 original_0: hint_color;
+uniform vec4 original_1: hint_color;
+uniform vec4 original_2: hint_color;
+uniform vec4 original_3: hint_color;
+uniform vec4 replace_0: hint_color;
+uniform vec4 replace_1: hint_color;
+uniform vec4 replace_2: hint_color;
+uniform vec4 replace_3: hint_color;
+
+const float precision = 0.1;
+
+
+vec4 swap_color(vec4 color){
+	vec4 original_colors[4] = vec4[4] (original_0, original_1, original_2, original_3);
+	vec4 replace_colors[4] = vec4[4] (replace_0, replace_1, replace_2, replace_3);
+	for (int i = 0; i < 4; i ++) {
+		if (distance(color, original_colors[i]) <= precision){
+			return replace_colors[i];
+		}
+	}
+	return color;
+}
+
+
+void fragment() {
+	COLOR = swap_color(texture(TEXTURE, UV));
+}"
+
+[sub_resource type="ShaderMaterial" id=23]
+shader = SubResource( 22 )
+shader_param/original_0 = Color( 0.423529, 0.423529, 0.988235, 1 )
+shader_param/original_1 = Color( 0.141176, 0.282353, 0.847059, 1 )
+shader_param/original_2 = Color( 0.141176, 0.141176, 0.564706, 1 )
+shader_param/original_3 = null
+shader_param/replace_0 = Color( 0.988235, 0.988235, 0.705882, 1 )
+shader_param/replace_1 = Color( 0.988235, 0.988235, 0.564706, 1 )
+shader_param/replace_2 = Color( 0.847059, 0.847059, 0.423529, 1 )
+shader_param/replace_3 = Color( 0, 0, 0, 1 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 10 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 10 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=16]
+resource_name = "Knuckles"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Name:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=20]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Name:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Icon:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 3 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Icon:material:shader_param/replace_0")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.988235, 0.988235, 0.705882, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Icon:material:shader_param/replace_1")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.988235, 0.988235, 0.564706, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Icon:material:shader_param/replace_2")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.847059, 0.847059, 0.423529, 1 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "Sonic"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Name:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Icon:material:shader_param/replace_0")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.423529, 0.423529, 0.988235, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Icon:material:shader_param/replace_1")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.141176, 0.282353, 0.847059, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Icon:material:shader_param/replace_2")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.141176, 0.141176, 0.564706, 1 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "Super Sonic"
+length = 0.45
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Name:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Icon:material:shader_param/replace_0")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 0.988235, 0.988235, 0.847059, 1 ), Color( 0.988235, 0.988235, 0.705882, 1 ), Color( 0.988235, 0.988235, 0.564706, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Icon:material:shader_param/replace_1")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 0.988235, 0.988235, 0.847059, 1 ), Color( 0.988235, 0.988235, 0.564706, 1 ), Color( 0.988235, 0.988235, 0, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Icon:material:shader_param/replace_2")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 0.988235, 0.988235, 0.705882, 1 ), Color( 0.847059, 0.847059, 0.423529, 1 ), Color( 0.705882, 0.705882, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "Tails"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Name:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "Knuckles"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Name:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=25]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Name:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Icon:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 3 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Icon:material:shader_param/replace_0")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.988235, 0.988235, 0.705882, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Icon:material:shader_param/replace_1")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.988235, 0.988235, 0.564706, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Icon:material:shader_param/replace_2")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.847059, 0.847059, 0.423529, 1 ) ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "Sonic"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Name:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Icon:material:shader_param/replace_0")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.423529, 0.423529, 0.988235, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Icon:material:shader_param/replace_1")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.141176, 0.282353, 0.847059, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Icon:material:shader_param/replace_2")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.141176, 0.141176, 0.564706, 1 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "Super Sonic"
+length = 0.45
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Name:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Icon:material:shader_param/replace_0")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 0.988235, 0.988235, 0.847059, 1 ), Color( 0.988235, 0.988235, 0.705882, 1 ), Color( 0.988235, 0.988235, 0.564706, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Icon:material:shader_param/replace_1")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 0.988235, 0.988235, 0.847059, 1 ), Color( 0.988235, 0.988235, 0.564706, 1 ), Color( 0.988235, 0.988235, 0, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Icon:material:shader_param/replace_2")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 0.988235, 0.988235, 0.705882, 1 ), Color( 0.847059, 0.847059, 0.423529, 1 ), Color( 0.705882, 0.705882, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "Tails"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Name:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
 
 [node name="HUD" type="Control"]
 pause_mode = 2
@@ -24,23 +609,20 @@ texture = ExtResource( 2 )
 
 [node name="Score" type="Label" parent="Score"]
 pause_mode = 2
-margin_left = 40.0
-margin_top = 1.0
-margin_right = 104.0
-margin_bottom = 14.0
+margin_left = 32.0
+margin_top = -1.0
+margin_right = 96.0
+margin_bottom = 12.0
 custom_fonts/font = ExtResource( 6 )
 text = "0"
 align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Rings" type="Label" parent="Score"]
 pause_mode = 2
-margin_left = 40.0
-margin_top = 33.0
-margin_right = 80.0
-margin_bottom = 46.0
+margin_left = 56.0
+margin_top = 31.0
+margin_right = 96.0
+margin_bottom = 44.0
 custom_fonts/font = ExtResource( 6 )
 text = "0"
 align = 2
@@ -54,10 +636,9 @@ margin_bottom = 32.0
 
 [node name="Minutes" type="Label" parent="Score/Timer"]
 pause_mode = 2
-margin_left = -8.0
-margin_top = 1.0
-margin_right = 8.0
-margin_bottom = 14.0
+margin_left = -16.0
+margin_top = -1.0
+margin_bottom = 12.0
 custom_fonts/font = ExtResource( 6 )
 text = "0"
 align = 2
@@ -67,23 +648,20 @@ __meta__ = {
 
 [node name="Seconds" type="Label" parent="Score/Timer"]
 pause_mode = 2
-margin_left = 16.0
-margin_top = 1.0
-margin_right = 32.0
-margin_bottom = 14.0
+margin_left = 8.0
+margin_top = -1.0
+margin_right = 24.0
+margin_bottom = 12.0
 custom_fonts/font = ExtResource( 6 )
 text = "00"
 align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Milliseconds" type="Label" parent="Score/Timer"]
 pause_mode = 2
-margin_left = 40.0
-margin_top = 1.0
-margin_right = 56.0
-margin_bottom = 14.0
+margin_left = 32.0
+margin_top = -1.0
+margin_right = 48.0
+margin_bottom = 12.0
 custom_fonts/font = ExtResource( 6 )
 text = "00"
 align = 2
@@ -117,48 +695,72 @@ margin_bottom = 40.0
 texture = ExtResource( 5 )
 stretch_mode = 1
 
-[node name="Lifes" type="TextureRect" parent="."]
-pause_mode = 2
+[node name="Lives" type="Control" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 12.0
-margin_top = -32.0
-margin_right = 56.0
-margin_bottom = -12.0
-texture = ExtResource( 3 )
+margin_top = -240.0
+margin_right = 426.0
 
-[node name="Counter" type="Label" parent="Lifes"]
+[node name="Name" type="AnimatedSprite" parent="Lives"]
+position = Vector2( 47, 219 )
+frames = SubResource( 15 )
+
+[node name="Icon" type="AnimatedSprite" parent="Lives"]
+material = SubResource( 23 )
+position = Vector2( 23, 219 )
+frames = SubResource( 10 )
+frame = 3
+
+[node name="Counter" type="Label" parent="Lives"]
 pause_mode = 2
-margin_left = 20.0
-margin_top = 5.0
-margin_right = 40.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 6 )
+margin_left = 43.0
+margin_top = 220.0
+margin_right = 63.0
+margin_bottom = 234.0
+custom_colors/font_color_shadow = Color( 0.282353, 0.282353, 0.423529, 1 )
+custom_fonts/font = ExtResource( 8 )
 text = "0"
 align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="MobileLifes" type="TextureRect" parent="."]
-pause_mode = 2
+[node name="NameHandler" type="AnimationPlayer" parent="Lives"]
+anims/Knuckles = SubResource( 16 )
+anims/RESET = SubResource( 20 )
+anims/Sonic = SubResource( 18 )
+"anims/Super Sonic" = SubResource( 21 )
+anims/Tails = SubResource( 19 )
+
+[node name="MobileLifes" type="Control" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -64.0
-margin_top = 18.0
-margin_right = -20.0
-margin_bottom = 38.0
-texture = ExtResource( 3 )
+margin_left = -74.0
+margin_top = -3.0
+margin_right = -74.0
+margin_bottom = -3.0
+
+[node name="Name" type="AnimatedSprite" parent="MobileLifes"]
+position = Vector2( 40, 23 )
+frames = SubResource( 15 )
+
+[node name="Icon" type="AnimatedSprite" parent="MobileLifes"]
+material = SubResource( 23 )
+position = Vector2( 16, 23 )
+frames = SubResource( 10 )
+frame = 3
 
 [node name="Counter" type="Label" parent="MobileLifes"]
 pause_mode = 2
-margin_left = 20.0
-margin_top = 5.0
-margin_right = 40.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 6 )
+margin_left = 36.0
+margin_top = 24.0
+margin_right = 56.0
+margin_bottom = 38.0
+custom_colors/font_color_shadow = Color( 0.282353, 0.282353, 0, 1 )
+custom_fonts/font = ExtResource( 8 )
 text = "0"
 align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="NameHandler" type="AnimationPlayer" parent="MobileLifes"]
+anims/Knuckles = SubResource( 24 )
+anims/RESET = SubResource( 25 )
+anims/Sonic = SubResource( 26 )
+"anims/Super Sonic" = SubResource( 27 )
+anims/Tails = SubResource( 28 )

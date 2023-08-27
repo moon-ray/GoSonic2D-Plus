@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/be_cool_wild_groovy-ice_cap.ogg-9752c079345e50645d205b05982de832.oggstr"
+
+[deps]
+
+source_file="res://audios/musics/be_cool_wild_groovy-ice_cap.ogg"
+dest_files=[ "res://.import/be_cool_wild_groovy-ice_cap.ogg-9752c079345e50645d205b05982de832.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=9.105

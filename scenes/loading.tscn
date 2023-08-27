@@ -63,5 +63,5 @@ margin_top = -40.0
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Ring"]
 position = Vector2( 14, 18 )
 frames = SubResource( 9 )
-frame = 3
+frame = 5
 playing = true

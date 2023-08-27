@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="Shader" format=2]
 
-[sub_resource type="Shader" id=75]
+[resource]
 code = "shader_type canvas_item;
 
 
@@ -31,14 +31,3 @@ vec4 swap_color(vec4 color){
 void fragment() {
 	COLOR = swap_color(texture(TEXTURE, UV));
 }"
-
-[resource]
-shader = SubResource( 75 )
-shader_param/original_0 = Color( 0.141176, 0.141176, 0.564706, 1 )
-shader_param/original_1 = Color( 0.141176, 0.282353, 0.847059, 1 )
-shader_param/original_2 = Color( 0.282353, 0.282353, 0.988235, 1 )
-shader_param/original_3 = Color( 0.423529, 0.423529, 0.988235, 1 )
-shader_param/replace_0 = Color( 0.988235, 0.988235, 0.282353, 1 )
-shader_param/replace_1 = Color( 0.988235, 0.988235, 0.705882, 1 )
-shader_param/replace_2 = Color( 0.282353, 0.282353, 0.988235, 1 )
-shader_param/replace_3 = Color( 0.988235, 0.988235, 0.988235, 1 )

@@ -2,10 +2,11 @@ extends Node
 
 var score = 0
 var rings = 0
-var lifes = 1
+var lifes = 3
 
-var time: float
+var time : float
 var time_stoped: bool
+var time_stopped_goal: bool
 
 signal ring_added
 signal score_added
@@ -17,13 +18,17 @@ const TIME_LIMIT = 600
 var cap_rings = true
 
 var lifes_added = 1
+var lifes_added_score = 1
 var life_for_every = 100
+var life_for_every_score = 50000
+
+var times_hit : int
 
 func _process(delta):
 	handle_time(delta)
 
 func handle_time(delta: float):
-	if not time_stoped:
+	if not time_stoped and !time_stopped_goal:
 		var next_time = time + delta
 		if (next_time < TIME_LIMIT):
 			time += delta
@@ -66,6 +71,9 @@ func extra_life(player):
 	if rings >= (lifes_added*life_for_every):
 		add_life(1)
 		lifes_added += 1
+	if score >= (lifes_added_score*life_for_every_score):
+		add_life(1)
+		lifes_added_score += 1
 
 func reset_score(reset_score, reset_time, reset_rings):
 	if reset_score:
@@ -81,3 +89,6 @@ func time_limit_over():
 		return true
 	else:
 		return false
+		
+func stop_time_goal():
+	time_stopped_goal = true

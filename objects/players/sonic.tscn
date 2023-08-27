@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=2]
+[gd_scene load_steps=119 format=2]
 
 [ext_resource path="res://scripts/player/states/rolling_player_state.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player/states/air_player_state.gd" type="Script" id=2]
@@ -44,6 +44,9 @@
 [ext_resource path="res://sprites/players/sonic.png" type="Texture" id=42]
 [ext_resource path="res://scripts/player/states/transform_player_state.gd" type="Script" id=43]
 [ext_resource path="res://audios/effects/transform_3kup.wav" type="AudioStream" id=44]
+[ext_resource path="res://shaders/supersonic.tres" type="Shader" id=45]
+[ext_resource path="res://scripts/player/states/snowboarding_player_state.gd" type="Script" id=46]
+[ext_resource path="res://scripts/player/states/victory_player_state.gd" type="Script" id=47]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 8 )
@@ -121,40 +124,8 @@ hurt_x_force = 120.0
 hurt_y_force = -240.0
 hurt_gravity_force = 11.25
 
-[sub_resource type="Shader" id=75]
-code = "shader_type canvas_item;
-
-
-uniform vec4 original_0: hint_color;
-uniform vec4 original_1: hint_color;
-uniform vec4 original_2: hint_color;
-uniform vec4 original_3: hint_color;
-uniform vec4 replace_0: hint_color;
-uniform vec4 replace_1: hint_color;
-uniform vec4 replace_2: hint_color;
-uniform vec4 replace_3: hint_color;
-
-const float precision = 0.1;
-
-
-vec4 swap_color(vec4 color){
-	vec4 original_colors[4] = vec4[4] (original_0, original_1, original_2, original_3);
-	vec4 replace_colors[4] = vec4[4] (replace_0, replace_1, replace_2, replace_3);
-	for (int i = 0; i < 4; i ++) {
-		if (distance(color, original_colors[i]) <= precision){
-			return replace_colors[i];
-		}
-	}
-	return color;
-}
-
-
-void fragment() {
-	COLOR = swap_color(texture(TEXTURE, UV));
-}"
-
 [sub_resource type="ShaderMaterial" id=76]
-shader = SubResource( 75 )
+shader = ExtResource( 45 )
 shader_param/original_0 = Color( 0.141176, 0.141176, 0.564706, 1 )
 shader_param/original_1 = Color( 0.141176, 0.282353, 0.847059, 1 )
 shader_param/original_2 = Color( 0.282353, 0.282353, 0.988235, 1 )
@@ -496,6 +467,36 @@ tracks/0/keys = {
 "values": [ 30, 31, 32, 33 ]
 }
 
+[sub_resource type="Animation" id=128]
+resource_name = "snowboard"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 103 ]
+}
+
+[sub_resource type="Animation" id=129]
+resource_name = "snowboard_jump"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 103, 104, 105 ]
+}
+
 [sub_resource type="Animation" id=24]
 resource_name = "spindash"
 length = 0.24
@@ -529,6 +530,51 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 97, 98, 100, 101, 102, 101, 102, 101, 102, 101, 102, 101, 102, 101, 102 ]
+}
+
+[sub_resource type="Animation" id=124]
+resource_name = "victory"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 56, 57 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimationTree:parameters/state/current")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 22 ]
+}
+
+[sub_resource type="Animation" id=125]
+resource_name = "victory-loop"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 58, 59, 58, 57 ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -790,8 +836,17 @@ animation = "idle_super"
 [sub_resource type="AnimationNodeAnimation" id=121]
 animation = "transform"
 
+[sub_resource type="AnimationNodeAnimation" id=126]
+animation = "victory"
+
 [sub_resource type="AnimationNodeAnimation" id=11]
 animation = "walking"
+
+[sub_resource type="AnimationNodeAnimation" id=127]
+animation = "victory-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=130]
+animation = "snowboard_jump"
 
 [sub_resource type="AnimationNodeAnimation" id=12]
 animation = "running"
@@ -822,13 +877,16 @@ animation = "idle"
 [sub_resource type="AnimationNodeAnimation" id=25]
 animation = "lookup"
 
+[sub_resource type="AnimationNodeAnimation" id=131]
+animation = "snowboard"
+
 [sub_resource type="AnimationNodeTimeScale" id=18]
 
 [sub_resource type="AnimationNodeAnimation" id=27]
 animation = "spindash"
 
 [sub_resource type="AnimationNodeTransition" id=19]
-input_count = 21
+input_count = 25
 input_0/name = "idle"
 input_0/auto_advance = false
 input_1/name = "walking"
@@ -871,9 +929,17 @@ input_19/name = "balancing_super"
 input_19/auto_advance = false
 input_20/name = "transform"
 input_20/auto_advance = false
+input_21/name = "victory"
+input_21/auto_advance = false
+input_22/name = "victory-loop"
+input_22/auto_advance = false
+input_23/name = "snowboard"
+input_23/auto_advance = false
+input_24/name = "snowboard_jump"
+input_24/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=20]
-graph_offset = Vector2( 199.28, 1216.16 )
+graph_offset = Vector2( -254.867, 472.18 )
 nodes/Animation/node = SubResource( 45 )
 nodes/Animation/position = Vector2( 260, 100 )
 "nodes/Animation 10/node" = SubResource( 41 )
@@ -893,9 +959,15 @@ nodes/Animation/position = Vector2( 260, 100 )
 "nodes/Animation 17/node" = SubResource( 119 )
 "nodes/Animation 17/position" = Vector2( 700, 980 )
 "nodes/Animation 18/node" = SubResource( 121 )
-"nodes/Animation 18/position" = Vector2( 465.872, 771.24 )
+"nodes/Animation 18/position" = Vector2( 460, 760 )
+"nodes/Animation 19/node" = SubResource( 126 )
+"nodes/Animation 19/position" = Vector2( 476.384, 1018.5 )
 "nodes/Animation 2/node" = SubResource( 11 )
 "nodes/Animation 2/position" = Vector2( -140, 280 )
+"nodes/Animation 20/node" = SubResource( 127 )
+"nodes/Animation 20/position" = Vector2( 300, 1140 )
+"nodes/Animation 21/node" = SubResource( 130 )
+"nodes/Animation 21/position" = Vector2( 740, 1200 )
 "nodes/Animation 3/node" = SubResource( 12 )
 "nodes/Animation 3/position" = Vector2( -140, 400 )
 "nodes/Animation 4/node" = SubResource( 13 )
@@ -915,17 +987,20 @@ nodes/idle-shot/position = Vector2( 718.363, 144.7 )
 nodes/lookup/node = SubResource( 25 )
 nodes/lookup/position = Vector2( -140, 1080 )
 nodes/output/position = Vector2( 580, 380 )
+nodes/snowb/node = SubResource( 131 )
+nodes/snowb/position = Vector2( 540, 1260 )
 nodes/speed/node = SubResource( 18 )
 nodes/speed/position = Vector2( 400, 380 )
 nodes/spindash/node = SubResource( 27 )
 nodes/spindash/position = Vector2( -140, 980 )
 nodes/state/node = SubResource( 19 )
 nodes/state/position = Vector2( 220, 380 )
-node_connections = [ "idle-shot", 0, "Animation", "idle-shot", 1, "Animation 12", "speed", 0, "state", "state", 0, "idle-shot", "state", 1, "Animation 2", "state", 2, "Animation 3", "state", 3, "Animation 5", "state", 4, "Animation 4", "state", 5, "Animation 6", "state", 6, "Animation 7", "state", 7, "Animation 8", "state", 8, "spindash", "state", 9, "lookup", "state", 10, "Animation 9", "state", 11, "Animation 11", "state", 12, "Animation 10", "state", 14, "Animation 13", "state", 15, "Animation 14", "state", 16, "Animation 15", "state", 18, "Animation 17", "state", 19, "Animation 16", "state", 20, "Animation 18", "output", 0, "speed" ]
+node_connections = [ "speed", 0, "state", "state", 0, "idle-shot", "state", 1, "Animation 2", "state", 2, "Animation 3", "state", 3, "Animation 5", "state", 4, "Animation 4", "state", 5, "Animation 6", "state", 6, "Animation 7", "state", 7, "Animation 8", "state", 8, "spindash", "state", 9, "lookup", "state", 10, "Animation 9", "state", 11, "Animation 11", "state", 12, "Animation 10", "state", 14, "Animation 13", "state", 15, "Animation 14", "state", 16, "Animation 15", "state", 18, "Animation 17", "state", 19, "Animation 16", "state", 20, "Animation 18", "state", 21, "Animation 19", "state", 22, "Animation 20", "state", 23, "snowb", "state", 24, "Animation 21", "output", 0, "speed", "idle-shot", 0, "Animation", "idle-shot", 1, "Animation 12" ]
 
 [node name="Sonic" type="Node2D"]
 pause_mode = 1
 script = ExtResource( 9 )
+player_id = "Sonic"
 bounds = [ SubResource( 1 ), SubResource( 2 ) ]
 stats = [ SubResource( 3 ), SubResource( 55 ) ]
 ground_layer = 3
@@ -975,6 +1050,12 @@ script = ExtResource( 34 )
 
 [node name="Transform" type="Node2D" parent="StateMachine"]
 script = ExtResource( 43 )
+
+[node name="Victory" type="Node2D" parent="StateMachine"]
+script = ExtResource( 47 )
+
+[node name="Snowboarding" type="Node2D" parent="StateMachine"]
+script = ExtResource( 46 )
 
 [node name="Shields" type="Node2D" parent="."]
 script = ExtResource( 17 )
@@ -1048,7 +1129,7 @@ script = ExtResource( 10 )
 visible = false
 position = Vector2( -15, 8 )
 frames = SubResource( 36 )
-frame = 1
+frame = 6
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Skin"]
@@ -1070,8 +1151,12 @@ anims/pushing = SubResource( 49 )
 anims/rolling = SubResource( 7 )
 anims/running = SubResource( 8 )
 anims/skidding = SubResource( 9 )
+anims/snowboard = SubResource( 128 )
+anims/snowboard_jump = SubResource( 129 )
 anims/spindash = SubResource( 24 )
 anims/transform = SubResource( 120 )
+anims/victory = SubResource( 124 )
+anims/victory-loop = SubResource( 125 )
 anims/walking = SubResource( 10 )
 
 [node name="PalleteSwapper" type="AnimationPlayer" parent="Skin"]
@@ -1088,7 +1173,7 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/idle-shot/active = false
 parameters/speed/scale = 1.0
-parameters/state/current = 0
+parameters/state/current = 22
 
 [node name="DropDustSpawn" type="Position2D" parent="Skin"]
 position = Vector2( -8, 3 )
