@@ -1,16 +1,15 @@
 ![cool logo](https://github.com/son-ray/Sonic-Godot-Physics/blob/main/read_me/logo.png)
-## About the framework
+## About the concept
 This is based on marimitoTH's [GoSonic2D](https://github.com/marmitoTH/GoSonic2D), and aims to add more features from the classic Sonic games.
 
-Do not use this as a base for your fan games yet, as it is still in early development.
+It his highly not recommended to use to create fan games. If you really want to make a Godot Sonic fan game, I don't recommend using this. This is simply a proof of concept and a small little project of mine
+to improve my understanding of Godot. If you want to modify this fork in any way to make some sort of fan game, feel free to do so. (You will need a good understanding of GDScript in order to use this framework.)
 
-~~(The "+" in the name means "+ More features" not engine improvement.)~~
-
-This framework is being worked on Godot version 3.5.1.
+This project was worked on Godot 3.5.1
 
 It not compatible with Godot version 4 and up.
 
-## Added features so far:
+## Added features:
 
 * Super Sonic, along with all of his ring draining, 50 ring requirement and pallete swapping.
 * Music Manager, play all your music by doing MusicManager.play_music(insert audio stream here)
@@ -19,6 +18,7 @@ It not compatible with Godot version 4 and up.
 * Spindash
 * Camera lag (for spindash, etc.)
 * Super Peel Out
+* Score tallying (S3 System + Mania Cool Bonus)
 * You can now look up and down
 * Debug Text for Last State, Current State, Looking Up, Looking Down, Is Rolling, Is Grounded, FPS, etc
 * Shield Monitors
