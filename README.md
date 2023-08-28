@@ -41,12 +41,11 @@ It not compatible with Godot version 4 and up.
 
 ## Notes:
 
-* Music Manager is still in early development, expect bugs
-* Super Sonic is still in late development, expect bugs.
-* You can make Sonic take damage as if there were spikes by pressing the Tilde key (~)
+* Expect bugs from Music Manager
+* Expect bugs from Super Sonic
+* You can make Sonic switch to snowboarding by pressing the Tilde key (~)
 * Bubble Shield is not exactly accurate to games, but still functions (since I couldn't translate it to Godot that well.)
 * Sonic can only balance at a maximum ground angle of 3
-* In the debug screen, "lifes_gained" is one more than how much lives you gained with rings.
 * Thank you [Sonic Physics Guide](https://info.sonicretro.org/Sonic_Physics_Guide), for helping me implement most of these features.
 * Credits to [ArtisIan](https://www.youtube.com/@ArtisIan) for the [Super Music](https://www.youtube.com/watch?v=erlsw2ISSl4).
 * Credits to raphaklaus for the [fading shader](https://github.com/raphaklaus/sonic-palette-fade) used for fading transitions
